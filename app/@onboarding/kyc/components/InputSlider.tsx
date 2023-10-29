@@ -1,10 +1,12 @@
-import { useState } from 'react';
+'use client';
+
+import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import FormControl from '@mui/material/FormControl';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputAdornment from '@mui/material/InputAdornment';
-import useSearchQueryParams from '@/hooks/useSearchQueryParams';
+import useLocalStorage from '@/hooks/useLocalStorage';
 
 interface Props {
   param: string;
@@ -15,9 +17,12 @@ interface Props {
 }
 
 const InputSlider = ({ param, unit, value: valueProp, min, max }: Props) => {
-  const { query, updateSearchParams } = useSearchQueryParams(param);
-  const initValue = query ? parseInt(query) : valueProp;
-  const [value, setValue] = useState<number>(initValue);
+  const { saveState } = useLocalStorage('guest');
+  const [value, setValue] = useState<number>(valueProp);
+
+  useEffect(() => {
+    saveState({ [param]: value });
+  }, []);
 
   const handleChange = (event: Event, newValue: number | number[]) => {
     setValue(newValue as number);
@@ -27,7 +32,7 @@ const InputSlider = ({ param, unit, value: valueProp, min, max }: Props) => {
     event: React.SyntheticEvent | Event,
     newValue: number | number[],
   ) => {
-    updateSearchParams(newValue.toString());
+    saveState({ [param]: newValue });
   };
 
   return (

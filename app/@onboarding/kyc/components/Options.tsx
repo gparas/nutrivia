@@ -1,7 +1,10 @@
+'use client';
+
+import { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import DoneIcon from '@mui/icons-material/Done';
-import useSearchQueryParams from '@/hooks/useSearchQueryParams';
+import useLocalStorage from '@/hooks/useLocalStorage';
 
 interface Props {
   param: string;
@@ -9,12 +12,22 @@ interface Props {
 }
 
 const Options = ({ param, items }: Props) => {
-  const { query, updateSearchParams } = useSearchQueryParams(param);
+  const { saveState, loadState } = useLocalStorage('guest');
+  const localStorage = loadState();
+  const [selected, setSelected] = useState<string>('');
 
+  useEffect(() => {
+    setSelected(localStorage[param]);
+  }, []);
+
+  const handleClick = (item: string) => () => {
+    setSelected(item);
+    saveState({ [param]: item });
+  };
   return (
     <Stack spacing={3}>
       {items.map(item => {
-        const active = query === item;
+        const active = selected === item;
         return (
           <Button
             key={item}
@@ -22,9 +35,7 @@ const Options = ({ param, items }: Props) => {
             endIcon={active && <DoneIcon />}
             variant={active ? 'contained' : 'outlined'}
             color={active ? 'primary' : 'inherit'}
-            onClick={() => {
-              updateSearchParams(item);
-            }}
+            onClick={handleClick(item)}
             sx={{
               height: 56,
               borderRadius: 1.5,
