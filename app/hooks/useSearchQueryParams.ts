@@ -14,7 +14,7 @@ const useSearchQueryParams = (param: string) => {
 
       return params.toString();
     },
-    [searchParams],
+    [searchParams, param],
   );
 
   const updateSearchParams = (value: string) => {

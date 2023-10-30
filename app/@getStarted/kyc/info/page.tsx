@@ -6,7 +6,7 @@ import Title from '../components/Title';
 const page = () => {
   return (
     <>
-      <Title>Let's get to know you better</Title>
+      <Title>Let&apos;s get to know you better</Title>
       <Stack spacing={2}>
         <TextField id="fname" name="fname" label="First name" required />
         <TextField id="lname" name="lname" label="Last name" required />
