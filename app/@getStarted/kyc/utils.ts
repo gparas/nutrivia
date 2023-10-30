@@ -1,4 +1,4 @@
-import C from '../constants';
+import C from './constants';
 
 const getCurrentPathname = (pathname: string) => {
   const pathnameToArray = pathname.split('/');
@@ -9,18 +9,10 @@ const getNextPathname = (pathname: string) => {
   const currentItem = getCurrentPathname(pathname);
   const currentIndex = C.STEPS.indexOf(currentItem);
   const nextIndex = (currentIndex + 1) % C.STEPS.length;
-  return C.STEPS[nextIndex];
-};
-
-const getPrevPathname = (pathname: string) => {
-  const currentItem = getCurrentPathname(pathname);
-  const currentIndex = C.STEPS.indexOf(currentItem);
-  const nextIndex = (currentIndex - 1) % C.STEPS.length;
-  return C.STEPS[nextIndex];
+  return `/kyc/${C.STEPS[nextIndex]}`;
 };
 
 export default {
   getCurrentPathname,
   getNextPathname,
-  getPrevPathname,
 };

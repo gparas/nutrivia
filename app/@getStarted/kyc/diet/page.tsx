@@ -1,11 +1,12 @@
-import OptionsPills from '../components/OptionsPills';
+import Options from '../components/Options';
 import Title from '../components/Title';
 
 const Diet = () => (
   <>
     <Title>What types of diet do you prefer?</Title>
-    <OptionsPills
+    <Options
       param="diet"
+      col="auto"
       items={['Mediterranean', 'Keto', 'Vegetarian', 'Vegan', 'Fasting']}
     />
   </>

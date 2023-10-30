@@ -7,7 +7,9 @@ const inter = Inter({
   display: 'swap',
 });
 
-const theme = createTheme({
+let theme = createTheme();
+
+theme = createTheme({
   palette: {
     mode: 'light',
     primary: {
@@ -26,6 +28,9 @@ const theme = createTheme({
       fontWeight: 700,
       textTransform: 'initial',
     },
+    h4: {
+      fontSize: theme.typography.pxToRem(32),
+    },
   },
   components: {
     MuiCssBaseline: {
@@ -35,6 +40,8 @@ const theme = createTheme({
         },
         body: {
           height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
         },
       },
     },
@@ -45,9 +52,19 @@ const theme = createTheme({
         }),
       },
     },
+    MuiButtonBase: {
+      defaultProps: {
+        disableRipple: true,
+      },
+    },
     MuiButton: {
       defaultProps: {
         disableElevation: true,
+      },
+      styleOverrides: {
+        root: {
+          borderRadius: 100,
+        },
       },
     },
   },

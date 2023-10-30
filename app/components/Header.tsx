@@ -6,7 +6,12 @@ import Typography from '@mui/material/Typography';
 
 const Header = () => {
   return (
-    <AppBar color="default" elevation={0} position="sticky">
+    <AppBar
+      color="default"
+      elevation={0}
+      position="sticky"
+      sx={{ flex: '0 0 auto' }}
+    >
       <Toolbar>
         <Typography variant="h5" fontWeight="bold">
           <Link component={NextLink} href="/" underline="none" color="inherit">

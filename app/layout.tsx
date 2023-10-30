@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import ThemeRegistry from '@/components/ThemeRegistry';
+import ThemeRegistry from '@/components/ThemeRegistry/ThemeRegistry';
 import Header from '@/components/Header';
 
 export const metadata: Metadata = {
@@ -8,17 +8,17 @@ export const metadata: Metadata = {
 };
 interface Props {
   children: React.ReactNode;
-  onboarding: React.ReactNode;
+  getStarted: React.ReactNode;
 }
 
-const RootLayout = ({ children, onboarding }: Props) => {
+const RootLayout = ({ children, getStarted }: Props) => {
   const isLoggedIn = false;
   return (
     <html lang="en">
       <body>
         <ThemeRegistry>
           <Header />
-          {isLoggedIn ? children : onboarding}
+          {isLoggedIn ? children : getStarted}
         </ThemeRegistry>
       </body>
     </html>
