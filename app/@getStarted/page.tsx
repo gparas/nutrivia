@@ -1,10 +1,8 @@
 import NextLink from 'next/link';
-import Link from '@mui/material/Link';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import ArrowNext from '@mui/icons-material/ArrowForwardRounded';
-import C from './kyc/constants';
 
 const Onboarding = () => {
   return (
@@ -36,17 +34,11 @@ const Onboarding = () => {
         size="large"
         endIcon={<ArrowNext />}
         component={NextLink}
-        href={`/kyc/${C.STEPS[0]}`}
+        href="/kyc"
         sx={{ px: 3, py: 1.5, fontSize: 16 }}
       >
         Get started
       </Button>
-      <Typography variant="body2" mt={2}>
-        Already have an account?{' '}
-        <Link component={NextLink} href="#" underline="hover" fontWeight={500}>
-          Log in
-        </Link>
-      </Typography>
     </Container>
   );
 };

@@ -1,11 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import DoneIcon from '@mui/icons-material/Done';
-import useLocalStorage from '@/hooks/useLocalStorage';
-
 interface Props {
   param: string;
   items: string[];
@@ -13,13 +11,7 @@ interface Props {
 }
 
 const Options = ({ param, items, col = 12 }: Props) => {
-  const { loadState } = useLocalStorage('guest');
-  const localStorage = loadState();
   const [selectedOption, setSelectedOption] = useState('');
-
-  useEffect(() => {
-    setSelectedOption(localStorage[param]);
-  }, []);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedOption((event.target as HTMLInputElement).value);

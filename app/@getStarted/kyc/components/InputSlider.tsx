@@ -1,11 +1,10 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Slider from '@mui/material/Slider';
 import FormControl from '@mui/material/FormControl';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputAdornment from '@mui/material/InputAdornment';
-import useLocalStorage from '@/hooks/useLocalStorage';
 
 interface Props {
   param: string;
@@ -22,14 +21,7 @@ const InputSlider = ({
   value: valueFromProps,
   max,
 }: Props) => {
-  const { loadState } = useLocalStorage('guest');
-  const localStorage = loadState();
   const [value, setValue] = useState<number>(valueFromProps);
-
-  useEffect(() => {
-    if (!localStorage[param]) return;
-    setValue(localStorage[param]);
-  }, []);
 
   const handleChange = (event: Event, newValue: number | number[]) => {
     setValue(newValue as number);

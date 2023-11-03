@@ -1,7 +1,7 @@
 import InputSlider from '../components/InputSlider';
 import Title from '../components/Title';
 
-const Height = () => {
+const Weight = () => {
   return (
     <>
       <Title>What is your weight?</Title>
@@ -10,4 +10,4 @@ const Height = () => {
   );
 };
 
-export default Height;
+export default Weight;

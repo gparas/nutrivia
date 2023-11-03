@@ -1,20 +1,20 @@
 'use client';
 
-import { usePathname } from 'next/navigation';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
-import C from '../constants';
-import U from '../utils';
+interface Props {
+  activeStep: number;
+  steps: number[];
+}
 
-const Stepper = () => {
-  const pathname = usePathname();
+const Stepper = ({ activeStep, steps }: Props) => {
   return (
     <Stack direction="row" spacing={0.75} justifyContent="center" mb={6}>
-      {C.STEPS.map(step => {
-        const active = U.getCurrentPathname(pathname) === step;
+      {steps.map(index => {
+        const active = activeStep === index;
         return (
           <Box
-            key={step}
+            key={index}
             sx={[
               {
                 width: 30,
