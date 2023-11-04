@@ -61,11 +61,6 @@ theme = createTheme({
       defaultProps: {
         disableElevation: true,
       },
-      styleOverrides: {
-        root: {
-          borderRadius: 100,
-        },
-      },
     },
   },
 });
