@@ -11,6 +11,8 @@ const getFormDataObj = formElemnts => {
   return formDataObj;
 };
 
-export default {
+const utils = {
   getFormDataObj,
 };
+
+export default utils;
