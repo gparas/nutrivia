@@ -1,9 +1,7 @@
 import type { Metadata } from 'next';
 import ThemeRegistry from '@/components/ThemeRegistry/ThemeRegistry';
-import { AuthProvider } from '@/auth/provider';
 import Header from '@/components/Header';
-import { auth } from '@/auth/config';
-import prisma from '@/prisma/client';
+import AuthProvider from '@/auth/provider';
 
 export const metadata: Metadata = {
   title: 'Nutrivia',
@@ -15,30 +13,14 @@ interface Props {
   getStarted: React.ReactNode;
 }
 
-const getUserKyc = async () => {
-  const session = await auth();
-
-  console.log(session);
-
-  if (!session) return [];
-
-  const user = await prisma.user.findUnique({
-    where: { email: session.user!.email as string },
-    include: { kyc: true },
-  });
-
-  return user?.kyc;
-};
-
-const RootLayout = async ({ children, login }: Props) => {
-  const session = await auth();
+const RootLayout = async ({ children }: Props) => {
   return (
     <html lang="en">
       <body>
         <ThemeRegistry>
           <AuthProvider>
             <Header />
-            {!session ? login : children}
+            {children}
           </AuthProvider>
         </ThemeRegistry>
       </body>

@@ -1,16 +1,27 @@
 'use client';
 
+import { auth } from '@/firebase/auth';
+import { useRouter } from 'next/navigation';
+import { signOut } from 'firebase/auth';
 import Button from '@mui/material/Button';
-import { signOut, useSession } from 'next-auth/react';
+import { useAuth } from '@/auth/provider';
 
 const SignOut = () => {
-  const { status } = useSession();
+  const router = useRouter();
+  const { user } = useAuth();
 
-  if (status === 'unauthenticated' || status === 'loading') {
-    return null;
-  }
+  const handleClick = () => {
+    signOut(auth)
+      .then(() => {
+        router.push('/login');
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+  if (!user) return null;
   return (
-    <Button onClick={() => signOut()} variant="text" color="inherit">
+    <Button onClick={handleClick} variant="text" color="inherit">
       Sign out
     </Button>
   );

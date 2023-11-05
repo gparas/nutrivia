@@ -28,6 +28,9 @@
       ],
       "@/prisma/*": [
         "./prisma/*"
+      ],
+      "@/firebase/*": [
+        "./firebase/*"
       ]
     }
   },

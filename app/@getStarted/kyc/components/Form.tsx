@@ -2,7 +2,6 @@
 
 import { ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
-import { useSession } from 'next-auth/react';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -32,16 +31,15 @@ const Form = ({
   data,
 }: Props) => {
   const router = useRouter();
-  const session = useSession();
-  const postData = (payload: object) => {
-    axios
-      .post('/api/kyc', payload)
-      .then(res => {
-        console.log(res);
-        router.push('/');
-      })
-      .catch(err => console.log(err));
-  };
+  // const postData = (payload: object) => {
+  //   axios
+  //     .post('/api/kyc', payload)
+  //     .then(res => {
+  //       console.log(res);
+  //       router.push('/');
+  //     })
+  //     .catch(err => console.log(err));
+  // };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -50,8 +48,8 @@ const Form = ({
     onChangeData(value);
     if (isLastStep) {
       console.log({ ...data, ...value });
-      const payload = { ...data, ...value, userId: session.data?.user?.id };
-      postData(payload);
+      const payload = { ...data, ...value };
+      // postData(payload);
       return;
     }
     handleNext();
