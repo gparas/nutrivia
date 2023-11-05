@@ -32,7 +32,7 @@ const page = () => {
           color="inherit"
           size="large"
           startIcon={<GoogleIcon />}
-          onClick={() => signIn('google', { callbackUrl: '/' })}
+          onClick={() => signIn('google')}
         >
           Sign in with Google
         </Button>
