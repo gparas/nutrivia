@@ -32,7 +32,6 @@ const getUserKyc = async () => {
 
 const RootLayout = async ({ children, login }: Props) => {
   const session = await auth();
-  console.log(session);
   return (
     <html lang="en">
       <body>

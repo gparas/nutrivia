@@ -1,34 +1,27 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-import { auth } from '@/auth/config';
+import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/prisma/client';
 import schema from './schema';
 
-export async function POST(req: NextApiRequest, res: NextApiResponse) {
-  const session = await auth(req, res);
+export async function POST(request: NextRequest) {
+  const body = await request.json();
+  const validation = schema.safeParse(body);
 
-  if (!session) return res.status(401).json('You must be logged in.');
-
-  const validation = schema.safeParse(req.body);
-
-  if (!validation.success) return res.status(400).json(validation.error.errors);
-
-  const user = await prisma.user.findUnique({
-    where: { email: session.user!.email! },
-  });
-
-  if (!user) return res.status(400).json('Invalid user.');
+  if (!validation.success)
+    return NextResponse.json(validation.error.errors, {
+      status: 400,
+    });
 
   const newKyc = await prisma.kyc.create({
     data: {
-      goal: req.body.goal,
-      gender: req.body.gender,
-      height: req.body.height,
-      weight: req.body.weight,
-      activity: req.body.activity,
-      diet: req.body.diet,
-      assignedToUser: { connect: { email: user.email! } },
+      goal: body.goal,
+      gender: body.gender,
+      height: body.height,
+      weight: body.weight,
+      activity: body.activity,
+      diet: body.diet,
+      assignedToUser: { connect: { id: body.userId } },
     },
   });
 
-  return res.status(201).json(newKyc);
+  return NextResponse.json(newKyc, { status: 201 });
 }
