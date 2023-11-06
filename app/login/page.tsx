@@ -1,6 +1,6 @@
 'use client';
 
-import { signInWithRedirect } from 'firebase/auth';
+import { signIn } from 'next-auth/react';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
@@ -8,7 +8,6 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import GoogleIcon from './GoogleIcon';
 import Typography from '@mui/material/Typography';
-import { auth, provider } from '@/firebase/auth';
 
 const page = () => {
   return (
@@ -33,7 +32,7 @@ const page = () => {
           color="inherit"
           size="large"
           startIcon={<GoogleIcon />}
-          onClick={() => signInWithRedirect(auth, provider)}
+          onClick={() => signIn('google', { callbackUrl: '/' })}
         >
           Sign in with Google
         </Button>

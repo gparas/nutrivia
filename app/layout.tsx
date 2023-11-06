@@ -9,8 +9,6 @@ export const metadata: Metadata = {
 };
 interface Props {
   children: React.ReactNode;
-  login: React.ReactNode;
-  getStarted: React.ReactNode;
 }
 
 const RootLayout = async ({ children }: Props) => {
