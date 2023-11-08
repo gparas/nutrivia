@@ -1,18 +1,15 @@
-const getFormDataObj = formElemnts => {
-  const keyValueToInt = ['height', 'weight'];
-  const formData = new FormData(formElemnts);
+const getFormDataObject = formData => {
   const formDataObj = {};
   formData.forEach(
     (value, key) =>
-      (formDataObj[key] = keyValueToInt.includes(key)
-        ? parseInt(value)
-        : value),
+      (formDataObj[key] = isNaN(value) ? value : parseFloat(value)),
   );
+
   return formDataObj;
 };
 
 const utils = {
-  getFormDataObj,
+  getFormDataObject,
 };
 
 export default utils;

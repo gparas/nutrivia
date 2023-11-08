@@ -3,16 +3,22 @@ import InputSlider from '../components/InputSlider';
 import Form from '../components/Form';
 import Title from '../components/Title';
 
-const Height = () => {
+const TargetWeight = () => {
   const { onFormSubmit, data } = useForm();
   return (
     <>
-      <Title>What is your height?</Title>
+      <Title>What is your target weight?</Title>
       <Form onSubmit={onFormSubmit}>
-        <InputSlider data={data} param="height" unit="cm" min={80} max={220} />
+        <InputSlider
+          data={data}
+          param="target_weight"
+          unit="kg"
+          min={40}
+          max={200}
+        />
       </Form>
     </>
   );
 };
 
-export default Height;
+export default TargetWeight;

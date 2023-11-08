@@ -6,12 +6,15 @@ import Grid from '@mui/material/Grid';
 import DoneIcon from '@mui/icons-material/Done';
 interface Props {
   param: string;
-  items: string[];
+  items: { value: number | string; label: string }[];
   col?: 'auto' | number;
+  data: any;
 }
 
-const Options = ({ param, items, col = 12 }: Props) => {
-  const [selectedOption, setSelectedOption] = useState('');
+const Options = ({ param, data, items, col = 12 }: Props) => {
+  const [selectedOption, setSelectedOption] = useState<string>(
+    data[param].toString(),
+  );
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedOption((event.target as HTMLInputElement).value);
@@ -19,15 +22,15 @@ const Options = ({ param, items, col = 12 }: Props) => {
 
   return (
     <Grid container justifyContent="center" spacing={2}>
-      {items.map(item => {
-        const cehcked = selectedOption === item;
+      {items.map(({ label, value }, index) => {
+        const cehcked = selectedOption === value;
         return (
-          <Grid item xs={col} key={item}>
+          <Grid item xs={col} key={index}>
             <input
               type="radio"
               name={param}
-              id={item}
-              value={item}
+              id={label}
+              value={value}
               checked={cehcked}
               onChange={handleChange}
               required
@@ -44,7 +47,7 @@ const Options = ({ param, items, col = 12 }: Props) => {
               color={cehcked ? 'primary' : 'inherit'}
               fullWidth={col === 12}
               component="label"
-              htmlFor={item}
+              htmlFor={label}
               sx={{
                 height: 48,
                 lineHeight: 1.2,
@@ -53,7 +56,7 @@ const Options = ({ param, items, col = 12 }: Props) => {
                 justifyContent: 'space-between',
               }}
             >
-              {item}
+              {label}
             </Button>
           </Grid>
         );

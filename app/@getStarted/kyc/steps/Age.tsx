@@ -3,16 +3,17 @@ import InputSlider from '../components/InputSlider';
 import Form from '../components/Form';
 import Title from '../components/Title';
 
-const Height = () => {
+const Age = () => {
   const { onFormSubmit, data } = useForm();
+
   return (
     <>
-      <Title>What is your height?</Title>
+      <Title>What is your age?</Title>
       <Form onSubmit={onFormSubmit}>
-        <InputSlider data={data} param="height" unit="cm" min={80} max={220} />
+        <InputSlider data={data} param="age" unit="yo" min={20} max={100} />
       </Form>
     </>
   );
 };
 
-export default Height;
+export default Age;

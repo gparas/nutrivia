@@ -1,64 +1,30 @@
 'use client';
 
-import { ReactNode } from 'react';
-import { useRouter } from 'next/navigation';
+import { FormEventHandler, ReactNode } from 'react';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import ArrowBack from '@mui/icons-material/ArrowBackRounded';
 import ArrowNext from '@mui/icons-material/ArrowForwardRounded';
-import U from './utils';
-import axios from 'axios';
+import { useForm } from './FormContext';
 
 interface Props {
   children: ReactNode;
-  onChangeData(value: object): void;
-  handleNext(): void;
-  handleBack(): void;
-  activeStep: number;
-  isLastStep: boolean;
-  data: object;
+  onSubmit?: FormEventHandler;
+  action?: any;
+  labelSubmit?: string;
 }
 
-const Form = ({
-  children,
-  onChangeData,
-  handleNext,
-  handleBack,
-  activeStep,
-  isLastStep,
-  data,
-}: Props) => {
-  const router = useRouter();
-  // const postData = (payload: object) => {
-  //   axios
-  //     .post('/api/kyc', payload)
-  //     .then(res => {
-  //       console.log(res);
-  //       router.push('/');
-  //     })
-  //     .catch(err => console.log(err));
-  // };
+const Form = ({ children, labelSubmit = 'Next', onSubmit, action }: Props) => {
+  const { activeStep, onHandleBack } = useForm();
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const formElemnts = event.currentTarget;
-    const value = U.getFormDataObj(formElemnts);
-    onChangeData(value);
-    if (isLastStep) {
-      console.log({ ...data, ...value });
-      const payload = { ...data, ...value };
-      // postData(payload);
-      return;
-    }
-    handleNext();
-  };
   return (
     <Box
-      onSubmit={handleSubmit}
       component="form"
       sx={{ flex: '1 1 auto', display: 'flex', flexDirection: 'column' }}
+      onSubmit={onSubmit}
+      action={action}
     >
       {children}
       <Typography component="div" variant="caption" align="center" mt={3}>
@@ -75,7 +41,7 @@ const Form = ({
           startIcon={<ArrowBack />}
           sx={{ fontWeight: 'regular' }}
           disabled={activeStep === 0}
-          onClick={() => handleBack()}
+          onClick={() => onHandleBack()}
         >
           Back
         </Button>
@@ -85,7 +51,7 @@ const Form = ({
           variant="contained"
           endIcon={<ArrowNext />}
         >
-          {isLastStep ? 'Save' : 'Next'}
+          {labelSubmit}
         </Button>
       </Stack>
     </Box>

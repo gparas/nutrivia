@@ -31,8 +31,10 @@ const page = () => {
           variant="outlined"
           color="inherit"
           size="large"
+          fullWidth
           startIcon={<GoogleIcon />}
           onClick={() => signIn('google', { callbackUrl: '/' })}
+          sx={{ height: 56 }}
         >
           Sign in with Google
         </Button>

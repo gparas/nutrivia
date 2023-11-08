@@ -8,20 +8,14 @@ import InputAdornment from '@mui/material/InputAdornment';
 
 interface Props {
   param: string;
-  value: number;
   unit: string;
   min: number;
   max: number;
+  data: any;
 }
 
-const InputSlider = ({
-  param,
-  unit,
-  min,
-  value: valueFromProps,
-  max,
-}: Props) => {
-  const [value, setValue] = useState<number>(valueFromProps);
+const InputSlider = ({ param, unit, min, max, data }: Props) => {
+  const [value, setValue] = useState<number>(data[param]);
 
   const handleChange = (event: Event, newValue: number | number[]) => {
     setValue(newValue as number);

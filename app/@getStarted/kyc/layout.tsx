@@ -1,5 +1,8 @@
+'use client';
+
 import { ReactNode } from 'react';
 import Container from '@mui/material/Container';
+import { FormProvider } from './components/FormContext';
 
 interface Props {
   children: ReactNode;
@@ -16,7 +19,7 @@ const KyxLayout = ({ children }: Props) => {
         my: 3,
       }}
     >
-      {children}
+      <FormProvider>{children}</FormProvider>
     </Container>
   );
 };
