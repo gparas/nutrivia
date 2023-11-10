@@ -1,30 +1,26 @@
 'use client';
 
-import { FormEventHandler, ReactNode } from 'react';
+import { ReactNode } from 'react';
 import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
+import Box, { BoxProps } from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import ArrowBack from '@mui/icons-material/ArrowBackRounded';
 import ArrowNext from '@mui/icons-material/ArrowForwardRounded';
-import { useForm } from './FormContext';
+import { useFormState } from './FormContext';
 
-interface Props {
+type Props = {
   children: ReactNode;
-  onSubmit?: FormEventHandler;
-  action?: any;
-  labelSubmit?: string;
-}
+} & BoxProps;
 
-const Form = ({ children, labelSubmit = 'Next', onSubmit, action }: Props) => {
-  const { activeStep, onHandleBack } = useForm();
+const Form = ({ children, ...other }: Props) => {
+  const { activeStep, onHandleBack } = useFormState();
 
   return (
     <Box
       component="form"
       sx={{ flex: '1 1 auto', display: 'flex', flexDirection: 'column' }}
-      onSubmit={onSubmit}
-      action={action}
+      {...other}
     >
       {children}
       <Typography component="div" variant="caption" align="center" mt={3}>
@@ -51,7 +47,7 @@ const Form = ({ children, labelSubmit = 'Next', onSubmit, action }: Props) => {
           variant="contained"
           endIcon={<ArrowNext />}
         >
-          {labelSubmit}
+          Next
         </Button>
       </Stack>
     </Box>

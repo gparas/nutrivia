@@ -2,13 +2,13 @@ import { KYC } from '@/lib/constants';
 import InputForm from '../components/InputForm';
 import Title from '../components/Title';
 
-const Height = () => {
+const Weight = () => {
   return (
     <>
-      <Title>What is your height?</Title>
-      <InputForm param="height" label="Height" {...KYC.height} />
+      <Title>What is your weight?</Title>
+      <InputForm param="weight" label="Weight" {...KYC.weight} />
     </>
   );
 };
 
-export default Height;
+export default Weight;

@@ -1,38 +1,35 @@
-import { useForm } from '../components/FormContext';
-import Options from '../components/Options';
-import Form from '../components/Form';
+import OptionsForm from '../components/OptionsForm';
 import Title from '../components/Title';
 
 const Activity = () => {
-  const { onFormSubmit, data } = useForm();
-
   return (
     <>
       <Title>What is your level of activity?</Title>
-      <Form onSubmit={onFormSubmit}>
-        <Options
-          param="activity_factor"
-          data={data}
-          items={[
-            {
-              value: '1.2',
-              label: 'Limited exercise',
-            },
-            {
-              value: '1.375',
-              label: 'Exercise less than 3 days per week',
-            },
-            {
-              value: '1.55',
-              label: 'Exercise most days of the week',
-            },
-            {
-              value: '1.725',
-              label: 'Exercise every day',
-            },
-          ]}
-        />
-      </Form>
+      <OptionsForm
+        param="activity_factor"
+        items={[
+          {
+            value: '1.2',
+            primaryText: 'Sedentary',
+            secondaryText: 'Limited exercise',
+          },
+          {
+            value: '1.375',
+            primaryText: 'Lightly active',
+            secondaryText: 'Light exercise less than 3 days per week',
+          },
+          {
+            value: '1.55',
+            primaryText: 'Moderately active',
+            secondaryText: 'Exercise most days of the week',
+          },
+          {
+            value: '1.725',
+            primaryText: 'Very active',
+            secondaryText: 'Exercise every day',
+          },
+        ]}
+      />
     </>
   );
 };

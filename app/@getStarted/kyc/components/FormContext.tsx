@@ -1,43 +1,19 @@
-import {
-  FormEventHandler,
-  FormEvent,
-  ReactNode,
-  createContext,
-  useContext,
-  useState,
-} from 'react';
-import U from './utils';
+import { KYC } from '@/lib/constants';
+import { KycTypes } from '@/lib/types';
+import { ReactNode, createContext, useContext, useState } from 'react';
 
-export interface Data {
-  diet?: string;
-  gender?: string;
-  activity_factor?: string;
-  age?: number;
-  height?: number;
-  target_weight?: number;
-}
-
-interface IFormContext {
+type ContextType = {
+  data: KycTypes;
   activeStep: number;
-  data: Data;
-  onFormSubmit: FormEventHandler;
   onHandleBack: () => void;
-}
-
-const initialData = {
-  diet: '',
-  gender: '',
-  activity_factor: '',
-  age: 40,
-  height: 176,
-  target_weight: 80,
+  onChangeData: (newData: KycTypes) => void;
 };
 
-const FormContext = createContext<IFormContext>({
+const FormContext = createContext<ContextType>({
   activeStep: 0,
+  data: KYC.initialData,
   onHandleBack: () => {},
-  onFormSubmit: () => {},
-  data: initialData,
+  onChangeData: () => {},
 });
 
 interface Props {
@@ -45,30 +21,27 @@ interface Props {
 }
 
 export function FormProvider({ children }: Props) {
-  const [data, setData] = useState(initialData);
+  const [data, setData] = useState<KycTypes>(KYC.initialData);
   const [activeStep, setActiveStep] = useState(0);
 
   function onHandleBack(): void {
     setActiveStep(prevActiveStep => prevActiveStep - 1);
   }
 
-  const onFormSubmit = (event: FormEvent<HTMLFormElement>): void => {
-    event.preventDefault();
-    const formElemnt = event.currentTarget;
-    const formData = new FormData(formElemnt);
-    setData(prevData => ({ ...prevData, ...U.getFormDataObject(formData) }));
+  function onChangeData(newData: KycTypes): void {
+    setData(prevData => ({ ...prevData, ...newData }));
     setActiveStep(prevActiveStep => prevActiveStep + 1);
-  };
+  }
 
   return (
     <FormContext.Provider
-      value={{ data, onHandleBack, onFormSubmit, activeStep }}
+      value={{ data, onHandleBack, onChangeData, activeStep }}
     >
       {children}
     </FormContext.Provider>
   );
 }
 
-export function useForm() {
+export function useFormState() {
   return useContext(FormContext);
 }
