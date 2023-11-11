@@ -52,6 +52,8 @@ const Height = ({ param, label, unit, min, max }: Props) => {
             const { onChange, onBlur, value, ref } = field;
             return (
               <TextField
+                autoFocus
+                type="number"
                 label={label}
                 ref={ref}
                 value={value}
