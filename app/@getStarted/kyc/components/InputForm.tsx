@@ -20,7 +20,7 @@ type Props = {
   unit?: string;
 };
 
-const Height = ({ param, label, unit, min, max }: Props) => {
+const InputForm = ({ param, label, unit, min, max }: Props) => {
   const {
     control,
     handleSubmit,
@@ -53,7 +53,7 @@ const Height = ({ param, label, unit, min, max }: Props) => {
             return (
               <TextField
                 autoFocus
-                type="number"
+                type="tel"
                 label={label}
                 ref={ref}
                 value={value}
@@ -69,6 +69,7 @@ const Height = ({ param, label, unit, min, max }: Props) => {
                 variant="filled"
                 helperText={errors[param] && errorMsg}
                 InputLabelProps={{ required: false }}
+                inputProps={{ autoFocus: true }}
                 FormHelperTextProps={{
                   sx: { mx: 0, mt: 0.5 },
                 }}
@@ -86,4 +87,4 @@ const Height = ({ param, label, unit, min, max }: Props) => {
   );
 };
 
-export default Height;
+export default InputForm;

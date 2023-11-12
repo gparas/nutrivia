@@ -1,6 +1,6 @@
 'use client';
 
-import { useForm, SubmitHandler, Controller } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { KYC } from '@/lib/constants';
 import { KycTypes } from '@/lib/types';
 import Grid from '@mui/material/Grid';
@@ -26,7 +26,7 @@ type Props = {
   }[];
 };
 
-const Options = ({ param, items }: Props) => {
+const OptionsForm = ({ param, items }: Props) => {
   const { onChangeData, data } = useFormState();
   const {
     watch,
@@ -40,14 +40,16 @@ const Options = ({ param, items }: Props) => {
     <Form onSubmit={handleSubmit(onSubmit)}>
       <Grid container justifyContent="center" spacing={2}>
         {items.map(({ value, primaryText, secondaryText }, index) => {
-          const selected = watchField === value;
+          const selected = watchField
+            ? watchField === value
+            : data[param] === value;
           return (
             <Grid item xs={12} key={index}>
               <input
                 type="radio"
                 id={primaryText}
                 value={value}
-                defaultChecked={data[param] === value}
+                checked={selected}
                 style={{
                   position: 'absolute',
                   clip: 'rect(0,0,0,0)',
@@ -97,4 +99,4 @@ const Options = ({ param, items }: Props) => {
   );
 };
 
-export default Options;
+export default OptionsForm;

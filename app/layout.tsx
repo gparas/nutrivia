@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { getServerSession } from 'next-auth';
 import { doc, getDoc } from 'firebase/firestore';
 import ThemeRegistry from '@/components/ThemeRegistry/ThemeRegistry';
+import Localization from '@/components/Localization';
 import Header from '@/components/Header';
 import AuthProvider from '@/auth/provider';
 import authOptions from './auth/authOptions';
@@ -35,12 +36,14 @@ const RootLayout = async ({ children, getStarted }: Props) => {
   return (
     <html lang="en">
       <body>
-        <ThemeRegistry>
-          <AuthProvider>
-            <Header />
-            {kyc ? children : getStarted}
-          </AuthProvider>
-        </ThemeRegistry>
+        <Localization>
+          <ThemeRegistry>
+            <AuthProvider>
+              <Header />
+              {kyc ? children : getStarted}
+            </AuthProvider>
+          </ThemeRegistry>
+        </Localization>
       </body>
     </html>
   );

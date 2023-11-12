@@ -27,7 +27,7 @@ const Onboarding = () => {
         Healthy Eating Made Easy.
       </Typography>
       <Typography fontWeight="regular" mb={3} align="center">
-        Nutrition is the key to a healthier weight, better mood, and longevity.
+        Answer the questions to get your daily personalized recommendations.
       </Typography>
       <Button
         variant="contained"

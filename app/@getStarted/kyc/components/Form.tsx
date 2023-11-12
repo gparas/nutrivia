@@ -1,7 +1,6 @@
 'use client';
 
 import { ReactNode } from 'react';
-import Typography from '@mui/material/Typography';
 import Box, { BoxProps } from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
@@ -23,10 +22,6 @@ const Form = ({ children, ...other }: Props) => {
       {...other}
     >
       {children}
-      <Typography component="div" variant="caption" align="center" mt={3}>
-        We use this information to calculate and provide you with daily
-        personalized recommendations.
-      </Typography>
       <Stack
         direction="row"
         justifyContent="space-between"

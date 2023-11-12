@@ -1,9 +1,10 @@
 export type KycTypes = {
-  diet?: string;
+  goal?: string;
   gender?: string;
-  activity_factor?: string;
-  age?: number | string;
   height?: number | string;
   weight?: number | string;
   target_weight?: number | string;
+  age?: number | undefined;
+  activity_factor?: string;
+  diet?: string;
 };

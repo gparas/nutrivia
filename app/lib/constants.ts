@@ -15,12 +15,13 @@ export const KYC = {
     unit: 'yo',
   },
   initialData: {
-    diet: '',
+    goal: '',
     gender: '',
-    activity_factor: '',
     height: '',
     weight: '',
     target_weight: '',
-    age: '',
+    age: undefined,
+    activity_factor: '',
+    diet: '',
   },
 };

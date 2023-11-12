@@ -9,7 +9,7 @@ interface Props {
 
 const Stepper = ({ activeStep, steps }: Props) => {
   return (
-    <Stack direction="row" spacing={0.75} justifyContent="center" mb={6}>
+    <Stack direction="row" spacing={0.75} justifyContent="center" mb={5}>
       {steps.map(index => {
         const active = activeStep === index;
         return (
