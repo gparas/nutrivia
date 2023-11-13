@@ -27,7 +27,7 @@ const Onboarding = () => {
         Healthy Eating Made Easy.
       </Typography>
       <Typography fontWeight="regular" mb={3} align="center">
-        Answer the questions to get your daily personalized recommendations.
+        Get your meals tailored to your fitness goals
       </Typography>
       <Button
         variant="contained"

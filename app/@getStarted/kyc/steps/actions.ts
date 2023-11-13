@@ -1,17 +1,15 @@
 'use server';
 
+import { doc, setDoc } from 'firebase/firestore';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-import { doc, setDoc } from 'firebase/firestore';
 import db from '@/firebase/db';
 
-export async function createKyc(prevState: any, formData: FormData) {
-  const obj = Object.fromEntries(formData);
+export async function createKyc(prevState: any) {
+  const { data, userId } = prevState;
+
   try {
-    await setDoc(doc(db, 'kyc', prevState.userId), {
-      ...prevState.data,
-      ...obj,
-    });
+    await setDoc(doc(db, 'kyc', userId), { ...data, userId });
     revalidatePath('/');
   } catch (error) {
     console.error(error);

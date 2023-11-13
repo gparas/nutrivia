@@ -4,7 +4,7 @@ import Title from '../components/Title';
 const Activity = () => {
   return (
     <>
-      <Title>What is your level of activity?</Title>
+      <Title>How active are you?</Title>
       <OptionsForm
         param="activity_factor"
         items={[

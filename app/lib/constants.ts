@@ -25,3 +25,5 @@ export const KYC = {
     diet: '',
   },
 };
+
+export const KG_PER_MONTH = 2;

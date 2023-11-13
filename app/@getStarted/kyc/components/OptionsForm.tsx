@@ -8,7 +8,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
 import DoneIcon from '@mui/icons-material/Done';
-import { useFormState } from './FormContext';
+import { useFormContext } from './FormContext';
 import Form from './Form';
 
 type ExtractStringFields<Type> = {
@@ -27,7 +27,7 @@ type Props = {
 };
 
 const OptionsForm = ({ param, items }: Props) => {
-  const { onChangeData, data } = useFormState();
+  const { onChangeData, data } = useFormContext();
   const {
     watch,
     register,

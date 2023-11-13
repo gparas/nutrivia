@@ -42,6 +42,6 @@ export function FormProvider({ children }: Props) {
   );
 }
 
-export function useFormState() {
+export function useFormContext() {
   return useContext(FormContext);
 }

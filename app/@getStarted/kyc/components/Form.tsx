@@ -6,14 +6,14 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import ArrowBack from '@mui/icons-material/ArrowBackRounded';
 import ArrowNext from '@mui/icons-material/ArrowForwardRounded';
-import { useFormState } from './FormContext';
+import { useFormContext } from './FormContext';
 
 type Props = {
   children: ReactNode;
 } & BoxProps;
 
 const Form = ({ children, ...other }: Props) => {
-  const { activeStep, onHandleBack } = useFormState();
+  const { activeStep, onHandleBack } = useFormContext();
 
   return (
     <Box

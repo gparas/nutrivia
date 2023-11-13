@@ -1,7 +1,7 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 import dayjs, { Dayjs } from 'dayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { useFormState } from '../components/FormContext';
+import { useFormContext } from '../components/FormContext';
 import Form from '../components/Form';
 import Title from '../components/Title';
 import { useState } from 'react';
@@ -12,7 +12,7 @@ type FormValues = {
 };
 
 const Age = () => {
-  const { onChangeData, data } = useFormState();
+  const { onChangeData, data } = useFormContext();
   const initDateValue = data.age ? dayjs().year(data.age) : null;
   const [dateValue, setDateValue] = useState<Dayjs | null>(initDateValue);
   const { setValue, handleSubmit } = useForm<FormValues>();

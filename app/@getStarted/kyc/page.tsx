@@ -2,7 +2,7 @@
 
 import dynamic from 'next/dynamic';
 import Stepper from './components/Stepper';
-import { useFormState } from './components/FormContext';
+import { useFormContext } from './components/FormContext';
 
 const Goal = dynamic(() => import('./steps/Goal'));
 const Gender = dynamic(() => import('./steps/Gender'));
@@ -27,7 +27,7 @@ const steps = [
 ];
 
 const KeysPage = () => {
-  const { activeStep, data } = useFormState();
+  const { activeStep, data } = useFormContext();
 
   const filteredSteps =
     data.goal === 'maintain_weight'

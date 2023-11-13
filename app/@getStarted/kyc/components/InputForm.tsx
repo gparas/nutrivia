@@ -3,7 +3,7 @@ import { KycTypes } from '@/lib/types';
 import { KYC } from '@/lib/constants';
 import InputAdornment from '@mui/material/InputAdornment';
 import TextField from '@mui/material/TextField';
-import { useFormState } from './FormContext';
+import { useFormContext } from './FormContext';
 import Form from './Form';
 
 type ExtractNumberFields<Type> = {
@@ -26,7 +26,7 @@ const InputForm = ({ param, label, unit, min, max }: Props) => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { onChangeData, data } = useFormState();
+  const { onChangeData, data } = useFormContext();
   const onSubmit: SubmitHandler<FormData> = data => onChangeData(data);
 
   const errorMsg =

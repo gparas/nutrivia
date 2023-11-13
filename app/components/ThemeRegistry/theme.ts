@@ -28,6 +28,8 @@ theme = createTheme({
       secondary: '#637381',
     },
     primary: {
+      100: '#FAF8FF',
+      300: '#ECE7FF',
       main: '#7b66ff',
     },
     secondary: {
