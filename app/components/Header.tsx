@@ -3,7 +3,7 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
-import SignOut from './SignOut';
+import UserMenu from './UserMenu';
 
 const Header = () => {
   return (
@@ -19,7 +19,7 @@ const Header = () => {
             nutrivia
           </Link>
         </Typography>
-        <SignOut />
+        <UserMenu />
       </Toolbar>
     </AppBar>
   );
