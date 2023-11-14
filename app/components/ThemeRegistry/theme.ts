@@ -1,5 +1,6 @@
 import { Inter } from 'next/font/google';
 import { createTheme } from '@mui/material/styles';
+import { linearProgressClasses } from '@mui/material/LinearProgress';
 
 const inter = Inter({
   weight: ['300', '400', '500', '700', '800'],
@@ -42,10 +43,14 @@ theme = createTheme({
       main: '#22C55E',
     },
     warning: {
+      200: '#FFEDBD',
       main: '#ffbf5a',
     },
     error: {
       main: '#eb3478',
+    },
+    background: {
+      default: '#F4F6F8',
     },
   },
   shape: {
@@ -57,8 +62,17 @@ theme = createTheme({
       fontWeight: 700,
       textTransform: 'initial',
     },
-    h4: {
+    h3: {
       fontSize: theme.typography.pxToRem(32),
+    },
+    h4: {
+      fontSize: theme.typography.pxToRem(24),
+    },
+    h5: {
+      fontSize: theme.typography.pxToRem(20),
+    },
+    h6: {
+      fontSize: theme.typography.pxToRem(18),
     },
   },
   components: {
@@ -81,6 +95,16 @@ theme = createTheme({
         }),
       },
     },
+    MuiLinearProgress: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          borderRadius: theme.shape.borderRadius,
+          [`& .${linearProgressClasses.bar}`]: {
+            borderRadius: theme.shape.borderRadius,
+          },
+        }),
+      },
+    },
     MuiButtonBase: {
       defaultProps: {
         disableRipple: true,
@@ -89,6 +113,14 @@ theme = createTheme({
     MuiButton: {
       defaultProps: {
         disableElevation: true,
+      },
+    },
+    MuiCardHeader: {
+      defaultProps: {
+        titleTypographyProps: {
+          variant: 'h6',
+          fontWeight: 'bold',
+        },
       },
     },
   },
