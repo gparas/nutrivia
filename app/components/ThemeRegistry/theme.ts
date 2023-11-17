@@ -54,7 +54,7 @@ theme = createTheme({
     },
   },
   shape: {
-    borderRadius: 6,
+    borderRadius: 8,
   },
   typography: {
     fontFamily: inter.style.fontFamily,

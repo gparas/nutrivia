@@ -57,6 +57,7 @@ const CircularProgressWithLabel = ({ value, children, ...other }: Props) => {
           component="div"
           color="text.secondary"
           fontWeight="medium"
+          variant="body2"
         >{`${Math.round(value)}%`}</Typography>
       </Box>
     </Box>
