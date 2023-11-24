@@ -40,11 +40,11 @@ function SubmitButton() {
 }
 
 const Overview = () => {
-  const session = useSession();
+  const { data: session } = useSession();
   const { data, onHandleBack } = useFormContext();
   const [state, formAction] = useFormState(createKyc, {
     data,
-    userId: session.data?.user.id,
+    userId: session?.user.id,
   });
   return (
     <Box

@@ -1,18 +1,10 @@
 import GoogleProvider from 'next-auth/providers/google';
 import { NextAuthOptions } from 'next-auth';
-import { FirestoreAdapter } from '@auth/firebase-adapter';
-import { cert } from 'firebase-admin/app';
-
-const { privateKey } = JSON.parse(process.env.FIREBASE_PRIVATE_KEY!);
+import { PrismaAdapter } from '@next-auth/prisma-adapter';
+import prisma from '@/prisma/client';
 
 const authOptions: NextAuthOptions = {
-  adapter: FirestoreAdapter({
-    credential: cert({
-      projectId: process.env.FIREBASE_PROJECT_ID,
-      clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-      privateKey,
-    }),
-  }),
+  adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
@@ -32,9 +24,6 @@ const authOptions: NextAuthOptions = {
   },
   session: {
     strategy: 'jwt',
-  },
-  pages: {
-    signIn: '/login',
   },
 };
 
