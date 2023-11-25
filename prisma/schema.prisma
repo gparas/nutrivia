@@ -6,8 +6,9 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
 model Account {
@@ -57,7 +58,7 @@ model VerificationToken {
 }
 
 model Kyc {
-  id              String @id @default(cuid())
+  id              String   @id @default(cuid())
   userId          String
   activity_factor String
   age             Int
@@ -67,5 +68,6 @@ model Kyc {
   height          Int
   weight          Int
   target_weight   Int
-  user            User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  created_at      DateTime @default(now())
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
