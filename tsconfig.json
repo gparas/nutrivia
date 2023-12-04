@@ -26,12 +26,9 @@
       "@/*": [
         "./app/*"
       ],
-      "@/prisma/*": [
-        "./prisma/*"
+      "@/types/*": [
+        "./types/*"
       ],
-      "@/firebase/*": [
-        "./firebase/*"
-      ]
     }
   },
   "include": [

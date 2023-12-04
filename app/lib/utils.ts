@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { KycTypes } from './types';
+import { Kyc as KycTypes } from '@/types/kyc';
 
 export const getDailyCalorieIntake = (data: KycTypes) => {
   const { gender, age, weight, target_weight, height } = data;

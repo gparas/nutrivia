@@ -1,45 +1,49 @@
 import { ReactNode } from 'react';
 import type { Metadata } from 'next';
-import { getServerSession } from 'next-auth';
-import ThemeRegistry from '@/components/ThemeRegistry/ThemeRegistry';
-import Localization from '@/components/Localization';
-import Header from '@/components/Header';
-import AuthProvider from '@/auth/provider';
-import prisma from '@/prisma/client';
-import authOptions from './auth/authOptions';
+import { cookies } from 'next/headers';
+import { createClient } from '@/supabase/server';
+import Container from '@mui/material/Container';
+import ThemeRegistry from '@/themeRegistry';
+import Localization from '@/localization';
+import Header from '@/header';
 
 export const metadata: Metadata = {
   title: 'Nutrivia',
   description: 'Healthy eating simplified',
 };
 interface Props {
-  children: ReactNode;
-  getStarted: ReactNode;
+  dashboard: ReactNode;
+  login: ReactNode;
 }
 
-const getUserKyc = async () => {
-  const session = await getServerSession(authOptions);
-  if (!session) return;
-  const kyc = await prisma.kyc.findFirst({
-    where: { userId: session.user.id },
-  });
-  return kyc;
-};
+const RootLayout = async ({ dashboard, login }: Props) => {
+  const cookieStore = cookies();
+  const supabase = createClient(cookieStore);
 
-const RootLayout = async ({ children, getStarted }: Props) => {
-  const kyc = await getUserKyc();
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
   return (
     <html lang="en">
-      <body>
-        <Localization>
-          <ThemeRegistry>
-            <AuthProvider>
-              <Header />
-              {kyc ? children : getStarted}
-            </AuthProvider>
-          </ThemeRegistry>
-        </Localization>
-      </body>
+      <Localization>
+        <ThemeRegistry>
+          <body>
+            <Header />
+            <Container
+              component="main"
+              sx={{
+                flex: '1 1 auto',
+                display: 'flex',
+                flexDirection: 'column',
+                py: 3,
+              }}
+            >
+              {session ? dashboard : login}
+            </Container>
+          </body>
+        </ThemeRegistry>
+      </Localization>
     </html>
   );
 };

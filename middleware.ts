@@ -1,7 +1,8 @@
-import { withAuth } from 'next-auth/middleware';
+import { type NextRequest } from 'next/server';
+import { createClient } from '@/supabase/middleware';
 
-export default withAuth({
-  pages: {
-    signIn: '/login',
-  },
-});
+export async function middleware(request: NextRequest) {
+  const { supabase, response } = createClient(request);
+  await supabase.auth.getSession();
+  return response;
+}
