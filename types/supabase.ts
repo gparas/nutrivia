@@ -59,6 +59,59 @@ export interface Database {
           }
         ]
       }
+      mealCategories: {
+        Row: {
+          description: string | null
+          id: string
+          name: string
+        }
+        Insert: {
+          description?: string | null
+          id?: string
+          name: string
+        }
+        Update: {
+          description?: string | null
+          id?: string
+          name?: string
+        }
+        Relationships: []
+      }
+      meals: {
+        Row: {
+          category_id: string | null
+          description: string | null
+          id: string
+          image: string
+          name: string
+          price: number
+        }
+        Insert: {
+          category_id?: string | null
+          description?: string | null
+          id?: string
+          image: string
+          name: string
+          price: number
+        }
+        Update: {
+          category_id?: string | null
+          description?: string | null
+          id?: string
+          image?: string
+          name?: string
+          price?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "meals_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "mealCategories"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
     }
     Views: {
       [_ in never]: never

@@ -9,8 +9,8 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'source.unsplash.com',
-        pathname: '/random/**',
+        hostname: 'res.cloudinary.com',
+        pathname: '/dc1qw84yo/image/upload/**',
       },
     ],
   },
