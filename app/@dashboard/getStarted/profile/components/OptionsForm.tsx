@@ -1,8 +1,8 @@
 'use client';
 
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { KYC } from '@/lib/constants';
-import { Kyc as KycTypes } from '@/types/kyc';
+import { PROFILE } from '@/lib/constants';
+import { Profile } from '@/types/profile';
 import Grid from '@mui/material/Grid';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
@@ -15,10 +15,11 @@ type ExtractStringFields<Type> = {
   [Property in keyof Type as Extract<keyof Type, number>]: Type[Property];
 };
 
-type FormData = ExtractStringFields<KycTypes>;
+type FormData = ExtractStringFields<Profile>;
 
 type Props = {
-  param: keyof typeof KYC.initialData;
+  param: keyof typeof PROFILE.initialData;
+  required?: boolean;
   items: {
     value: string;
     primaryText: string;
@@ -26,7 +27,7 @@ type Props = {
   }[];
 };
 
-const OptionsForm = ({ param, items }: Props) => {
+const OptionsForm = ({ param, items, required = true }: Props) => {
   const { onChangeData, data } = useFormContext();
   const {
     watch,
@@ -55,7 +56,7 @@ const OptionsForm = ({ param, items }: Props) => {
                   clip: 'rect(0,0,0,0)',
                   pointerEvents: 'none',
                 }}
-                {...register(param, { required: true })}
+                {...register(param, { required })}
               />
               <ListItemButton
                 selected={selected}

@@ -1,6 +1,6 @@
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
-import { KYC } from '@/lib/constants';
-import { Kyc as KycTypes } from '@/types/kyc';
+import { PROFILE } from '@/lib/constants';
+import { Profile } from '@/types/profile';
 import InputAdornment from '@mui/material/InputAdornment';
 import TextField from '@mui/material/TextField';
 import { useFormContext } from './FormContext';
@@ -10,10 +10,10 @@ type ExtractNumberFields<Type> = {
   [Property in keyof Type as Extract<keyof Type, number>]: Type[Property];
 };
 
-type FormData = ExtractNumberFields<KycTypes>;
+type FormData = ExtractNumberFields<Profile>;
 
 type Props = {
-  param: keyof typeof KYC.initialData;
+  param: keyof typeof PROFILE.initialData;
   label: string;
   min: number;
   max: number;

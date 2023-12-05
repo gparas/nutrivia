@@ -9,56 +9,6 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
-      kyc: {
-        Row: {
-          activity_factor: string | null
-          age: number | null
-          created_at: string
-          diet: string | null
-          gender: string | null
-          goal: string | null
-          height: string | null
-          id: string
-          target_weight: string | null
-          user_id: string
-          weight: string | null
-        }
-        Insert: {
-          activity_factor?: string | null
-          age?: number | null
-          created_at?: string
-          diet?: string | null
-          gender?: string | null
-          goal?: string | null
-          height?: string | null
-          id?: string
-          target_weight?: string | null
-          user_id: string
-          weight?: string | null
-        }
-        Update: {
-          activity_factor?: string | null
-          age?: number | null
-          created_at?: string
-          diet?: string | null
-          gender?: string | null
-          goal?: string | null
-          height?: string | null
-          id?: string
-          target_weight?: string | null
-          user_id?: string
-          weight?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "kyc_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          }
-        ]
-      }
       mealCategories: {
         Row: {
           description: string | null
@@ -108,6 +58,56 @@ export interface Database {
             columns: ["category_id"]
             isOneToOne: false
             referencedRelation: "mealCategories"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      profile: {
+        Row: {
+          activity: string | null
+          age: number | null
+          created_at: string
+          food_preference: string | null
+          gender: string | null
+          goal: string | null
+          height: string | null
+          id: string
+          target_weight: string | null
+          user_id: string
+          weight: string | null
+        }
+        Insert: {
+          activity?: string | null
+          age?: number | null
+          created_at?: string
+          food_preference?: string | null
+          gender?: string | null
+          goal?: string | null
+          height?: string | null
+          id?: string
+          target_weight?: string | null
+          user_id: string
+          weight?: string | null
+        }
+        Update: {
+          activity?: string | null
+          age?: number | null
+          created_at?: string
+          food_preference?: string | null
+          gender?: string | null
+          goal?: string | null
+          height?: string | null
+          id?: string
+          target_weight?: string | null
+          user_id?: string
+          weight?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "profile_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
             referencedColumns: ["id"]
           }
         ]

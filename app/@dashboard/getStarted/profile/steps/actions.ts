@@ -4,9 +4,9 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers';
 import { createClient } from '@/supabase/server';
-import { Kyc as KycTypes } from '@/types/kyc';
+import { Profile } from '@/types/profile';
 
-export async function createKyc(data: KycTypes) {
+export async function createKyc(data: Profile) {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
 
@@ -16,7 +16,7 @@ export async function createKyc(data: KycTypes) {
 
   if (user) {
     await supabase
-      .from('kyc')
+      .from('profile')
       .insert({ ...data, user_id: user.id })
       .then(() => revalidatePath('/'))
       .then(() => redirect('/'));

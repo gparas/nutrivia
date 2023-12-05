@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
-import { Kyc as KycTypes } from '@/types/kyc';
+import { Profile } from '@/types/profile';
 
-export const getDailyCalorieIntake = (data: KycTypes) => {
+export const getDailyCalorieIntake = (data: Profile) => {
   const { gender, age, weight, target_weight, height } = data;
   if (!weight || !height || !age) return;
   const yearsOld = dayjs().diff(dayjs().year(age), 'year');

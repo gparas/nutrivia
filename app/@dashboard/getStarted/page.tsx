@@ -25,7 +25,7 @@ const GetStartedPage = () => {
         size="large"
         endIcon={<ArrowNext />}
         component={NextLink}
-        href="/getStarted/kyc"
+        href="/getStarted/profile"
         sx={{ px: 3, py: 1.5, fontSize: 16 }}
       >
         Get started

@@ -1,4 +1,4 @@
-import { KYC } from '@/lib/constants';
+import { PROFILE } from '@/lib/constants';
 import { useFormContext } from '../components/FormContext';
 import InputForm from '../components/InputForm';
 import Title from '../components/Title';
@@ -13,8 +13,8 @@ const TargetWeight = () => {
       <InputForm
         param="target_weight"
         label="Target weight"
-        min={min || KYC.weight.min}
-        max={max || KYC.weight.max}
+        min={min || PROFILE.weight.min}
+        max={max || PROFILE.weight.max}
         unit="kg"
       />
     </>

@@ -16,9 +16,9 @@ const DashboardPage = async () => {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
 
-  const { data: kyc } = await supabase.from('kyc').select();
+  const { data: profile } = await supabase.from('profile').select();
 
-  if (!kyc?.length) {
+  if (!profile?.length) {
     redirect('/getStarted');
   }
 

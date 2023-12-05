@@ -1,15 +1,15 @@
 import dayjs from 'dayjs';
 import { KG_PER_MONTH } from '@/lib/constants';
-import { Kyc as KycTypes } from '@/types/kyc';
+import { Profile } from '@/types/profile';
 import { getDailyCalorieIntake } from '@/lib/utils';
 
-export const getWeightDiff = (data: KycTypes): number => {
+export const getWeightDiff = (data: Profile): number => {
   const { weight, target_weight } = data;
   const weightDiff = Number(weight) - Number(target_weight);
   return Math.abs(weightDiff);
 };
 
-export const getOverviewTitle = (data: KycTypes): string => {
+export const getOverviewTitle = (data: Profile): string => {
   const { goal } = data;
   if (goal === 'maintain_weight') {
     return 'Get your personalized health plan';
@@ -20,7 +20,7 @@ export const getOverviewTitle = (data: KycTypes): string => {
   return `You will reach your goal by ${date}`;
 };
 
-export const getGoalText = (data: KycTypes): string => {
+export const getGoalText = (data: Profile): string => {
   const { goal } = data;
   if (goal === 'maintain_weight') {
     return 'Maintain Weight';
@@ -32,5 +32,5 @@ export const getGoalText = (data: KycTypes): string => {
   return `Gain ${weightDiff}`;
 };
 
-export const dailyCalorieIntake = (data: KycTypes) =>
+export const dailyCalorieIntake = (data: Profile) =>
   getDailyCalorieIntake(data);

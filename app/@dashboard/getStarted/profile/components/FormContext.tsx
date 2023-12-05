@@ -1,17 +1,17 @@
-import { KYC } from '@/lib/constants';
-import { Kyc as KycTypes } from '@/types/kyc';
+import { PROFILE } from '@/lib/constants';
+import { Profile } from '@/types/profile';
 import { ReactNode, createContext, useContext, useState } from 'react';
 
 type ContextType = {
-  data: KycTypes;
+  data: Profile;
   activeStep: number;
   onHandleBack: () => void;
-  onChangeData: (newData: KycTypes) => void;
+  onChangeData: (newData: Profile) => void;
 };
 
 const FormContext = createContext<ContextType>({
   activeStep: 0,
-  data: KYC.initialData,
+  data: PROFILE.initialData,
   onHandleBack: () => {},
   onChangeData: () => {},
 });
@@ -21,14 +21,14 @@ interface Props {
 }
 
 export function FormProvider({ children }: Props) {
-  const [data, setData] = useState<KycTypes>(KYC.initialData);
+  const [data, setData] = useState<Profile>(PROFILE.initialData);
   const [activeStep, setActiveStep] = useState(0);
 
   function onHandleBack(): void {
     setActiveStep(prevActiveStep => prevActiveStep - 1);
   }
 
-  function onChangeData(newData: KycTypes): void {
+  function onChangeData(newData: Profile): void {
     setData(prevData => ({ ...prevData, ...newData }));
     setActiveStep(prevActiveStep => prevActiveStep + 1);
   }

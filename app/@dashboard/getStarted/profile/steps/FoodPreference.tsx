@@ -1,12 +1,13 @@
 import OptionsForm from '../components/OptionsForm';
 import Title from '../components/Title';
 
-const Diet = () => {
+const FoodPreference = () => {
   return (
     <>
       <Title>What types of diet do you prefer?</Title>
       <OptionsForm
-        param="diet"
+        param="food_preference"
+        required={false}
         items={[
           {
             value: 'mediterranean',
@@ -24,14 +25,10 @@ const Diet = () => {
             value: 'vegan',
             primaryText: 'Vegan',
           },
-          {
-            value: 'fasting',
-            primaryText: 'Fasting',
-          },
         ]}
       />
     </>
   );
 };
 
-export default Diet;
+export default FoodPreference;

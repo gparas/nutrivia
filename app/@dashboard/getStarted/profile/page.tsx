@@ -11,7 +11,7 @@ const Weight = dynamic(() => import('./steps/Weight'));
 const TargetWeight = dynamic(() => import('./steps/TargetWeight'));
 const Age = dynamic(() => import('./steps/Age'));
 const Activity = dynamic(() => import('./steps/Activity'));
-const Diet = dynamic(() => import('./steps/Diet'));
+const FoodPreference = dynamic(() => import('./steps/FoodPreference'));
 const Overview = dynamic(() => import('./steps/Overview'));
 
 const steps = [
@@ -22,7 +22,7 @@ const steps = [
   { id: 'target_weight', component: TargetWeight },
   { id: 'age', component: Age },
   { id: 'activity', component: Activity },
-  { id: 'diet', component: Diet },
+  { id: 'food_preference', component: FoodPreference },
   { id: 'overview', component: Overview },
 ];
 

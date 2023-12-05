@@ -2,13 +2,13 @@ import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import dayjs, { Dayjs } from 'dayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { Kyc as KycTypes } from '@/types/kyc';
+import { Profile } from '@/types/profile';
 import { useFormContext } from '../components/FormContext';
 import Form from '../components/Form';
 import Title from '../components/Title';
 
 type FormValues = {
-  age: KycTypes['age'];
+  age: Profile['age'];
 };
 
 const Age = () => {

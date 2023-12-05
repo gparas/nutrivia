@@ -31,7 +31,7 @@ function SubmitButton() {
       type="submit"
       disabled={pending}
       aria-disabled={pending}
-      endIcon={pending && <CircularProgress size={20} />}
+      endIcon={pending && <CircularProgress size={20} color="inherit" />}
     >
       Start
     </Button>

@@ -26,7 +26,6 @@ const Mealpage = async ({ params: { id } }: { params: { id: string } }) => {
     name, 
     image,
     price,
-    description,
     mealCategories ( name )
   `,
     )
@@ -43,7 +42,7 @@ const Mealpage = async ({ params: { id } }: { params: { id: string } }) => {
       </Typography>
       <Grid container spacing={2}>
         {data.map(meal => (
-          <Grid key={meal.id} item xs={12} sm={6} md={4}>
+          <Grid key={meal.id} item xs={12} sm={4} md={3}>
             <Card sx={{ height: '100%' }}>
               <Box position="relative" height={200}>
                 <Image
@@ -59,7 +58,6 @@ const Mealpage = async ({ params: { id } }: { params: { id: string } }) => {
               <CardContent>
                 <Typography variant="h6">{meal.name}</Typography>
                 <Typography>{euro.format(meal.price)}</Typography>
-                <Typography variant="body2">{meal.description}</Typography>
               </CardContent>
             </Card>
           </Grid>
