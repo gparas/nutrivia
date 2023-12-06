@@ -1,5 +1,4 @@
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
-import { PROFILE } from '@/lib/constants';
 import { Profile } from '@/types/profile';
 import InputAdornment from '@mui/material/InputAdornment';
 import TextField from '@mui/material/TextField';
@@ -13,14 +12,14 @@ type ExtractNumberFields<Type> = {
 type FormData = ExtractNumberFields<Profile>;
 
 type Props = {
-  param: keyof typeof PROFILE.initialData;
+  name: string;
   label: string;
   min: number;
   max: number;
   unit?: string;
 };
 
-const InputForm = ({ param, label, unit, min, max }: Props) => {
+const InputForm = ({ name, label, unit, min, max }: Props) => {
   const {
     control,
     handleSubmit,
@@ -30,9 +29,9 @@ const InputForm = ({ param, label, unit, min, max }: Props) => {
   const onSubmit: SubmitHandler<FormData> = data => onChangeData(data);
 
   const errorMsg =
-    errors[param]?.type === 'min'
+    errors[name]?.type === 'min'
       ? `${label} must be greater than or equal to ${min}`
-      : errors[param]?.type === 'max'
+      : errors[name]?.type === 'max'
       ? `${label} must be less than or equal to ${max}`
       : `${label} is required`;
 
@@ -41,8 +40,8 @@ const InputForm = ({ param, label, unit, min, max }: Props) => {
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Controller
           control={control}
-          name={param}
-          defaultValue={data[param]}
+          name={name}
+          defaultValue={data[name as keyof Profile]}
           rules={{
             required: true,
             min,
@@ -67,7 +66,7 @@ const InputForm = ({ param, label, unit, min, max }: Props) => {
                 onBlur={onBlur}
                 error={invalid}
                 variant="filled"
-                helperText={errors[param] && errorMsg}
+                helperText={errors[name] && errorMsg}
                 InputLabelProps={{ required: false }}
                 inputProps={{ autoFocus: true }}
                 FormHelperTextProps={{

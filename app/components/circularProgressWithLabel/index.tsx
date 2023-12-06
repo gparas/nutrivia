@@ -22,7 +22,7 @@ const CircularProgressWithLabel = ({ value, children, ...other }: Props) => {
         size={SIZE}
         thickness={4}
         value={100}
-        sx={{ color: 'grey.200' }}
+        sx={{ color: 'divider' }}
       />
       <CircularProgress
         variant="determinate"

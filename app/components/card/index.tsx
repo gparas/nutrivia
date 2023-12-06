@@ -1,8 +1,15 @@
 import Stack, { StackProps } from '@mui/material/Stack';
-import Paper from '@mui/material/Paper';
 
 const Card = ({ ...other }: StackProps) => {
-  return <Stack component={Paper} elevation={0} p={2} {...other} />;
+  return (
+    <Stack
+      p={2}
+      borderRadius={1}
+      bgcolor="background.paper"
+      boxShadow="rgba(0, 0, 0, 0.16) 0px 1px 2px 0px"
+      {...other}
+    />
+  );
 };
 
 export default Card;

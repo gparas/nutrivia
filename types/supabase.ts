@@ -62,51 +62,57 @@ export interface Database {
           }
         ]
       }
-      profile: {
+      profiles: {
         Row: {
           activity: string | null
           age: number | null
+          avatar_url: string | null
           created_at: string
           food_preference: string | null
+          full_name: string | null
           gender: string | null
           goal: string | null
           height: string | null
           id: string
           target_weight: string | null
-          user_id: string
+          updated_at: string | null
           weight: string | null
         }
         Insert: {
           activity?: string | null
           age?: number | null
+          avatar_url?: string | null
           created_at?: string
           food_preference?: string | null
+          full_name?: string | null
           gender?: string | null
           goal?: string | null
           height?: string | null
-          id?: string
+          id: string
           target_weight?: string | null
-          user_id: string
+          updated_at?: string | null
           weight?: string | null
         }
         Update: {
           activity?: string | null
           age?: number | null
+          avatar_url?: string | null
           created_at?: string
           food_preference?: string | null
+          full_name?: string | null
           gender?: string | null
           goal?: string | null
           height?: string | null
           id?: string
           target_weight?: string | null
-          user_id?: string
+          updated_at?: string | null
           weight?: string | null
         }
         Relationships: [
           {
-            foreignKeyName: "profile_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
+            foreignKeyName: "profiles_id_fkey"
+            columns: ["id"]
+            isOneToOne: true
             referencedRelation: "users"
             referencedColumns: ["id"]
           }

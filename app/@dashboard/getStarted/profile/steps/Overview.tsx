@@ -17,7 +17,7 @@ import DrinkIcon from '@mui/icons-material/LocalDrinkRounded';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useFormContext } from '../components/FormContext';
 import { getOverviewTitle, getGoalText, dailyCalorieIntake } from './utils';
-import { createKyc } from './actions';
+import { updateProfile } from './actions';
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -40,12 +40,12 @@ function SubmitButton() {
 
 const Overview = () => {
   const { data, onHandleBack } = useFormContext();
-  const createKycWithdata = createKyc.bind(null, data);
+  const updateProfileWithdata = updateProfile.bind(null, data);
 
   return (
     <Box
       component="form"
-      action={createKycWithdata}
+      action={updateProfileWithdata}
       sx={{ flex: '1 1 auto', display: 'flex', flexDirection: 'column' }}
     >
       <Title>{getOverviewTitle(data)}</Title>
@@ -78,7 +78,7 @@ const Overview = () => {
             <ChartIcon color="primary" />
           </Avatar>
         </ListItem>
-        <Divider variant="middle" light component="li" />
+        <Divider variant="middle" component="li" />
         <ListItem>
           <ListItemText
             primary={
@@ -100,7 +100,7 @@ const Overview = () => {
             <FireIcon color="primary" />
           </Avatar>
         </ListItem>
-        <Divider variant="middle" light component="li" />
+        <Divider variant="middle" component="li" />
         <ListItem>
           <ListItemText
             primary={

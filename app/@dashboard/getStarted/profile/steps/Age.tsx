@@ -19,8 +19,8 @@ const Age = () => {
 
   const onSubmit: SubmitHandler<FormValues> = data => onChangeData(data);
 
-  const maxDate = dayjs().subtract(20, 'year');
   const minDate = dayjs().subtract(70, 'year');
+  const maxDate = dayjs().subtract(20, 'year');
 
   return (
     <>

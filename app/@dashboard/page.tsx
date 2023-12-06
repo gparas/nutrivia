@@ -16,9 +16,9 @@ const DashboardPage = async () => {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
 
-  const { data: profile } = await supabase.from('profile').select();
+  const { data } = await supabase.from('profiles').select('goal');
 
-  if (!profile?.length) {
+  if (data && data.some(item => !item.goal)) {
     redirect('/getStarted');
   }
 

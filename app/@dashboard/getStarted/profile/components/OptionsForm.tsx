@@ -1,7 +1,6 @@
 'use client';
 
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { PROFILE } from '@/lib/constants';
 import { Profile } from '@/types/profile';
 import Grid from '@mui/material/Grid';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -18,16 +17,16 @@ type ExtractStringFields<Type> = {
 type FormData = ExtractStringFields<Profile>;
 
 type Props = {
-  param: keyof typeof PROFILE.initialData;
+  name: string;
   required?: boolean;
-  items: {
+  options: {
     value: string;
-    primaryText: string;
-    secondaryText?: string;
+    label: string;
+    helperText?: string;
   }[];
 };
 
-const OptionsForm = ({ param, items, required = true }: Props) => {
+const OptionsForm = ({ name, options, required = true }: Props) => {
   const { onChangeData, data } = useFormContext();
   const {
     watch,
@@ -36,19 +35,19 @@ const OptionsForm = ({ param, items, required = true }: Props) => {
     formState: { errors },
   } = useForm();
   const onSubmit: SubmitHandler<FormData> = data => onChangeData(data);
-  const watchField = watch(param);
+  const watchField = watch(name);
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <Grid container justifyContent="center" spacing={2}>
-        {items.map(({ value, primaryText, secondaryText }, index) => {
+        {options.map(({ value, label, helperText }, index) => {
           const selected = watchField
             ? watchField === value
-            : data[param] === value;
+            : data[name as keyof Profile] === value;
           return (
             <Grid item xs={12} key={index}>
               <input
                 type="radio"
-                id={primaryText}
+                id={label}
                 value={value}
                 checked={selected}
                 style={{
@@ -56,17 +55,17 @@ const OptionsForm = ({ param, items, required = true }: Props) => {
                   clip: 'rect(0,0,0,0)',
                   pointerEvents: 'none',
                 }}
-                {...register(param, { required })}
+                {...register(name, { required })}
               />
               <ListItemButton
                 selected={selected}
-                htmlFor={primaryText}
+                htmlFor={label}
                 component="label"
                 sx={[
                   {
                     border: 1,
                     borderRadius: 1,
-                    borderColor: 'grey.300',
+                    borderColor: 'divider',
                     bgcolor: 'background.paper',
                   },
                   selected && {
@@ -76,8 +75,8 @@ const OptionsForm = ({ param, items, required = true }: Props) => {
                 ]}
               >
                 <ListItemText
-                  primary={primaryText}
-                  secondary={secondaryText}
+                  primary={label}
+                  secondary={helperText}
                   primaryTypographyProps={{ sx: { fontWeight: 'medium' } }}
                   sx={{ mr: 0.5 }}
                 />
@@ -87,7 +86,7 @@ const OptionsForm = ({ param, items, required = true }: Props) => {
           );
         })}
       </Grid>
-      {errors[param] ? (
+      {errors[name] ? (
         <Typography
           component="div"
           variant="caption"

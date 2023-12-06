@@ -1,10 +1,21 @@
 export const PROFILE = {
   height: {
+    name: 'height',
+    label: 'Height',
     min: 40,
     max: 220,
     unit: 'cm',
   },
   weight: {
+    name: 'weight',
+    label: 'Current weight',
+    min: 40,
+    max: 200,
+    unit: 'kg',
+  },
+  target_weight: {
+    name: 'target_weight',
+    label: 'Target weight',
     min: 40,
     max: 200,
     unit: 'kg',
@@ -13,6 +24,86 @@ export const PROFILE = {
     min: 20,
     max: 100,
     unit: 'yo',
+  },
+  gender: {
+    name: 'gender',
+    label: 'Gender',
+    options: [
+      {
+        value: 'male',
+        label: 'Male',
+      },
+      {
+        value: 'female',
+        label: 'Female',
+      },
+    ],
+  },
+  goal: {
+    name: 'goal',
+    label: 'Goal',
+    options: [
+      {
+        value: 'lose_weight',
+        label: 'Lose weight',
+      },
+      {
+        value: 'maintain_weight',
+        label: 'Maintain weight',
+      },
+      {
+        value: 'gain_weight',
+        label: 'Gain weight',
+      },
+    ],
+  },
+  activity: {
+    name: 'activity',
+    label: 'Activity level',
+    options: [
+      {
+        value: 'low',
+        label: 'Low',
+        helperText: 'Little to no daily activity',
+      },
+      {
+        value: 'moderate',
+        label: 'Moderate',
+        helperText: 'Light daily activity',
+      },
+      {
+        value: 'high',
+        label: 'High',
+        helperText: 'Physical activity throughout the day',
+      },
+      {
+        value: 'intense',
+        label: 'Intense',
+        helperText: 'Physically demanding daily activity',
+      },
+    ],
+  },
+  food_preference: {
+    name: 'food_preference',
+    label: 'Food preference',
+    options: [
+      {
+        value: 'mediterranean',
+        label: 'Mediterranean',
+      },
+      {
+        value: 'keto',
+        label: 'Keto',
+      },
+      {
+        value: 'vegetarian',
+        label: 'Vegetarian',
+      },
+      {
+        value: 'vegan',
+        label: 'Vegan',
+      },
+    ],
   },
   initialData: {
     goal: null,

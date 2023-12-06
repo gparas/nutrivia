@@ -6,7 +6,7 @@ const Height = () => {
   return (
     <>
       <Title>What is your height?</Title>
-      <InputForm param="height" label="Height" {...PROFILE.height} />
+      <InputForm {...PROFILE.height} />
     </>
   );
 };

@@ -6,7 +6,7 @@ import { cookies } from 'next/headers';
 import { createClient } from '@/supabase/server';
 import { Profile } from '@/types/profile';
 
-export async function createKyc(data: Profile) {
+export async function updateProfile(data: Profile) {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
 
@@ -16,8 +16,9 @@ export async function createKyc(data: Profile) {
 
   if (user) {
     await supabase
-      .from('profile')
-      .insert({ ...data, user_id: user.id })
+      .from('profiles')
+      .update(data)
+      .eq('id', user.id)
       .then(() => revalidatePath('/'))
       .then(() => redirect('/'));
   }

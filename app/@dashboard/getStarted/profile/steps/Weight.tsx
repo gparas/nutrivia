@@ -6,7 +6,7 @@ const Weight = () => {
   return (
     <>
       <Title>What is your weight?</Title>
-      <InputForm param="weight" label="Weight" {...PROFILE.weight} />
+      <InputForm {...PROFILE.weight} />
     </>
   );
 };
