@@ -41,7 +41,7 @@ const DialogLayout = ({ children }: PropsWithChildren) => {
           <IconButton component={Link} href="/profile">
             <ArrowBackIcon />
           </IconButton>
-          <Typography variant="h6">Back to profile</Typography>
+          <Typography variant="body1">Back to profile</Typography>
         </Stack>
         <Card spacing={3} p={3}>
           {children}

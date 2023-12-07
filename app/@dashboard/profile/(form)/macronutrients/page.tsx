@@ -45,7 +45,7 @@ const page = async () => {
           <Grid item xs={12}>
             <Divider sx={{ mt: 2 }} />
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={4}>
             <Stack direction="row" spacing={1} alignItems="center">
               <Box height={12} width={12} bgcolor={item.color} />
               <Typography variant="body2">{item.label}</Typography>
@@ -54,7 +54,7 @@ const page = async () => {
           <Grid item xs={3}>
             <Typography variant="body2">{item.gram}g</Typography>
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={2}>
             <Typography variant="body2">{item.value}%</Typography>
           </Grid>
           <Grid item xs={3}>
