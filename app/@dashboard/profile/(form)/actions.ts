@@ -3,8 +3,9 @@
 import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 import { createClient } from '@/supabase/server';
+import { redirect } from 'next/navigation';
 
-export async function submit(prevState: any, formData: FormData) {
+export async function submit(formData: FormData) {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
 
@@ -15,16 +16,15 @@ export async function submit(prevState: any, formData: FormData) {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return { message: 'User not found' };
+    return;
   }
 
   try {
     await supabase.from('profiles').update(data).eq('id', user.id);
     revalidatePath('/profile');
-    return { message: 'Successfully updated' };
-  } catch (e) {
-    return { message: 'Failed to update' };
+  } catch (error) {
+    console.log(error);
   } finally {
-    return { message: 'close' };
+    redirect('/profile');
   }
 }
