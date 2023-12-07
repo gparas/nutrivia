@@ -14,7 +14,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import FoodIcon from '@mui/icons-material/Fastfood';
 import ChartIcon from '@mui/icons-material/BarChart';
 import Card from '@/components/card';
-import { getDailyCalorieIntake, getYearsOld } from '@/lib/utils';
+import { getYearsOld } from '@/lib/utils';
 import { Fragment } from 'react';
 import Link from 'next/link';
 
@@ -28,8 +28,6 @@ const ProfilePage = async () => {
 
   const { full_name, avatar_url, age, gender } = data[0];
 
-  const calorieIntake = getDailyCalorieIntake(data[0]);
-
   const settings = [
     {
       primary: 'Personal details',
@@ -38,7 +36,6 @@ const ProfilePage = async () => {
     },
     {
       primary: 'Macronutrients',
-      secondary: `${calorieIntake} kcal/day`,
       href: '/profile/macronutrients',
       icon: <ChartIcon />,
     },
@@ -75,12 +72,12 @@ const ProfilePage = async () => {
             component="div"
             sx={{ '& .MuiDivider-root:last-child': { display: 'none' } }}
           >
-            {settings.map(({ primary, secondary, icon, href }, index) => {
+            {settings.map(({ primary, icon, href }, index) => {
               return (
                 <Fragment key={index}>
                   <ListItemButton component={Link} href={href}>
                     <ListItemIcon>{icon}</ListItemIcon>
-                    <ListItemText primary={primary} secondary={secondary} />
+                    <ListItemText primary={primary} />
                     <ChevronIcon />
                   </ListItemButton>
                   <Divider variant="inset" component="li" />
