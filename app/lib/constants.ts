@@ -118,10 +118,16 @@ export const PROFILE = {
 };
 
 export const ACTIVITY_FACTOR = {
-  low: 1.2,
-  moderate: 1.375,
-  high: 1.55,
-  intense: 1.725,
+  low: 1.39,
+  moderate: 1.59,
+  high: 1.89,
+  intense: 2.5,
+};
+
+export const NUTRIENT_COLOR = {
+  carbs: '#5ecfcd',
+  protein: '#eb3478',
+  fat: '#ffbf5a',
 };
 
 export const KG_PER_MONTH = 2;

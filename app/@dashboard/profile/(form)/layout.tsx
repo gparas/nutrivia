@@ -2,6 +2,7 @@
 
 import { PropsWithChildren } from 'react';
 import { useFormStatus } from 'react-dom';
+import { usePathname } from 'next/navigation';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
@@ -15,6 +16,9 @@ import { submit } from './actions';
 
 function SubmitButton() {
   const { pending } = useFormStatus();
+  const pathname = usePathname();
+
+  if (pathname.includes('macronutrients')) return null;
 
   return (
     <Button
