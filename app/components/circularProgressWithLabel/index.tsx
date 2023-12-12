@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import CircularProgress, {
   CircularProgressProps,
   circularProgressClasses,
@@ -14,7 +14,13 @@ type Props = {
 } & CircularProgressProps;
 
 const CircularProgressWithLabel = ({ value, children, ...other }: Props) => {
-  const SIZE = 104;
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    setProgress(value);
+  }, [value]);
+
+  const SIZE = 112;
   return (
     <Box sx={{ position: 'relative', display: 'inline-flex' }}>
       <CircularProgress
@@ -26,7 +32,7 @@ const CircularProgressWithLabel = ({ value, children, ...other }: Props) => {
       />
       <CircularProgress
         variant="determinate"
-        value={value}
+        value={progress}
         sx={{
           left: 0,
           position: 'absolute',

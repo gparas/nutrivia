@@ -1,6 +1,7 @@
 'use client';
 
 import { PieChart } from '@mui/x-charts/PieChart';
+import palette from '@/themeRegistry/palette';
 
 interface Props {
   data: {
@@ -12,14 +13,37 @@ interface Props {
   }[];
 }
 
+interface Palette {
+  carbs: {
+    main: string;
+  };
+  proteins: {
+    main: string;
+  };
+  fats: {
+    main: string;
+  };
+}
+
+interface Data {
+  value: number;
+  label: string;
+  color: string;
+}
+
 const Chart = ({ data }: Props) => {
+  const seriesData = data.map(({ label, value, color }: Data) => ({
+    label,
+    value,
+    color: palette[color as keyof Palette].main,
+  }));
   return (
     <PieChart
       series={[
         {
           innerRadius: 80,
           outerRadius: 104,
-          data,
+          data: seriesData,
         },
       ]}
       height={300}
@@ -28,6 +52,9 @@ const Chart = ({ data }: Props) => {
         legend: {
           hidden: true,
         },
+      }}
+      tooltip={{
+        trigger: 'none',
       }}
     />
   );

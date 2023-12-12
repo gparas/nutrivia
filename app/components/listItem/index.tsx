@@ -8,6 +8,7 @@ import ListItemButton, {
 import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import Card from '../card';
 
 const Breakfast = dynamic(() => import('@/icons/Breakfast'));
 const Lunch = dynamic(() => import('@/icons/Lunch'));
@@ -45,22 +46,19 @@ const ListItem = ({
 }: Props) => {
   const Icon = iconMapping[iconId];
   return (
-    <ListItemButton
-      component={NextLink}
-      href={href}
-      sx={{ bgcolor: 'background.paper', borderRadius: 1, ...sx }}
-      {...other}
-    >
-      <ListItemIcon>
-        <Icon sx={{ fontSize: 40 }} />
-      </ListItemIcon>
-      <ListItemText
-        primary={textPrimary}
-        secondary={textSecondary}
-        secondaryTypographyProps={{ variant: 'caption' }}
-      />
-      <ChevronRightIcon sx={{ opacity: 0.5 }} />
-    </ListItemButton>
+    <Card p={0}>
+      <ListItemButton component={NextLink} href={href} {...other}>
+        <ListItemIcon>
+          <Icon sx={{ fontSize: 40 }} />
+        </ListItemIcon>
+        <ListItemText
+          primary={textPrimary}
+          secondary={textSecondary}
+          secondaryTypographyProps={{ variant: 'caption' }}
+        />
+        <ChevronRightIcon sx={{ opacity: 0.5 }} />
+      </ListItemButton>
+    </Card>
   );
 };
 

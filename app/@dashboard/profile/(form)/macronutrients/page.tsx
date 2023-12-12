@@ -47,7 +47,7 @@ const page = async () => {
           </Grid>
           <Grid item xs={4}>
             <Stack direction="row" spacing={1} alignItems="center">
-              <Box height={12} width={12} bgcolor={item.color} />
+              <Box height={12} width={12} bgcolor={`${item.color}.main`} />
               <Typography variant="body2">{item.label}</Typography>
             </Stack>
           </Grid>

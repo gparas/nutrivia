@@ -24,6 +24,18 @@ const secondary = {
   main: '#c3de0a',
 };
 
+const carbs = {
+  main: '#5ecfcd',
+};
+
+const proteins = {
+  main: '#eb3478',
+};
+
+const fats = {
+  main: '#ffbf5a',
+};
+
 const info = {
   main: '#5ecfcd',
 };
@@ -62,7 +74,7 @@ const dark = {
 
 const modes = { dark, light };
 
-export default {
+const palette = {
   error,
   grey,
   info,
@@ -71,5 +83,10 @@ export default {
   secondary,
   success,
   warning,
+  carbs,
+  proteins,
+  fats,
   ...modes[mode],
 };
+
+export default palette;
