@@ -1,9 +1,14 @@
 import LinearProgress from '@mui/material/LinearProgress';
-import Stack from '@mui/material/Stack';
+import Stack, { StackProps } from '@mui/material/Stack';
 
-const PageLoader = () => {
+const PageLoader = ({ ...other }: StackProps) => {
   return (
-    <Stack flex="1 1 auto" alignItems="center" justifyContent="center">
+    <Stack
+      flex="1 1 auto"
+      alignItems="center"
+      justifyContent="center"
+      {...other}
+    >
       <LinearProgress sx={{ width: 256 }} />
     </Stack>
   );
