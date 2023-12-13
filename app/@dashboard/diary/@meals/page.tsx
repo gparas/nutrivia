@@ -1,21 +1,23 @@
-import { promises as fs } from 'fs';
+import { cookies } from 'next/headers';
+import { createClient } from '@/supabase/server';
 import Stack from '@mui/material/Stack';
 import ListItem from '@/components/listItem';
-import { Meal } from '@/types/meal';
 import { LIST_ITEMS } from './constants';
 
 const MealsPage = async () => {
-  const file = await fs.readFile(process.cwd() + '/app/meals.json', 'utf8');
-  const data = JSON.parse(file);
+  const cookieStore = cookies();
+  const supabase = createClient(cookieStore);
+
+  const { data } = await supabase.from('mealCategories').select();
   return (
     <Stack spacing={2}>
-      {data?.map((meal: Meal) => (
+      {data?.map(({ id, name }) => (
         <ListItem
-          key={meal.slot_id}
-          iconId={meal.slot_name}
-          textPrimary={meal.slot_name}
+          key={id}
+          iconId={name}
+          textPrimary={name}
           textSecondary="Recommended 444 - 622 kcal"
-          href={`/diary/${meal.slot_name}`}
+          href={`/diary/${id}`}
         />
       ))}
       {LIST_ITEMS.map((item, index) => (

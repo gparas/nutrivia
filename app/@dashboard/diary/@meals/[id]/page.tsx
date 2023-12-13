@@ -1,4 +1,5 @@
-import { promises as fs } from 'fs';
+import { cookies } from 'next/headers';
+import { createClient } from '@/supabase/server';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -8,8 +9,7 @@ import Box from '@mui/material/Box';
 import Card from '@/components/card';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import { Meal } from '@/types/meal';
-import Title from './title';
+import BackButton from './backButton';
 
 let euro = Intl.NumberFormat('en-DE', {
   style: 'currency',
@@ -18,24 +18,23 @@ let euro = Intl.NumberFormat('en-DE', {
 });
 
 const Mealpage = async ({ params: { id } }: { params: { id: string } }) => {
-  const file = await fs.readFile(process.cwd() + '/app/meals.json', 'utf8');
-  const data = JSON.parse(file);
+  const cookieStore = cookies();
+  const supabase = createClient(cookieStore);
 
-  const { slot_name, meals } = data.find(
-    ({ slot_name }: { slot_name: string }) => slot_name === id,
-  );
+  const { data } = await supabase
+    .from('meals')
+    .select()
+    .match({ category_id: id });
 
   if (!data?.length) {
     notFound();
   }
 
-  const title = slot_name.charAt(0).toUpperCase() + slot_name.slice(1);
-
   return (
     <>
-      <Title>{title}</Title>
+      <BackButton />
       <Grid container spacing={2}>
-        {meals.map((meal: Meal) => {
+        {data.map(meal => {
           return (
             <Grid key={meal.id} item xs={12} md={6} lg={4}>
               <Card p={0} height="100%">

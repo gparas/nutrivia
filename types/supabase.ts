@@ -29,28 +29,37 @@ export interface Database {
       }
       meals: {
         Row: {
+          carbs: number
           category_id: string | null
           description: string | null
+          fat: number
           id: string
           image: string
+          kcal: number
           name: string
-          price: number
+          protein: number
         }
         Insert: {
+          carbs: number
           category_id?: string | null
           description?: string | null
+          fat: number
           id?: string
           image: string
+          kcal: number
           name: string
-          price: number
+          protein: number
         }
         Update: {
+          carbs?: number
           category_id?: string | null
           description?: string | null
+          fat?: number
           id?: string
           image?: string
+          kcal?: number
           name?: string
-          price?: number
+          protein?: number
         }
         Relationships: [
           {
