@@ -9,28 +9,49 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
-      mealCategories: {
+      diary: {
         Row: {
-          description: string | null
+          date: string
           id: string
-          name: string
+          meal_category: string
+          meal_id: string
+          user_id: string
         }
         Insert: {
-          description?: string | null
+          date: string
           id?: string
-          name: string
+          meal_category: string
+          meal_id: string
+          user_id: string
         }
         Update: {
-          description?: string | null
+          date?: string
           id?: string
-          name?: string
+          meal_category?: string
+          meal_id?: string
+          user_id?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "diary_meal_id_fkey"
+            columns: ["meal_id"]
+            isOneToOne: false
+            referencedRelation: "meals"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "diary_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
       }
       meals: {
         Row: {
           carbs: number
-          category_id: string | null
+          category: string
           description: string | null
           fat: number
           id: string
@@ -41,7 +62,7 @@ export interface Database {
         }
         Insert: {
           carbs: number
-          category_id?: string | null
+          category: string
           description?: string | null
           fat: number
           id?: string
@@ -52,7 +73,7 @@ export interface Database {
         }
         Update: {
           carbs?: number
-          category_id?: string | null
+          category?: string
           description?: string | null
           fat?: number
           id?: string
@@ -61,15 +82,7 @@ export interface Database {
           name?: string
           protein?: number
         }
-        Relationships: [
-          {
-            foreignKeyName: "meals_category_id_fkey"
-            columns: ["category_id"]
-            isOneToOne: false
-            referencedRelation: "mealCategories"
-            referencedColumns: ["id"]
-          }
-        ]
+        Relationships: []
       }
       profiles: {
         Row: {
