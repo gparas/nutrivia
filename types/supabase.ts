@@ -18,7 +18,7 @@ export interface Database {
           user_id: string
         }
         Insert: {
-          date: string
+          date?: string
           id?: string
           meal_category: string
           meal_id: string
