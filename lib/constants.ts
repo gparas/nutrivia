@@ -130,36 +130,45 @@ export const NUTRIENT_COLOR = {
   fat: '#ffbf5a',
 };
 
-export const MEALS = [
+export const DAILY_MEALS = [
   {
     id: 'breakfast',
     iconId: 'breakfast',
     textPrimary: 'Breakfast',
+    recommendedKcal: 0.25,
   },
   {
     id: 'lunch',
     iconId: 'lunch',
     textPrimary: 'Lunch',
+    recommendedKcal: 0.3,
   },
   {
     id: 'dinner',
     iconId: 'dinner',
     textPrimary: 'Dinner',
+    recommendedKcal: 0.3,
   },
   {
     id: 'snack',
     iconId: 'snack',
     textPrimary: 'Snack',
+    recommendedKcal: 0.15,
   },
+];
+
+export const DAILY_EXTRAS = [
   {
     id: 'water',
     iconId: 'water',
     textPrimary: 'Water',
+    textSecondary: 'Daily water intake',
   },
   {
     id: 'exercise',
     iconId: 'exercise',
     textPrimary: 'Exercise',
+    textSecondary: 'Daily exercise',
   },
 ];
 

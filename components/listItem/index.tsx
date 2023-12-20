@@ -41,13 +41,16 @@ const ListItem = ({
   textPrimary,
   textSecondary,
   href,
-  sx,
   ...other
 }: Props) => {
   const Icon = iconMapping[iconId];
   return (
     <Card p={0}>
-      <ListItemButton component={NextLink} href={href} {...other}>
+      <ListItemButton
+        component={href ? NextLink : 'div'}
+        href={href}
+        {...other}
+      >
         <ListItemIcon>
           <Icon sx={{ fontSize: 40 }} />
         </ListItemIcon>

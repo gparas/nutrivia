@@ -16,7 +16,11 @@ const Progress = ({ value, color }: Props) => {
   }, [value]);
 
   return (
-    <LinearProgress variant="determinate" value={progress} color={color} />
+    <LinearProgress
+      variant="determinate"
+      value={progress > 100 ? 100 : progress}
+      color={color}
+    />
   );
 };
 
