@@ -1,9 +1,11 @@
 'use client';
 
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/supabase/client';
 import Button from '@mui/material/Button';
 import { priceFormat } from '@/lib/utils';
+import { CircularProgress } from '@mui/material';
 
 interface Props {
   id: string;
@@ -12,23 +14,26 @@ interface Props {
 }
 
 const OrderButton = ({ id, category, price }: Props) => {
+  const [isLoading, setIsLoading] = useState(false);
   const supabase = createClient();
-  const router = useRouter();
 
   const handleClick = async () => {
+    setIsLoading(true);
     const {
       data: { user },
     } = await supabase.auth.getUser();
 
     if (user) {
-      await supabase
-        .from('diary')
-        .insert({
+      try {
+        await supabase.from('diary').insert({
           meal_id: id,
           meal_category: category,
           user_id: user?.id,
-        })
-        .then(() => router.push('/'));
+        });
+      } finally {
+        setIsLoading(false);
+        window.location.href = '/';
+      }
     }
   };
 
@@ -39,6 +44,10 @@ const OrderButton = ({ id, category, price }: Props) => {
       onClick={handleClick}
       size="large"
       sx={{ maxWidth: 320 }}
+      disabled={isLoading}
+      endIcon={
+        isLoading ? <CircularProgress color="inherit" size={20} /> : null
+      }
     >
       Order now {priceFormat(price)}
     </Button>

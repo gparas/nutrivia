@@ -23,7 +23,6 @@ type Props = ListItemButtonProps & {
   textPrimary: string;
   textSecondary?: string;
   href?: string;
-  sx?: object;
 };
 
 const iconMapping: { [char: string]: ComponentType<SvgIconProps> } = {

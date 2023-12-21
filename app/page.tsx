@@ -63,6 +63,7 @@ const HomePage = async () => {
         href: data
           ? `/meals/${data.meals?.id}?ordered=true`
           : `/meals?category=${id}`,
+        scroll: false,
       };
     },
   );
