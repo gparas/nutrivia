@@ -1,7 +1,7 @@
 import { cookies } from 'next/headers';
 import { createClient } from '@/supabase/server';
 import MealItem from '@/components/mealItem';
-import Dialog from '@mui/material/Dialog';
+import Dialog from './dialog';
 import Close from './close';
 
 interface Props {

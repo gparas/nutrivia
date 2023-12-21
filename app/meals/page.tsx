@@ -8,9 +8,11 @@ import Typography from '@mui/material/Typography';
 import CardActionArea from '@mui/material/CardActionArea';
 import Grid from '@mui/material/Grid';
 import Card from '@/components/card';
+
 import Nutrients from './components/nutrients';
 import Media from './components/media';
-import { priceFormat } from '@/lib/utils';
+import Name from './components/name';
+import Price from './components/price';
 
 type Props = {
   searchParams?: {
@@ -43,7 +45,7 @@ const MealsPage = async ({ searchParams }: Props) => {
       <Typography variant="h4" mb={3}>
         Meals
       </Typography>
-      <Grid container spacing={2}>
+      <Grid container spacing={[1, 1, 2]}>
         {meals.map(meal => {
           return (
             <Grid key={meal.id} item xs={6} sm={4} lg={3}>
@@ -56,10 +58,8 @@ const MealsPage = async ({ searchParams }: Props) => {
                 >
                   <Media {...meal} />
                   <Box p={2}>
-                    <Typography variant="h6" noWrap gutterBottom>
-                      {meal.name}
-                    </Typography>
-                    <Typography>{priceFormat(meal.price)}</Typography>
+                    <Name name={meal.name} />
+                    <Price price={meal.price} />
                     <Divider light sx={{ my: 1.75 }} />
                     <Nutrients {...meal} />
                   </Box>

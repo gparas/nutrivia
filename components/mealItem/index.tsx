@@ -22,7 +22,6 @@ const MealItem = ({ meal, ordered }: Props) => {
         overflow="hidden"
         pt="66.6667%"
         width="100%"
-        minWidth={375}
         flex="0 0 auto"
       >
         <Image
