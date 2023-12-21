@@ -1,4 +1,4 @@
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, ReactNode } from 'react';
 import type { Metadata } from 'next';
 import Container from '@mui/material/Container';
 import ThemeRegistry from '@/themeRegistry';
@@ -9,7 +9,13 @@ export const metadata: Metadata = {
   title: 'Nutrivia',
   description: 'Healthy eating simplified',
 };
-const RootLayout = ({ children }: PropsWithChildren) => {
+
+interface Props {
+  children: ReactNode;
+  dialog: ReactNode;
+}
+
+const RootLayout = ({ children, dialog }: Props) => {
   return (
     <html lang="en">
       <ThemeRegistry>
@@ -26,6 +32,7 @@ const RootLayout = ({ children }: PropsWithChildren) => {
           >
             <Localization>{children}</Localization>
           </Container>
+          {dialog}
         </body>
       </ThemeRegistry>
     </html>

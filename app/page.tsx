@@ -35,6 +35,7 @@ const HomePage = async () => {
     id,
     meal_category,
     meals (
+      id,
       name,
       kcal,
       carbs,
@@ -59,7 +60,9 @@ const HomePage = async () => {
           : `Recommended - ${Math.round(
               dailyCalorieIntake * recommendedKcal,
             )} kcal`,
-        href: data ? '/' : `/meals?category=${id}`,
+        href: data
+          ? `/meals/${data.meals?.id}?ordered=true`
+          : `/meals?category=${id}`,
       };
     },
   );

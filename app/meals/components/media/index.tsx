@@ -1,15 +1,14 @@
+import { Tables } from '@/types/supabase';
 import Image from 'next/image';
 import Box from '@mui/material/Box';
-import { Tables } from '@/types/supabase';
 
-const Media = ({ name, image }: Tables<'meals'>) => {
+const Media = ({ id, name, image }: Tables<'meals'>) => {
   return (
     <Box
       flex="0 0 auto"
-      textAlign="center"
       position="relative"
       width="100%"
-      height={200}
+      pt="75%"
       overflow="hidden"
     >
       <Image

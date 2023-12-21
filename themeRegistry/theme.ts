@@ -1,5 +1,5 @@
 import { Inter } from 'next/font/google';
-import { createTheme } from '@mui/material/styles';
+import { alpha, createTheme } from '@mui/material/styles';
 import { linearProgressClasses } from '@mui/material/LinearProgress';
 import palette from './palette';
 
@@ -70,6 +70,15 @@ theme = createTheme({
           [`& .${linearProgressClasses.bar}`]: {
             borderRadius: theme.shape.borderRadius,
           },
+        }),
+      },
+    },
+    MuiDivider: {
+      styleOverrides: {
+        root: ({ theme, ownerState }) => ({
+          ...(ownerState.light && {
+            borderColor: alpha(theme.palette.divider, 0.5),
+          }),
         }),
       },
     },

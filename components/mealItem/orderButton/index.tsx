@@ -1,15 +1,17 @@
 'use client';
 
-import { redirect, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { createClient } from '@/supabase/client';
 import Button from '@mui/material/Button';
+import { priceFormat } from '@/lib/utils';
 
 interface Props {
-  mealId: string;
-  mealCategory: string;
+  id: string;
+  category: string;
+  price: number;
 }
 
-const OrderButton = ({ mealId, mealCategory }: Props) => {
+const OrderButton = ({ id, category, price }: Props) => {
   const supabase = createClient();
   const router = useRouter();
 
@@ -22,8 +24,8 @@ const OrderButton = ({ mealId, mealCategory }: Props) => {
       await supabase
         .from('diary')
         .insert({
-          meal_id: mealId,
-          meal_category: mealCategory,
+          meal_id: id,
+          meal_category: category,
           user_id: user?.id,
         })
         .then(() => router.push('/'));
@@ -31,8 +33,14 @@ const OrderButton = ({ mealId, mealCategory }: Props) => {
   };
 
   return (
-    <Button variant="contained" onClick={handleClick}>
-      Order now
+    <Button
+      fullWidth
+      variant="contained"
+      onClick={handleClick}
+      size="large"
+      sx={{ maxWidth: 320 }}
+    >
+      Order now {priceFormat(price)}
     </Button>
   );
 };

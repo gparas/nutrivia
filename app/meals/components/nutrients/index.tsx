@@ -4,23 +4,27 @@ import Typography from '@mui/material/Typography';
 
 const Nutrients = ({ kcal, protein, fat, carbs }: Tables<'meals'>) => {
   return (
-    <Stack direction="row" justifyContent="space-between">
-      <Typography variant="body2" textAlign="center">
+    <Stack
+      direction="row"
+      justifyContent="space-between"
+      color="text.secondary"
+    >
+      <Typography variant="body2" textAlign="center" noWrap>
         {kcal}
         <br />
         <Typography variant="caption">Kcal</Typography>
       </Typography>
-      <Typography variant="body2" textAlign="center">
+      <Typography variant="body2" textAlign="center" noWrap>
         {protein}
         <br />
         <Typography variant="caption">protein</Typography>
       </Typography>
-      <Typography variant="body2" textAlign="center">
+      <Typography variant="body2" textAlign="center" noWrap>
         {fat}
         <br />
         <Typography variant="caption">fat</Typography>
       </Typography>
-      <Typography variant="body2" textAlign="center">
+      <Typography variant="body2" textAlign="center" noWrap>
         {carbs}
         <br />
         <Typography variant="caption">carbs</Typography>

@@ -58,6 +58,7 @@ export interface Database {
           image: string
           kcal: number
           name: string
+          price: number
           protein: number
         }
         Insert: {
@@ -69,6 +70,7 @@ export interface Database {
           image: string
           kcal: number
           name: string
+          price: number
           protein: number
         }
         Update: {
@@ -80,6 +82,7 @@ export interface Database {
           image?: string
           kcal?: number
           name?: string
+          price?: number
           protein?: number
         }
         Relationships: []

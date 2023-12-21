@@ -1,14 +1,16 @@
 import { cookies } from 'next/headers';
 import { createClient } from '@/supabase/server';
 import { notFound } from 'next/navigation';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
+import NextLink from 'next/link';
+import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
+import Typography from '@mui/material/Typography';
+import CardActionArea from '@mui/material/CardActionArea';
+import Grid from '@mui/material/Grid';
 import Card from '@/components/card';
 import Nutrients from './components/nutrients';
 import Media from './components/media';
-import Price from './components/price';
+import { priceFormat } from '@/lib/utils';
 
 type Props = {
   searchParams?: {
@@ -44,17 +46,24 @@ const MealsPage = async ({ searchParams }: Props) => {
       <Grid container spacing={2}>
         {meals.map(meal => {
           return (
-            <Grid key={meal.id} item xs={12} sm={6} md={4} lg={3}>
+            <Grid key={meal.id} item xs={6} sm={4} lg={3}>
               <Card p={0} height="100%">
-                <Media {...meal} />
-                <Stack p={2} flex="1 1 auto" spacing={2}>
-                  <Typography variant="h6" lineHeight={1.5} flex="1 1 auto">
-                    {meal.name}
-                  </Typography>
-                  <Nutrients {...meal} />
-                  <Divider />
-                  <Price {...meal} />
-                </Stack>
+                <CardActionArea
+                  component={NextLink}
+                  href={`/meals/${meal.id}`}
+                  scroll={false}
+                  sx={{ height: '100%' }}
+                >
+                  <Media {...meal} />
+                  <Box p={2}>
+                    <Typography variant="h6" noWrap gutterBottom>
+                      {meal.name}
+                    </Typography>
+                    <Typography>{priceFormat(meal.price)}</Typography>
+                    <Divider light sx={{ my: 1.75 }} />
+                    <Nutrients {...meal} />
+                  </Box>
+                </CardActionArea>
               </Card>
             </Grid>
           );
