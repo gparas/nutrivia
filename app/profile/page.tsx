@@ -13,6 +13,7 @@ import ChevronIcon from '@mui/icons-material/ChevronRightRounded';
 import PersonIcon from '@mui/icons-material/Person';
 import FoodIcon from '@mui/icons-material/Fastfood';
 import ChartIcon from '@mui/icons-material/BarChart';
+import TargetIcon from '@mui/icons-material/GpsFixed';
 import Card from '@/components/card';
 import { getYearsOld } from '@/lib/utils';
 import { Fragment } from 'react';
@@ -43,6 +44,11 @@ const ProfilePage = async () => {
       primary: 'Dietary preferences',
       href: '/profile/preferences',
       icon: <FoodIcon />,
+    },
+    {
+      primary: 'Target Goal',
+      href: '/profile/goal',
+      icon: <TargetIcon />,
     },
   ];
 

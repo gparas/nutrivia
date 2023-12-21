@@ -1,9 +1,10 @@
 import { cookies } from 'next/headers';
 import { createClient } from '@/supabase/server';
-import TextField from '@mui/material/TextField';
-import { FIELDS, Fields } from './constants';
 import { Profile } from '@/types/profile';
+import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import Age from './age';
+import { FIELDS, Fields } from './constants';
 
 const DetailsPage = async () => {
   const cookieStore = cookies();
@@ -39,6 +40,7 @@ const DetailsPage = async () => {
             : null}
         </TextField>
       ))}
+      <Age age={data![0].age} />
     </>
   );
 };

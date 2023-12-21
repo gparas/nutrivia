@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { createClient } from '@/supabase/client';
 import Button from '@mui/material/Button';
 import { priceFormat } from '@/lib/utils';
