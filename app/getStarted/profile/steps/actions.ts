@@ -20,6 +20,6 @@ export async function updateProfile(data: Profile) {
       .update(data)
       .eq('id', user.id)
       .then(() => revalidatePath('/'))
-      .then(() => redirect('/'));
+      .then(() => redirect('/nutritionists'));
   }
 }

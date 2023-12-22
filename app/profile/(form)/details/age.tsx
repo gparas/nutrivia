@@ -9,7 +9,6 @@ const Age = ({ age }: { age: number | null }) => {
   const [value, setValue] = useState<Dayjs | null>(defaultValue);
   const minDate = dayjs().subtract(70, 'year');
   const maxDate = dayjs().subtract(20, 'year');
-  console.log(value?.year());
   return (
     <>
       <DatePicker

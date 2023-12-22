@@ -18,16 +18,19 @@ import Card from '@/components/card';
 import { getYearsOld } from '@/lib/utils';
 import { Fragment } from 'react';
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
 
 const ProfilePage = async () => {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
 
-  const { data } = await supabase.from('profiles').select();
+  const { data: profiles } = await supabase.from('profiles').select();
 
-  if (!data || !data.length) return null;
+  if (!profiles?.length) {
+    notFound();
+  }
 
-  const { full_name, avatar_url, age, gender } = data[0];
+  const { full_name, avatar_url, age, gender } = profiles[0];
 
   const settings = [
     {

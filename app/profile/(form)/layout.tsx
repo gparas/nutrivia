@@ -4,11 +4,9 @@ import { PropsWithChildren } from 'react';
 import { useFormStatus } from 'react-dom';
 import { usePathname } from 'next/navigation';
 import Container from '@mui/material/Container';
-import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
+import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
+import Button from '@mui/material/Button';
 import ArrowBackIcon from '@mui/icons-material/ArrowBackRounded';
 import Link from 'next/link';
 import Card from '@/components/card';
@@ -36,18 +34,22 @@ function SubmitButton() {
 const DialogLayout = ({ children }: PropsWithChildren) => {
   return (
     <Container maxWidth="xs" disableGutters>
-      <Stack component="form" action={submit} spacing={3}>
-        <Stack direction="row" spacing={1} alignItems="center">
-          <IconButton component={Link} href="/profile">
-            <ArrowBackIcon />
-          </IconButton>
-          <Typography variant="body1">Back to profile</Typography>
-        </Stack>
+      <Button
+        color="inherit"
+        component={Link}
+        href="/profile"
+        startIcon={<ArrowBackIcon />}
+        size="large"
+        sx={{ fontWeight: 400 }}
+      >
+        Back
+      </Button>
+      <Box component="form" action={submit} mt={2}>
         <Card spacing={3} p={3}>
           {children}
           <SubmitButton />
         </Card>
-      </Stack>
+      </Box>
     </Container>
   );
 };

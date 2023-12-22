@@ -87,6 +87,45 @@ export interface Database {
         }
         Relationships: []
       }
+      nutritionists: {
+        Row: {
+          description: string | null
+          email: string
+          experience: number | null
+          expertise: string | null
+          id: string
+          image: string
+          location: string | null
+          name: string
+          phone: string
+          rating: number | null
+        }
+        Insert: {
+          description?: string | null
+          email: string
+          experience?: number | null
+          expertise?: string | null
+          id?: string
+          image: string
+          location?: string | null
+          name: string
+          phone: string
+          rating?: number | null
+        }
+        Update: {
+          description?: string | null
+          email?: string
+          experience?: number | null
+          expertise?: string | null
+          id?: string
+          image?: string
+          location?: string | null
+          name?: string
+          phone?: string
+          rating?: number | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           activity: string | null
@@ -99,6 +138,7 @@ export interface Database {
           goal: string | null
           height: string | null
           id: string
+          nutritionist_id: string | null
           target_weight: string | null
           updated_at: string | null
           weight: string | null
@@ -114,6 +154,7 @@ export interface Database {
           goal?: string | null
           height?: string | null
           id: string
+          nutritionist_id?: string | null
           target_weight?: string | null
           updated_at?: string | null
           weight?: string | null
@@ -129,6 +170,7 @@ export interface Database {
           goal?: string | null
           height?: string | null
           id?: string
+          nutritionist_id?: string | null
           target_weight?: string | null
           updated_at?: string | null
           weight?: string | null
@@ -139,6 +181,13 @@ export interface Database {
             columns: ["id"]
             isOneToOne: true
             referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "profiles_nutritionist_id_fkey"
+            columns: ["nutritionist_id"]
+            isOneToOne: false
+            referencedRelation: "nutritionists"
             referencedColumns: ["id"]
           }
         ]

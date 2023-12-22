@@ -24,7 +24,7 @@ const HomePage = async () => {
 
   const { data: profiles } = await supabase.from('profiles').select();
 
-  if (profiles?.some(item => !item.goal)) {
+  if (profiles?.some(item => !item.nutritionist_id)) {
     redirect('/getStarted');
   }
 
