@@ -37,7 +37,7 @@ const UserMenu = ({ user }: { user: User | null }) => {
 
   return (
     <Box sx={{ flexGrow: 0 }}>
-      <IconButton onClick={handleOpenUserMenu} edge="end">
+      <IconButton onClick={handleOpenUserMenu} edge="end" aria-label="profile">
         <UserIcon />
       </IconButton>
       <Menu

@@ -32,7 +32,7 @@ const Reviews = ({ rating }: { rating?: number | null }) => {
       <List sx={{ '& .MuiDivider-root:last-child': { display: 'none' } }}>
         {REVIEWS.map(review => (
           <Fragment key={review.name}>
-            <ListItem>
+            <ListItem alignItems="flex-start">
               <ListItemAvatar>
                 <Avatar>{review.name.charAt(0)}</Avatar>
               </ListItemAvatar>

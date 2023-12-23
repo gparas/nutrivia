@@ -15,9 +15,9 @@ const grey = {
 };
 
 const primary = {
-  100: '#FAF8FF',
-  300: '#ECE7FF',
-  main: '#7b66ff',
+  100: '#E0E1FE',
+  300: '#A2A4FA',
+  main: '#6366F1',
 };
 
 const secondary = {
