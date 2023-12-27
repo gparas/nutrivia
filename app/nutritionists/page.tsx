@@ -38,7 +38,7 @@ const NutritionistsPage = async () => {
                   alt={nutritionist.name}
                   src={nutritionist.image}
                   fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  sizes="72px"
                   style={{
                     objectFit: 'cover',
                     objectPosition: '50% 25%',

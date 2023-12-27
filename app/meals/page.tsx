@@ -1,6 +1,5 @@
 import { cookies } from 'next/headers';
 import { createClient } from '@/supabase/server';
-import { notFound } from 'next/navigation';
 import NextLink from 'next/link';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
@@ -13,6 +12,8 @@ import Nutrients from './components/nutrients';
 import Media from './components/media';
 import Name from './components/name';
 import Price from './components/price';
+import Filters from './components/filters';
+import EmptyState from '@/components/empty';
 
 type Props = {
   searchParams?: {
@@ -36,39 +37,40 @@ const MealsPage = async ({ searchParams }: Props) => {
 
   const { data: meals } = await query;
 
-  if (!meals?.length) {
-    notFound();
-  }
-
   return (
     <>
       <Typography variant="h4" mb={3}>
         Meals
       </Typography>
-      <Grid container spacing={[1, 1, 2]}>
-        {meals.map(meal => {
-          return (
-            <Grid key={meal.id} item xs={6} sm={4} lg={3}>
-              <Card p={0} height="100%">
-                <CardActionArea
-                  component={NextLink}
-                  href={`/meals/${meal.id}`}
-                  scroll={false}
-                  sx={{ height: '100%' }}
-                >
-                  <Media {...meal} />
-                  <Box p={2}>
-                    <Name name={meal.name} />
-                    <Price price={meal.price} />
-                    <Divider light sx={{ my: 1.75 }} />
-                    <Nutrients {...meal} />
-                  </Box>
-                </CardActionArea>
-              </Card>
-            </Grid>
-          );
-        })}
-      </Grid>
+      <Filters />
+      {!meals?.length ? (
+        <EmptyState />
+      ) : (
+        <Grid container spacing={[1, 1, 2]}>
+          {meals.map(meal => {
+            return (
+              <Grid key={meal.id} item xs={6} sm={4} lg={3}>
+                <Card p={0} height="100%">
+                  <CardActionArea
+                    component={NextLink}
+                    href={`/meals/${meal.id}`}
+                    scroll={false}
+                    sx={{ height: '100%' }}
+                  >
+                    <Media {...meal} />
+                    <Box p={2}>
+                      <Name name={meal.name} />
+                      <Price price={meal.price} />
+                      <Divider light sx={{ my: 1.75 }} />
+                      <Nutrients {...meal} />
+                    </Box>
+                  </CardActionArea>
+                </Card>
+              </Grid>
+            );
+          })}
+        </Grid>
+      )}
     </>
   );
 };

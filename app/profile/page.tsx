@@ -1,5 +1,6 @@
 import { cookies } from 'next/headers';
 import { createClient } from '@/supabase/server';
+import Image from 'next/image';
 import Grid from '@mui/material/Grid';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -29,6 +30,11 @@ const ProfilePage = async () => {
   if (!profiles?.length) {
     notFound();
   }
+
+  let { data: nutritionists } = await supabase
+    .from('nutritionists')
+    .select()
+    .match({ id: profiles[0].nutritionist_id });
 
   const { full_name, avatar_url, age, gender } = profiles[0];
 
@@ -76,7 +82,7 @@ const ProfilePage = async () => {
         </Card>
       </Grid>
       <Grid item xs={12} sm={7}>
-        <Card p={0}>
+        <Card p={0} mb={2}>
           <List
             component="div"
             sx={{ '& .MuiDivider-root:last-child': { display: 'none' } }}
@@ -95,6 +101,32 @@ const ProfilePage = async () => {
             })}
           </List>
         </Card>
+        {nutritionists?.map(nutritionist => (
+          <Card key={nutritionist.id} p={0}>
+            <List>
+              <ListItem alignItems="flex-start">
+                <ListItemAvatar>
+                  <Avatar>
+                    <Image
+                      alt={nutritionist.name}
+                      src={nutritionist.image}
+                      fill
+                      sizes="(min-width: 800px) 50vw, 40px"
+                      style={{
+                        objectFit: 'cover',
+                        objectPosition: '50% 25%',
+                      }}
+                    />
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText
+                  primary="Nutritionist"
+                  secondary={nutritionist.name}
+                />
+              </ListItem>
+            </List>
+          </Card>
+        ))}
       </Grid>
     </Grid>
   );
