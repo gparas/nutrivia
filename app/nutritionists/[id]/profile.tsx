@@ -62,17 +62,7 @@ const NutritionistProfile = ({
       <Card p={0}>
         <Stack direction="row" spacing={2} p={2} alignItems="center">
           <Avatar sx={{ width: 88, height: 88 }}>
-            <Image
-              alt={name}
-              src={image}
-              fill
-              priority
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              style={{
-                objectFit: 'cover',
-                objectPosition: '50% 25%',
-              }}
-            />
+            <Image alt={name} src={image} priority width={88} height={88} />
           </Avatar>
           <Box flex="1 1 auto">
             <Typography variant="h6" fontWeight={500}>

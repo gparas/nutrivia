@@ -37,12 +37,8 @@ const NutritionistsPage = async () => {
                 <Image
                   alt={nutritionist.name}
                   src={nutritionist.image}
-                  fill
-                  sizes="72px"
-                  style={{
-                    objectFit: 'cover',
-                    objectPosition: '50% 25%',
-                  }}
+                  width={72}
+                  height={72}
                 />
               </Avatar>
               <Box flex="1 1 auto">

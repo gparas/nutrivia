@@ -110,12 +110,9 @@ const ProfilePage = async () => {
                     <Image
                       alt={nutritionist.name}
                       src={nutritionist.image}
-                      fill
-                      sizes="(min-width: 800px) 50vw, 40px"
-                      style={{
-                        objectFit: 'cover',
-                        objectPosition: '50% 25%',
-                      }}
+                      priority
+                      width={40}
+                      height={40}
                     />
                   </Avatar>
                 </ListItemAvatar>
