@@ -16,8 +16,12 @@ import Link from 'next/link';
 import Card from '@/components/card';
 
 const tabs = {
-  overview: dynamic(() => import('./overview')),
-  reviews: dynamic(() => import('./reviews')),
+  overview: dynamic(() => import('./overview'), {
+    loading: () => <Typography>Loading...</Typography>,
+  }),
+  reviews: dynamic(() => import('./reviews'), {
+    loading: () => <Typography>Loading...</Typography>,
+  }),
 };
 
 type Tabs = {

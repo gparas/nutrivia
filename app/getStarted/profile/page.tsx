@@ -3,16 +3,35 @@
 import dynamic from 'next/dynamic';
 import Stepper from './components/Stepper';
 import { useFormContext } from './components/FormContext';
+import Loader from '@/components/page-loader';
 
-const Goal = dynamic(() => import('./steps/Goal'));
-const Gender = dynamic(() => import('./steps/Gender'));
-const Height = dynamic(() => import('./steps/Height'));
-const Weight = dynamic(() => import('./steps/Weight'));
-const TargetWeight = dynamic(() => import('./steps/TargetWeight'));
-const Age = dynamic(() => import('./steps/Age'));
-const Activity = dynamic(() => import('./steps/Activity'));
-const FoodPreference = dynamic(() => import('./steps/FoodPreference'));
-const Overview = dynamic(() => import('./steps/Overview'));
+const Goal = dynamic(() => import('./steps/Goal'), {
+  loading: () => <Loader />,
+});
+const Gender = dynamic(() => import('./steps/Gender'), {
+  loading: () => <Loader />,
+});
+const Height = dynamic(() => import('./steps/Height'), {
+  loading: () => <Loader />,
+});
+const Weight = dynamic(() => import('./steps/Weight'), {
+  loading: () => <Loader />,
+});
+const TargetWeight = dynamic(() => import('./steps/TargetWeight'), {
+  loading: () => <Loader />,
+});
+const Age = dynamic(() => import('./steps/Age'), {
+  loading: () => <Loader />,
+});
+const Activity = dynamic(() => import('./steps/Activity'), {
+  loading: () => <Loader />,
+});
+const FoodPreference = dynamic(() => import('./steps/FoodPreference'), {
+  loading: () => <Loader />,
+});
+const Overview = dynamic(() => import('./steps/Overview'), {
+  loading: () => <Loader />,
+});
 
 const steps = [
   { id: 'goal', component: Goal },
