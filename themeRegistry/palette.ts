@@ -14,12 +14,6 @@ const grey = {
   900: '#161C24',
 };
 
-const primary = {
-  100: '#E0E1FE',
-  300: '#A2A4FA',
-  main: '#6366F1',
-};
-
 const secondary = {
   main: '#c3de0a',
 };
@@ -54,6 +48,9 @@ const error = {
 };
 
 const light = {
+  primary: {
+    main: '#7E57C2',
+  },
   text: {
     primary: '#212B36',
     secondary: '#637381',
@@ -61,14 +58,19 @@ const light = {
   divider: grey[300],
   background: {
     default: '#f6f8fa',
+    primary: '#7E57C2',
   },
 };
 
 const dark = {
+  primary: {
+    main: '#B39DDB',
+  },
   divider: '#444d56',
   background: {
     default: '#24292e',
     paper: '#2f363d',
+    primary: '#7E57C2',
   },
 };
 
@@ -79,7 +81,6 @@ const palette = {
   grey,
   info,
   mode,
-  primary,
   secondary,
   success,
   warning,

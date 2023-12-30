@@ -1,6 +1,6 @@
 import { Tables } from '@/types/supabase';
 import Typography from '@mui/material/Typography';
-import FireIcon from '@mui/icons-material/LocalFireDepartment';
+import Grid from '@mui/material/Grid';
 import { getDailyCalorieIntake } from '@/lib/utils';
 import Card from '../card';
 import CircularProgressWithLabel from '../circularProgressWithLabel';
@@ -23,24 +23,54 @@ const DailyCalorieIntake = ({ profile, diaryWithMeals }: Props) => {
   const dailyKcal = getDailyKcal(diaryWithMeals);
 
   return (
-    <Card height="100%" alignItems="center">
-      <CircularProgressWithLabel value={(dailyKcal / dailyCalorieIntake) * 100}>
-        <FireIcon fontSize="large" color="primary" />
-      </CircularProgressWithLabel>
-      <Typography
-        variant="caption"
-        color="text.secondary"
-        fontWeight="medium"
-        display="block"
-        mt={0.5}
-      >
-        Calorie intake
-      </Typography>
-      <Typography fontWeight="bold" variant="h6" component="div">
-        {dailyKcal}{' '}
-        <Typography variant="caption">/ {dailyCalorieIntake} kcal</Typography>
-      </Typography>
-    </Card>
+    <Grid container alignItems="center" mb={2}>
+      <Grid item xs={4}>
+        <Typography
+          variant="h5"
+          component="div"
+          textAlign="center"
+          lineHeight={1}
+        >
+          {dailyKcal}
+          <br />
+          <Typography variant="overline" fontSize={11}>
+            eaten
+          </Typography>
+        </Typography>
+      </Grid>
+      <Grid item xs={4}>
+        <CircularProgressWithLabel
+          value={(dailyKcal / dailyCalorieIntake) * 100}
+        >
+          <Typography
+            variant="h4"
+            component="div"
+            textAlign="center"
+            lineHeight={1}
+          >
+            {dailyCalorieIntake - dailyKcal}
+            <br />
+            <Typography variant="overline" fontSize={11}>
+              kcal left
+            </Typography>
+          </Typography>
+        </CircularProgressWithLabel>
+      </Grid>
+      <Grid item xs={4}>
+        <Typography
+          variant="h5"
+          component="div"
+          textAlign="center"
+          lineHeight={1}
+        >
+          {0}
+          <br />
+          <Typography variant="overline" fontSize={11}>
+            burnet
+          </Typography>
+        </Typography>
+      </Grid>
+    </Grid>
   );
 };
 

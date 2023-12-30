@@ -74,7 +74,7 @@ const Overview = () => {
               variant: 'h6',
             }}
           />
-          <Avatar sx={{ bgcolor: 'primary.300' }}>
+          <Avatar sx={{ bgcolor: 'primary.light' }}>
             <ChartIcon color="primary" />
           </Avatar>
         </ListItem>
@@ -96,7 +96,7 @@ const Overview = () => {
               variant: 'h6',
             }}
           />
-          <Avatar sx={{ bgcolor: 'primary.300' }}>
+          <Avatar sx={{ bgcolor: 'primary.light' }}>
             <FireIcon color="primary" />
           </Avatar>
         </ListItem>
@@ -118,7 +118,7 @@ const Overview = () => {
               variant: 'h6',
             }}
           />
-          <Avatar sx={{ bgcolor: 'primary.300' }}>
+          <Avatar sx={{ bgcolor: 'primary.light' }}>
             <DrinkIcon color="primary" fontSize="small" />
           </Avatar>
         </ListItem>

@@ -5,7 +5,6 @@ import CircularProgress, {
   CircularProgressProps,
   circularProgressClasses,
 } from '@mui/material/CircularProgress';
-import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
 type Props = {
@@ -26,13 +25,15 @@ const CircularProgressWithLabel = ({ value, children, ...other }: Props) => {
       <CircularProgress
         variant="determinate"
         size={SIZE}
-        thickness={4}
+        thickness={1}
         value={100}
-        sx={{ color: 'divider' }}
+        color="inherit"
+        sx={{ opacity: 0.12 }}
       />
       <CircularProgress
         variant="determinate"
         value={progress}
+        color="inherit"
         sx={{
           left: 0,
           position: 'absolute',
@@ -41,7 +42,7 @@ const CircularProgressWithLabel = ({ value, children, ...other }: Props) => {
           },
         }}
         size={SIZE}
-        thickness={4}
+        thickness={1}
         {...other}
       />
       <Box
@@ -58,12 +59,6 @@ const CircularProgressWithLabel = ({ value, children, ...other }: Props) => {
         }}
       >
         {children}
-        <Typography
-          component="div"
-          color="text.secondary"
-          fontWeight="medium"
-          variant="body2"
-        >{`${Math.round(value)}%`}</Typography>
       </Box>
     </Box>
   );

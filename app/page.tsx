@@ -9,6 +9,7 @@ import ListItem from '@/components/listItem';
 import { DAILY_MEALS, DAILY_EXTRAS } from '@/lib/constants';
 import dayjs from 'dayjs';
 import { getDailyCalorieIntake } from '@/lib/utils';
+import Card from '@/components/card';
 
 const HomePage = async () => {
   const cookieStore = cookies();
@@ -70,8 +71,13 @@ const HomePage = async () => {
 
   return (
     <Grid container spacing={2}>
-      <Grid item xs={12} sm={5} md={4} lg={3}>
-        <Stack spacing={2} position="sticky" top={64}>
+      <Grid item xs={12} sm={6} md={5} lg={4}>
+        <Card
+          top={64}
+          position="sticky"
+          bgcolor="primary.main"
+          color="primary.contrastText"
+        >
           <DailyCalorieIntake
             profile={profiles![0]}
             diaryWithMeals={diaryWithMeals}
@@ -80,9 +86,9 @@ const HomePage = async () => {
             profile={profiles![0]}
             diaryWithMeals={diaryWithMeals}
           />
-        </Stack>
+        </Card>
       </Grid>
-      <Grid item xs={12} sm={7} md={8} lg={9}>
+      <Grid item xs={12} sm={6} md={7} lg={8}>
         <Stack spacing={2}>
           {dailyMeals.map(meal => (
             <ListItem key={meal.id} {...meal} />
