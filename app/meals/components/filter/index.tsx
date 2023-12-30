@@ -71,6 +71,7 @@ const Filter = ({ name, label, options }: Props) => {
         color="inherit"
         onClick={handleClick}
         endIcon={<ExpandMoreIcon />}
+        sx={{ fontWeight: 500 }}
       >
         {label}
       </Button>

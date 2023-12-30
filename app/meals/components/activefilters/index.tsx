@@ -4,11 +4,8 @@ import { useCallback } from 'react';
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
-import Card from '@/components/card';
-import Filter from './filter';
-import { KCAL, MEAL_TYPES } from './constants';
 
-const Filters = () => {
+const ActiveFilters = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -29,26 +26,24 @@ const Filters = () => {
   const handleDelete = (param: string) => {
     router.push(pathname + '?' + removeQueryParam(param));
   };
+
+  if (!Object.keys(params).length) {
+    return null;
+  }
   return (
-    <Card spacing={1} mb={3}>
-      <Stack direction="row" spacing={1}>
-        <Filter name="category" options={MEAL_TYPES} label="Category" />
-        <Filter name="kcal" options={KCAL} label="Kcal" />
-      </Stack>
-      {Object.keys(params).length ? (
-        <Stack direction="row" spacing={1}>
-          {Object.keys(params).map(key => (
-            <Chip
-              key={key}
-              label={`${key}: ${params[key]}`}
-              variant="outlined"
-              onDelete={() => handleDelete(key)}
-            />
-          ))}
-        </Stack>
-      ) : null}
-    </Card>
+    <Stack direction="row" spacing={1} mb={2}>
+      {Object.keys(params)
+        .filter(key => key !== 'category')
+        .map(key => (
+          <Chip
+            key={key}
+            label={`${key}: ${params[key]}`}
+            variant="outlined"
+            onDelete={() => handleDelete(key)}
+          />
+        ))}
+    </Stack>
   );
 };
 
-export default Filters;
+export default ActiveFilters;

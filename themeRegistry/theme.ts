@@ -17,6 +17,12 @@ declare module '@mui/material/LinearProgress' {
   }
 }
 
+declare module '@mui/material/Button' {
+  interface ButtonPropsVariantOverrides {
+    soft: true;
+  }
+}
+
 let theme = createTheme();
 
 theme = createTheme({
@@ -90,6 +96,25 @@ theme = createTheme({
     MuiButton: {
       defaultProps: {
         disableElevation: true,
+      },
+      styleOverrides: {
+        root: ({ theme, ownerState }) => ({
+          ...(ownerState.variant === 'soft' &&
+            ownerState.color !== 'inherit' &&
+            ownerState.color !== undefined && {
+              color: theme.palette[ownerState.color].main,
+              backgroundColor: alpha(
+                theme.palette[ownerState.color].main,
+                0.12,
+              ),
+              '&:hover': {
+                backgroundColor: alpha(
+                  theme.palette[ownerState.color].main,
+                  0.18,
+                ),
+              },
+            }),
+        }),
       },
     },
     MuiCardHeader: {

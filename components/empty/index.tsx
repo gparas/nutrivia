@@ -1,6 +1,6 @@
 import React from 'react';
 import EmptyIcon from './icon';
-import { Container } from '@mui/material';
+import { Container, Typography } from '@mui/material';
 
 const EmptyState = () => {
   return (
@@ -13,9 +13,13 @@ const EmptyState = () => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        flexDirection: 'column',
       }}
     >
       <EmptyIcon />
+      <Typography variant="h5" color="text.secondary" fontWeight={500} mt={3}>
+        No data
+      </Typography>
     </Container>
   );
 };
