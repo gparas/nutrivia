@@ -16,10 +16,7 @@ const MealDialog = async ({
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
 
-  const { data: meals, error } = await supabase
-    .from('meals')
-    .select()
-    .match({ id });
+  const { data: meals } = await supabase.from('meals').select().match({ id });
 
   const meal = meals?.find(meal => meal.id === id);
   return (

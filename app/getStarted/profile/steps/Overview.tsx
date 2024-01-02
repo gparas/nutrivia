@@ -8,7 +8,6 @@ import Divider from '@mui/material/Divider';
 import Avatar from '@mui/material/Avatar';
 import List from '@mui/material/List';
 import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ChartIcon from '@mui/icons-material/BarChartRounded';
@@ -25,7 +24,6 @@ function SubmitButton() {
   return (
     <Button
       variant="contained"
-      color="primary"
       fullWidth
       size="large"
       type="submit"
@@ -57,69 +55,45 @@ const Overview = () => {
       >
         <ListItem>
           <ListItemText
-            primary={
-              <>
-                {getGoalText(data)}{' '}
-                {data.goal !== 'maintain_weight' && (
-                  <Typography component="span" variant="body2">
-                    kg
-                  </Typography>
-                )}
-              </>
-            }
+            primary={`${getGoalText(data)} ${
+              data.goal !== 'maintain_weight' ? 'kg' : ''
+            }`}
             secondary={`Current weight ${data.weight}kg`}
             primaryTypographyProps={{
               fontWeight: 'medium',
-              color: 'primary.dark',
-              variant: 'h6',
+              color: 'primary.main',
             }}
           />
-          <Avatar sx={{ bgcolor: 'primary.light' }}>
+          <Avatar sx={{ bgcolor: 'action.selected' }}>
             <ChartIcon color="primary" />
           </Avatar>
         </ListItem>
         <Divider variant="middle" component="li" />
         <ListItem>
           <ListItemText
-            primary={
-              <>
-                {dailyCalorieIntake(data)}{' '}
-                <Typography component="span" variant="body2">
-                  kcal
-                </Typography>
-              </>
-            }
+            primary={`${dailyCalorieIntake(data)} kcal`}
             secondary="Daily calorie intake"
             primaryTypographyProps={{
               fontWeight: 'medium',
-              color: 'primary.dark',
-              variant: 'h6',
+              color: 'primary.main',
             }}
           />
-          <Avatar sx={{ bgcolor: 'primary.light' }}>
+          <Avatar sx={{ bgcolor: 'action.selected' }}>
             <FireIcon color="primary" />
           </Avatar>
         </ListItem>
         <Divider variant="middle" component="li" />
         <ListItem>
           <ListItemText
-            primary={
-              <>
-                2,0{' '}
-                <Typography component="span" variant="body2">
-                  L
-                </Typography>
-              </>
-            }
+            primary="2,0 L"
             secondary="Daily water intake"
             primaryTypographyProps={{
               fontWeight: 'medium',
-              color: 'primary.dark',
-              variant: 'h6',
+              color: 'primary.main',
             }}
           />
-          <Avatar sx={{ bgcolor: 'primary.light' }}>
-            <DrinkIcon color="primary" fontSize="small" />
+          <Avatar sx={{ bgcolor: 'action.selected' }}>
+            <DrinkIcon fontSize="small" color="primary" />
           </Avatar>
         </ListItem>
       </List>

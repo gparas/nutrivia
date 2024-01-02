@@ -9,10 +9,7 @@ const MealPage = async ({ params: { id } }: { params: { id: string } }) => {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
 
-  const { data: meals, error } = await supabase
-    .from('meals')
-    .select()
-    .match({ id });
+  const { data: meals } = await supabase.from('meals').select().match({ id });
 
   if (!meals?.length) {
     notFound();

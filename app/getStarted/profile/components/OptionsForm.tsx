@@ -69,8 +69,8 @@ const OptionsForm = ({ name, options, required = true }: Props) => {
                     bgcolor: 'background.paper',
                   },
                   selected && {
+                    color: 'primary.main',
                     borderColor: 'primary.main',
-                    color: 'primary.dark',
                   },
                 ]}
               >

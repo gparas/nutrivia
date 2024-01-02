@@ -4,22 +4,23 @@ import Grid from '@mui/material/Grid';
 import { getDailyCalorieIntake } from '@/lib/utils';
 import CircularProgressWithLabel from '../circularProgressWithLabel';
 
-type DiaryWithMeals = { meals: { kcal: number } | null }[] | null;
+type Diary = { meals: { kcal: number } | null }[] | null;
 
 interface Props {
   profile: Tables<'profiles'>;
-  diaryWithMeals: DiaryWithMeals;
+  diary: Diary;
 }
 
-const getDailyKcal = (data: DiaryWithMeals) => {
+const getDailyKcal = (data: Diary) => {
   if (!data || !data.length) return 0;
+  const mealsKcalSum = data.reduce((acc, cur) => acc + cur.meals?.kcal!, 0);
 
-  return data.reduce((acc, cur) => acc + cur.meals?.kcal!, 0);
+  return mealsKcalSum;
 };
 
-const DailyCalorieIntake = ({ profile, diaryWithMeals }: Props) => {
+const DailyCalorieIntake = ({ profile, diary }: Props) => {
   const dailyCalorieIntake = getDailyCalorieIntake(profile);
-  const dailyKcal = getDailyKcal(diaryWithMeals);
+  const dailyKcal = getDailyKcal(diary);
 
   return (
     <Grid container alignItems="center" mb={2}>

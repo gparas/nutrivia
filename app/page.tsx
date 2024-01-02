@@ -29,12 +29,13 @@ const HomePage = async () => {
     redirect('/getStarted');
   }
 
-  const { data: diaryWithMeals, error } = await supabase
+  const { data: diary } = await supabase
     .from('diary')
     .select(
       `
     id,
     meal_category,
+    exercise,
     meals (
       id,
       name,
@@ -50,7 +51,7 @@ const HomePage = async () => {
 
   const dailyMeals = DAILY_MEALS.map(
     ({ id, iconId, textPrimary, recommendedKcal }) => {
-      const data = diaryWithMeals?.find(meal => meal.meal_category === id);
+      const data = diary?.find(meal => meal.meal_category === id);
       const dailyCalorieIntake = getDailyCalorieIntake(profiles![0]);
       const recommended = Math.round(dailyCalorieIntake * recommendedKcal);
       const orderedKcal = data ? data.meals?.kcal : undefined;
@@ -85,14 +86,8 @@ const HomePage = async () => {
           bgcolor="primary.main"
           color="primary.contrastText"
         >
-          <DailyCalorieIntake
-            profile={profiles![0]}
-            diaryWithMeals={diaryWithMeals}
-          />
-          <DailyNutrientsIntake
-            profile={profiles![0]}
-            diaryWithMeals={diaryWithMeals}
-          />
+          <DailyCalorieIntake profile={profiles![0]} diary={diary} />
+          <DailyNutrientsIntake profile={profiles![0]} diary={diary} />
         </Card>
       </Grid>
       <Grid item xs={12} sm={6} md={7} lg={8}>

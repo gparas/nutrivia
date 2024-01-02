@@ -43,13 +43,12 @@ const warning = {
   main: '#ffbf5a',
 };
 
-const error = {
-  main: '#eb3478',
-};
-
 const light = {
   primary: {
     main: '#7E57C2',
+  },
+  error: {
+    main: '#E91E63',
   },
   text: {
     primary: grey[800],
@@ -74,7 +73,18 @@ const dark = {
   primary: {
     main: '#B39DDB',
   },
+  error: {
+    main: '#F48FB1',
+  },
   divider: '#444d56',
+  action: {
+    active: alpha('#ffffff', 0.54),
+    disabled: alpha('#ffffff', 0.26),
+    disabledBackground: alpha('#ffffff', 0.12),
+    focus: alpha('#ffffff', 0.12),
+    hover: alpha('#ffffff', 0.04),
+    selected: alpha('#ffffff', 0.1),
+  },
   background: {
     default: '#24292e',
     paper: '#2f363d',
@@ -85,7 +95,6 @@ const dark = {
 const modes = { dark, light };
 
 const palette = {
-  error,
   grey,
   info,
   mode,

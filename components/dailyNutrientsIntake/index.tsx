@@ -1,31 +1,27 @@
-import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import Card from '@/components/card';
 import { Tables } from '@/types/supabase';
 import { getNutrientsData } from '@/lib/utils';
 import Progress from './progress';
 
-type Color = 'carbs' | 'protein' | 'fat';
-
-type DiaryWithMeals =
+type Diary =
   | { meals: { carbs: number; protein: number; fat: number } | null }[]
   | null;
 
 interface Props {
   profile: Tables<'profiles'>;
-  diaryWithMeals: DiaryWithMeals;
+  diary: Diary;
 }
 
-const DailyNutrientsIntake = ({ profile, diaryWithMeals }: Props) => {
+const DailyNutrientsIntake = ({ profile, diary }: Props) => {
   const nutrients = getNutrientsData(profile);
   return (
     <Grid container spacing={2} justifyContent="space-around">
       {nutrients.map(({ id, gram, label }) => {
         let value = 0;
-        if (diaryWithMeals && diaryWithMeals.length) {
-          value = diaryWithMeals.reduce(
-            (acc, cur) => acc + cur.meals![id as keyof DiaryWithMeals],
+        if (diary && diary.length) {
+          value = diary.reduce(
+            (acc, cur) => acc + cur.meals![id as keyof Diary],
             0,
           );
         }

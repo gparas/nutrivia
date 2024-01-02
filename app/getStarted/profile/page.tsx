@@ -2,8 +2,8 @@
 
 import dynamic from 'next/dynamic';
 import Stepper from './components/Stepper';
-import { useFormContext } from './components/FormContext';
 import Loader from '@/components/page-loader';
+import { useFormContext } from './components/FormContext';
 
 const Goal = dynamic(() => import('./steps/Goal'), {
   loading: () => <Loader />,

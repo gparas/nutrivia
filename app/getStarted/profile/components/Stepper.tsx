@@ -20,7 +20,7 @@ const Stepper = ({ activeStep, steps }: Props) => {
                 width: 30,
                 height: 6,
                 borderRadius: 4,
-                bgcolor: 'grey.300',
+                bgcolor: 'action.selected',
                 transition: 'all .2s',
               },
               active && {

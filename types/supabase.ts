@@ -12,24 +12,30 @@ export interface Database {
       diary: {
         Row: {
           date: string
+          exercise: number | null
           id: string
           meal_category: string
           meal_id: string
           user_id: string
+          water: number | null
         }
         Insert: {
           date?: string
+          exercise?: number | null
           id?: string
           meal_category: string
           meal_id: string
           user_id: string
+          water?: number | null
         }
         Update: {
           date?: string
+          exercise?: number | null
           id?: string
           meal_category?: string
           meal_id?: string
           user_id?: string
+          water?: number | null
         }
         Relationships: [
           {
