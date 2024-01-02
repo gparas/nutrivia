@@ -17,8 +17,8 @@ const page = async () => {
 
   if (!data || !data.length) return null;
 
-  const nutrientsData = getNutrientsData(data[0]);
   const dailyCalorieIntake = getDailyCalorieIntake(data[0]);
+  const nutrientsData = getNutrientsData(dailyCalorieIntake);
   return (
     <Box>
       <Box height={300} position="relative">

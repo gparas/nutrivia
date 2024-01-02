@@ -1,3 +1,5 @@
+import { cookies } from 'next/headers';
+import { createClient } from '@/supabase/server';
 import Image from 'next/image';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
@@ -5,16 +7,28 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
-import OrderButton from './orderButton';
 import { Tables } from '@/types/supabase';
+import dayjs from 'dayjs';
+import OrderButton from './orderButton';
+import EmptyState from '../empty';
 
 interface Props {
-  ordered?: boolean;
-  meal: Tables<'meals'> | undefined;
+  food: Tables<'foods'> | undefined;
 }
 
-const MealItem = ({ meal, ordered }: Props) => {
-  if (!meal) return null;
+const FoodItem = async ({ food }: Props) => {
+  const cookieStore = cookies();
+  const supabase = createClient(cookieStore);
+
+  if (!food) return <EmptyState />;
+
+  const { data: meals } = await supabase
+    .from('meals')
+    .select('meal_id')
+    .eq('created_at', dayjs().format());
+
+  const ordered = meals?.find(({ meal_id }) => meal_id === food.id);
+
   return (
     <>
       <Box
@@ -26,8 +40,8 @@ const MealItem = ({ meal, ordered }: Props) => {
       >
         <Image
           fill
-          alt={meal.name}
-          src={meal.image}
+          alt={food.name}
+          src={food.image}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           priority
           style={{
@@ -37,13 +51,13 @@ const MealItem = ({ meal, ordered }: Props) => {
       </Box>
       <Box p={2} flex="1 1 auto">
         <Typography variant="overline" color="text.secondary">
-          {meal.category}
+          {food.category}
         </Typography>
         <Typography variant="h5" mb={2} fontWeight={500}>
-          {meal.name}
+          {food.name}
         </Typography>
         <Typography variant="body2" mb={3}>
-          {meal.description}
+          {food.description}
         </Typography>
         <Typography variant="subtitle1" fontWeight={500} mb={1}>
           Nutritional information
@@ -55,7 +69,7 @@ const MealItem = ({ meal, ordered }: Props) => {
               primaryTypographyProps={{ variant: 'body2' }}
             />
             <Typography variant="body2" fontWeight={500} component="span">
-              {meal.kcal}kcal
+              {food.kcal}kcal
             </Typography>
           </ListItem>
           <Divider component="li" light />
@@ -65,7 +79,7 @@ const MealItem = ({ meal, ordered }: Props) => {
               primaryTypographyProps={{ variant: 'body2' }}
             />
             <Typography variant="body2" fontWeight={500} component="span">
-              {meal.carbs}g
+              {food.carbs}g
             </Typography>
           </ListItem>
           <Divider component="li" light />
@@ -75,7 +89,7 @@ const MealItem = ({ meal, ordered }: Props) => {
               primaryTypographyProps={{ variant: 'body2' }}
             />
             <Typography variant="body2" fontWeight={500} component="span">
-              {meal.protein}g
+              {food.protein}g
             </Typography>
           </ListItem>
           <Divider component="li" light />
@@ -85,7 +99,7 @@ const MealItem = ({ meal, ordered }: Props) => {
               primaryTypographyProps={{ variant: 'body2' }}
             />
             <Typography variant="body2" fontWeight={500} component="span">
-              {meal.fat}g
+              {food.fat}g
             </Typography>
           </ListItem>
         </List>
@@ -93,9 +107,9 @@ const MealItem = ({ meal, ordered }: Props) => {
       {!ordered && (
         <Box p={2} flex="0 0 auto" textAlign="center">
           <OrderButton
-            id={meal.id}
-            category={meal.category}
-            price={meal.price}
+            id={food.id}
+            category={food.category}
+            price={food.price}
           />
         </Box>
       )}
@@ -103,4 +117,4 @@ const MealItem = ({ meal, ordered }: Props) => {
   );
 };
 
-export default MealItem;
+export default FoodItem;

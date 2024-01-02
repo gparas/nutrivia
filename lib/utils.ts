@@ -48,8 +48,7 @@ export const getDailyCalorieIntake = (data: Profile) => {
   return kcal;
 };
 
-export const getNutrientsData = (data: Profile) => {
-  const dailyCalorieIntake = getDailyCalorieIntake(data);
+export const getNutrientsData = (dailyCalorieIntake: number) => {
   return [
     {
       id: 'carbs',

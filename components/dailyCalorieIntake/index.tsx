@@ -1,26 +1,19 @@
-import { Tables } from '@/types/supabase';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
-import { getDailyCalorieIntake } from '@/lib/utils';
 import CircularProgressWithLabel from '../circularProgressWithLabel';
 
-type Diary = { meals: { kcal: number } | null }[] | null;
-
 interface Props {
-  profile: Tables<'profiles'>;
-  diary: Diary;
+  dailyCalorieIntake: number;
+  dailyKcalBurned: number;
+  dailyKcalEaten: number;
 }
 
-const getDailyKcal = (data: Diary) => {
-  if (!data || !data.length) return 0;
-  const mealsKcalSum = data.reduce((acc, cur) => acc + cur.meals?.kcal!, 0);
-
-  return mealsKcalSum;
-};
-
-const DailyCalorieIntake = ({ profile, diary }: Props) => {
-  const dailyCalorieIntake = getDailyCalorieIntake(profile);
-  const dailyKcal = getDailyKcal(diary);
+const DailyCalorieIntake = async ({
+  dailyCalorieIntake,
+  dailyKcalEaten,
+  dailyKcalBurned,
+}: Props) => {
+  const totalDailyCalorieIntake = dailyCalorieIntake + dailyKcalBurned;
 
   return (
     <Grid container alignItems="center" mb={2}>
@@ -31,7 +24,7 @@ const DailyCalorieIntake = ({ profile, diary }: Props) => {
           textAlign="center"
           lineHeight={1}
         >
-          {dailyKcal}
+          {dailyKcalEaten}
           <br />
           <Typography variant="overline" fontSize={11}>
             eaten
@@ -40,7 +33,7 @@ const DailyCalorieIntake = ({ profile, diary }: Props) => {
       </Grid>
       <Grid item xs={4}>
         <CircularProgressWithLabel
-          value={(dailyKcal / dailyCalorieIntake) * 100}
+          value={(dailyKcalEaten / totalDailyCalorieIntake) * 100}
         >
           <Typography
             variant="h4"
@@ -48,7 +41,7 @@ const DailyCalorieIntake = ({ profile, diary }: Props) => {
             textAlign="center"
             lineHeight={1}
           >
-            {dailyCalorieIntake - dailyKcal}
+            {totalDailyCalorieIntake - dailyKcalEaten}
             <br />
             <Typography variant="overline" fontSize={11}>
               kcal left
@@ -63,7 +56,7 @@ const DailyCalorieIntake = ({ profile, diary }: Props) => {
           textAlign="center"
           lineHeight={1}
         >
-          {0}
+          {dailyKcalBurned}
           <br />
           <Typography variant="overline" fontSize={11}>
             burned

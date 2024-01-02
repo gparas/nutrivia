@@ -9,44 +9,31 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
-      diary: {
+      exercises: {
         Row: {
-          date: string
-          exercise: number | null
+          created_at: string
           id: string
-          meal_category: string
-          meal_id: string
+          kcal: string
+          title: string | null
           user_id: string
-          water: number | null
         }
         Insert: {
-          date?: string
-          exercise?: number | null
+          created_at: string
           id?: string
-          meal_category: string
-          meal_id: string
-          user_id: string
-          water?: number | null
+          kcal: string
+          title?: string | null
+          user_id?: string
         }
         Update: {
-          date?: string
-          exercise?: number | null
+          created_at?: string
           id?: string
-          meal_category?: string
-          meal_id?: string
+          kcal?: string
+          title?: string | null
           user_id?: string
-          water?: number | null
         }
         Relationships: [
           {
-            foreignKeyName: "diary_meal_id_fkey"
-            columns: ["meal_id"]
-            isOneToOne: false
-            referencedRelation: "meals"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "diary_user_id_fkey"
+            foreignKeyName: "exercises_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
             referencedRelation: "users"
@@ -54,7 +41,7 @@ export interface Database {
           }
         ]
       }
-      meals: {
+      foods: {
         Row: {
           carbs: number
           category: string
@@ -92,6 +79,45 @@ export interface Database {
           protein?: number
         }
         Relationships: []
+      }
+      meals: {
+        Row: {
+          created_at: string
+          id: string
+          meal_category: string
+          meal_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at: string
+          id?: string
+          meal_category: string
+          meal_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          meal_category?: string
+          meal_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "meals_meal_id_fkey"
+            columns: ["meal_id"]
+            isOneToOne: false
+            referencedRelation: "foods"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "meals_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
       }
       nutritionists: {
         Row: {

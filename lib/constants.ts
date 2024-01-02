@@ -169,6 +169,7 @@ export const DAILY_EXTRAS = [
     iconId: 'exercise',
     textPrimary: 'Exercise',
     textSecondary: 'Daily exercise',
+    href: '/exercise',
   },
 ];
 

@@ -1,6 +1,6 @@
-import React from 'react';
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
 import EmptyIcon from './icon';
-import { Container, Typography } from '@mui/material';
 
 const EmptyState = () => {
   return (

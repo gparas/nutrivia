@@ -2,7 +2,7 @@ import { Tables } from '@/types/supabase';
 import Image from 'next/image';
 import Box from '@mui/material/Box';
 
-const Media = ({ id, name, image }: Tables<'meals'>) => {
+const Media = ({ name, image }: Tables<'foods'>) => {
   return (
     <Box
       flex="0 0 auto"

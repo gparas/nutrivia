@@ -27,7 +27,7 @@ const OrderButton = ({ id, category, price }: Props) => {
         await supabase.from('diary').insert({
           meal_id: id,
           meal_category: category,
-          user_id: user?.id,
+          user_id: user.id,
         });
       } finally {
         setIsLoading(false);

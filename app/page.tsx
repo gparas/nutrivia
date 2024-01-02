@@ -23,20 +23,23 @@ const HomePage = async () => {
     redirect('/login');
   }
 
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   const { data: profiles } = await supabase.from('profiles').select();
 
   if (profiles?.some(item => !item.nutritionist_id)) {
     redirect('/getStarted');
   }
 
-  const { data: diary } = await supabase
-    .from('diary')
+  const { data: meals } = await supabase
+    .from('meals')
     .select(
       `
     id,
     meal_category,
-    exercise,
-    meals (
+    foods (
       id,
       name,
       kcal,
@@ -46,17 +49,29 @@ const HomePage = async () => {
     )
   `,
     )
-    .gt('date', dayjs().startOf('date').format())
-    .lt('date', dayjs().endOf('date').format());
+    .eq('created_at', dayjs().format('YYYY-MM-DD'));
+
+  const { data: exercises } = await supabase
+    .from('exercises')
+    .select()
+    .eq('created_at', dayjs().format('YYYY-MM-DD'))
+    .eq('user_id', user?.id!);
+
+  const dailyCalorieIntake = getDailyCalorieIntake(profiles![0]);
+  const dailyKcalBurned =
+    exercises?.reduce((acc, cur) => acc + Number(cur.kcal), 0) || 0;
+  const dailyKcalEaten =
+    meals?.reduce((acc, cur) => acc + Number(cur.foods?.kcal), 0) || 0;
+
+  const totalDailyCalorieIntake = dailyCalorieIntake + dailyKcalBurned;
 
   const dailyMeals = DAILY_MEALS.map(
     ({ id, iconId, textPrimary, recommendedKcal }) => {
-      const data = diary?.find(meal => meal.meal_category === id);
-      const dailyCalorieIntake = getDailyCalorieIntake(profiles![0]);
-      const recommended = Math.round(dailyCalorieIntake * recommendedKcal);
-      const orderedKcal = data ? data.meals?.kcal : undefined;
+      const data = meals?.find(meal => meal.meal_category === id);
+      const recommended = Math.round(totalDailyCalorieIntake * recommendedKcal);
+      const orderedKcal = data ? data.foods?.kcal : undefined;
       const orderedKcalDiff = data
-        ? recommended - data?.meals?.kcal!
+        ? recommended - data?.foods?.kcal!
         : undefined;
       return {
         id,
@@ -66,11 +81,9 @@ const HomePage = async () => {
         orderedKcal,
         orderedKcalDiff,
         textSecondary: data
-          ? data.meals?.name
+          ? data.foods?.name
           : `Recommended - ${recommended} kcal`,
-        href: data
-          ? `/meals/${data.meals?.id}?ordered=true`
-          : `/meals?category=${id}`,
+        href: data ? `/foods/${data.foods?.id}` : `/foods?category=${id}`,
         scroll: false,
       };
     },
@@ -86,8 +99,15 @@ const HomePage = async () => {
           bgcolor="primary.main"
           color="primary.contrastText"
         >
-          <DailyCalorieIntake profile={profiles![0]} diary={diary} />
-          <DailyNutrientsIntake profile={profiles![0]} diary={diary} />
+          <DailyCalorieIntake
+            dailyCalorieIntake={dailyCalorieIntake}
+            dailyKcalBurned={dailyKcalBurned}
+            dailyKcalEaten={dailyKcalEaten}
+          />
+          <DailyNutrientsIntake
+            meals={meals}
+            totalDailyCalorieIntake={totalDailyCalorieIntake}
+          />
         </Card>
       </Grid>
       <Grid item xs={12} sm={6} md={7} lg={8}>

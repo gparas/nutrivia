@@ -23,11 +23,11 @@ type Props = {
   };
 };
 
-const MealsPage = async ({ searchParams }: Props) => {
+const FoodsPage = async ({ searchParams }: Props) => {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
 
-  let query = supabase.from('meals').select('*');
+  let query = supabase.from('foods').select('*');
 
   if (searchParams?.category) {
     query = query.eq('category', searchParams.category);
@@ -36,19 +36,19 @@ const MealsPage = async ({ searchParams }: Props) => {
     query = query.lte('kcal', Number(searchParams.kcal));
   }
 
-  const { data: meals } = await query;
+  const { data: foods } = await query;
 
   return (
     <>
       <Title />
       <ActiveFilters />
-      {!meals?.length ? (
+      {!foods?.length ? (
         <EmptyState />
       ) : (
         <Grid container spacing={2}>
-          {meals.map(meal => {
+          {foods.map(food => {
             return (
-              <Grid key={meal.id} item xs={12} sm={6} md={4}>
+              <Grid key={food.id} item xs={12} sm={6} md={4}>
                 <Card p={0} height="100%">
                   <Stack
                     direction="row"
@@ -58,26 +58,27 @@ const MealsPage = async ({ searchParams }: Props) => {
                     flex="1 1 auto"
                   >
                     <Image
-                      alt={meal.name}
-                      src={meal.image}
+                      alt={food.name}
+                      src={food.image}
+                      priority
                       width={104}
                       height={104}
                       style={{ margin: -8 }}
                     />
                     <Box flex="1 1 auto" py={1}>
-                      <Name name={meal.name} />
-                      <Price price={meal.price} />
+                      <Name name={food.name} />
+                      <Price price={food.price} />
                     </Box>
                   </Stack>
                   <Divider light />
                   <Stack direction="row" alignItems="center" p={1}>
-                    <Nutrients {...meal} />
+                    <Nutrients {...food} />
                     <Button
                       color="primary"
                       size="small"
                       sx={{ fontWeight: 500 }}
                       component={NextLink}
-                      href={`/meals/${meal.id}`}
+                      href={`/foods/${food.id}`}
                     >
                       View Details
                     </Button>
@@ -92,4 +93,4 @@ const MealsPage = async ({ searchParams }: Props) => {
   );
 };
 
-export default MealsPage;
+export default FoodsPage;

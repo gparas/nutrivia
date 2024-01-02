@@ -1,7 +1,7 @@
 import { Tables } from '@/types/supabase';
 import Typography from '@mui/material/Typography';
 
-const Nutrients = ({ kcal }: Tables<'meals'>) => {
+const Nutrients = ({ kcal }: Tables<'foods'>) => {
   return (
     <Typography variant="body2" flex="1 1 auto" fontWeight={500}>
       {kcal}{' '}
