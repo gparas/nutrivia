@@ -2,7 +2,6 @@ import { Tables } from '@/types/supabase';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import { getDailyCalorieIntake } from '@/lib/utils';
-import Card from '../card';
 import CircularProgressWithLabel from '../circularProgressWithLabel';
 
 type DiaryWithMeals = { meals: { kcal: number } | null }[] | null;
@@ -66,7 +65,7 @@ const DailyCalorieIntake = ({ profile, diaryWithMeals }: Props) => {
           {0}
           <br />
           <Typography variant="overline" fontSize={11}>
-            burnet
+            burned
           </Typography>
         </Typography>
       </Grid>

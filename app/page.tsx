@@ -52,15 +52,21 @@ const HomePage = async () => {
     ({ id, iconId, textPrimary, recommendedKcal }) => {
       const data = diaryWithMeals?.find(meal => meal.meal_category === id);
       const dailyCalorieIntake = getDailyCalorieIntake(profiles![0]);
+      const recommended = Math.round(dailyCalorieIntake * recommendedKcal);
+      const orderedKcal = data ? data.meals?.kcal : undefined;
+      const orderedKcalDiff = data
+        ? recommended - data?.meals?.kcal!
+        : undefined;
       return {
         id,
         iconId,
         textPrimary,
+        ordered: Boolean(data),
+        orderedKcal,
+        orderedKcalDiff,
         textSecondary: data
-          ? `${data.meals?.name} - ${data.meals?.kcal} kcal`
-          : `Recommended - ${Math.round(
-              dailyCalorieIntake * recommendedKcal,
-            )} kcal`,
+          ? data.meals?.name
+          : `Recommended - ${recommended} kcal`,
         href: data
           ? `/meals/${data.meals?.id}?ordered=true`
           : `/meals?category=${id}`,
@@ -73,6 +79,7 @@ const HomePage = async () => {
     <Grid container spacing={2}>
       <Grid item xs={12} sm={6} md={5} lg={4}>
         <Card
+          py={3}
           top={64}
           position="sticky"
           bgcolor="primary.main"

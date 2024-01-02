@@ -20,7 +20,7 @@ interface Props {
 const DailyNutrientsIntake = ({ profile, diaryWithMeals }: Props) => {
   const nutrients = getNutrientsData(profile);
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={2} justifyContent="space-around">
       {nutrients.map(({ id, gram, label }) => {
         let value = 0;
         if (diaryWithMeals && diaryWithMeals.length) {
@@ -30,7 +30,7 @@ const DailyNutrientsIntake = ({ profile, diaryWithMeals }: Props) => {
           );
         }
         return (
-          <Grid item key={id} xs={4}>
+          <Grid item key={id} xs={3}>
             <Typography variant="overline" mb={0.5}>
               {label}
             </Typography>

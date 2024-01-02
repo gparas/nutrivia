@@ -1,4 +1,4 @@
-import { PaletteMode } from '@mui/material';
+import { PaletteMode, alpha } from '@mui/material';
 
 const mode = 'light' as PaletteMode;
 
@@ -52,8 +52,16 @@ const light = {
     main: '#7E57C2',
   },
   text: {
-    primary: '#212B36',
-    secondary: '#637381',
+    primary: grey[800],
+    secondary: grey[600],
+  },
+  action: {
+    active: alpha(grey[800], 0.54),
+    disabled: alpha(grey[800], 0.26),
+    disabledBackground: alpha(grey[800], 0.12),
+    focus: alpha(grey[800], 0.12),
+    hover: alpha(grey[800], 0.04),
+    selected: alpha(grey[800], 0.08),
   },
   divider: grey[300],
   background: {
