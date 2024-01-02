@@ -157,20 +157,19 @@ export const DAILY_MEALS = [
   },
 ];
 
-export const DAILY_EXTRAS = [
-  {
+export const DAILY_EXTRAS = {
+  WATER: {
     id: 'water',
     iconId: 'water',
     textPrimary: 'Water',
     textSecondary: 'Daily water intake',
   },
-  {
+  EXERCISE: {
     id: 'exercise',
     iconId: 'exercise',
     textPrimary: 'Exercise',
-    textSecondary: 'Daily exercise',
     href: '/exercise',
   },
-];
+};
 
 export const KG_PER_MONTH = 2;

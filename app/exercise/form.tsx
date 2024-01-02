@@ -2,17 +2,18 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
-import SubmitButton from './submitButton';
+import SubmitFormButton from '@/components/submitFormButton';
 import { submit } from './actions';
 
-const Exercise = () => {
+const Form = () => {
   return (
     <Stack component="form" flex="1 1 auto" action={submit}>
       <Typography variant="h6" flex="0 0 auto" p={2}>
-        Exercise
+        New activity
       </Typography>
       <Stack flex="1 1 auto" p={2} spacing={2}>
         <TextField
+          required
           fullWidth
           id="title"
           label="Title"
@@ -33,10 +34,10 @@ const Exercise = () => {
         />
       </Stack>
       <Box flex="0 0 auto" p={2}>
-        <SubmitButton />
+        <SubmitFormButton>Add</SubmitFormButton>
       </Box>
     </Stack>
   );
 };
 
-export default Exercise;
+export default Form;

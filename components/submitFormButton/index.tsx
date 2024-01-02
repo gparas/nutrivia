@@ -2,10 +2,11 @@
 
 import { useFormStatus } from 'react-dom';
 import CircularProgress from '@mui/material/CircularProgress';
-import Button from '@mui/material/Button';
+import Button, { ButtonProps } from '@mui/material/Button';
 
-const SubmitButton = () => {
+const SubmitFormButton = ({ ...other }: ButtonProps) => {
   const { pending } = useFormStatus();
+
   return (
     <Button
       fullWidth
@@ -16,10 +17,9 @@ const SubmitButton = () => {
       disabled={pending}
       aria-disabled={pending}
       endIcon={pending && <CircularProgress size={20} color="inherit" />}
-    >
-      Add
-    </Button>
+      {...other}
+    />
   );
 };
 
-export default SubmitButton;
+export default SubmitFormButton;

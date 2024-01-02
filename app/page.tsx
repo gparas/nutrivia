@@ -115,9 +115,14 @@ const HomePage = async () => {
           {dailyMeals.map(meal => (
             <ListItem key={meal.id} {...meal} />
           ))}
-          {DAILY_EXTRAS.map(extra => (
-            <ListItem key={extra.id} {...extra} />
-          ))}
+          <ListItem {...DAILY_EXTRAS.WATER} />
+          <ListItem
+            textSecondary={`Daily exercise - ${exercises?.reduce(
+              (acc, cur) => acc + Number(cur.kcal),
+              0,
+            )} kcal`}
+            {...DAILY_EXTRAS.EXERCISE}
+          />
         </Stack>
       </Grid>
     </Grid>

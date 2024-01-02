@@ -35,7 +35,7 @@ const Filter = ({ name, label, options }: Props) => {
   useEffect(() => {
     const category = searchParams.get(name);
     setValue(category);
-  }, [searchParams]);
+  }, [searchParams, name]);
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
