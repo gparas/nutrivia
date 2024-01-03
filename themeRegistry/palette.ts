@@ -65,7 +65,6 @@ const light = {
   divider: grey[300],
   background: {
     default: '#f6f8fa',
-    primary: '#7E57C2',
   },
 };
 
@@ -88,7 +87,6 @@ const dark = {
   background: {
     default: '#24292e',
     paper: '#2f363d',
-    primary: '#7E57C2',
   },
 };
 

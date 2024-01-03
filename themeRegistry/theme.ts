@@ -23,6 +23,19 @@ declare module '@mui/material/Button' {
   }
 }
 
+declare module '@mui/material/styles/createPalette' {
+  interface Palette {
+    carbs: Palette['primary'];
+    fat: Palette['primary'];
+    protein: Palette['primary'];
+  }
+  interface PaletteOptions {
+    carbs: PaletteOptions['primary'];
+    fat: PaletteOptions['primary'];
+    protein: PaletteOptions['primary'];
+  }
+}
+
 let theme = createTheme();
 
 theme = createTheme({

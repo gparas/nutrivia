@@ -1,10 +1,10 @@
 import { cookies } from 'next/headers';
+import { createClient } from '@/supabase/server';
 import NextLink from 'next/link';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
-import { createClient } from '@/supabase/server';
 import UserMenu from './userMenu';
 
 const Header = async () => {

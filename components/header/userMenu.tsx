@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, MouseEvent } from 'react';
-import { createBrowserClient } from '@supabase/ssr';
 import { User } from '@supabase/supabase-js';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -41,7 +40,6 @@ const UserMenu = ({ user }: { user: User | null }) => {
         <UserIcon />
       </IconButton>
       <Menu
-        sx={{ mt: 6 }}
         id="menu-appbar"
         anchorEl={anchorElUser}
         anchorOrigin={{
@@ -55,6 +53,10 @@ const UserMenu = ({ user }: { user: User | null }) => {
         }}
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
+        MenuListProps={{
+          dense: true,
+        }}
+        sx={{ mt: 6 }}
       >
         <MenuItem
           component={Link}
@@ -62,6 +64,13 @@ const UserMenu = ({ user }: { user: User | null }) => {
           onClick={handleCloseUserMenu}
         >
           <Typography textAlign="center">Profile</Typography>
+        </MenuItem>
+        <MenuItem
+          component={Link}
+          href="/progress"
+          onClick={handleCloseUserMenu}
+        >
+          <Typography textAlign="center">Progress</Typography>
         </MenuItem>
         <MenuItem onClick={handleSignOut}>
           <Typography textAlign="center">Logout</Typography>
