@@ -1,7 +1,8 @@
 import { cookies } from 'next/headers';
 import { createClient } from '@/supabase/server';
 import Image from 'next/image';
-import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -62,26 +63,28 @@ const ProfilePage = async () => {
   ];
 
   return (
-    <Grid container spacing={3}>
-      <Grid item xs={12} sm={5}>
-        <Card p={0} height="100%">
-          <List>
-            <ListItem alignItems="flex-start">
-              <ListItemAvatar>
-                <Avatar
-                  alt={full_name || undefined}
-                  src={avatar_url || undefined}
-                />
-              </ListItemAvatar>
-              <ListItemText
-                primary={full_name}
-                secondary={`${gender} ${getYearsOld(age)} years`}
+    <Box
+      display="grid"
+      gap={2}
+      gridTemplateColumns="repeat(auto-fit, minmax(300px, 1fr))"
+    >
+      <Card p={0}>
+        <List>
+          <ListItem alignItems="flex-start">
+            <ListItemAvatar>
+              <Avatar
+                alt={full_name || undefined}
+                src={avatar_url || undefined}
               />
-            </ListItem>
-          </List>
-        </Card>
-      </Grid>
-      <Grid item xs={12} sm={7}>
+            </ListItemAvatar>
+            <ListItemText
+              primary={full_name}
+              secondary={`${gender} ${getYearsOld(age)} years`}
+            />
+          </ListItem>
+        </List>
+      </Card>
+      <Stack spacing={2}>
         <Card p={0} mb={2}>
           <List
             component="div"
@@ -124,8 +127,8 @@ const ProfilePage = async () => {
             </List>
           </Card>
         ))}
-      </Grid>
-    </Grid>
+      </Stack>
+    </Box>
   );
 };
 

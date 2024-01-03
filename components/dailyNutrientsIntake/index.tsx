@@ -1,4 +1,5 @@
-import Grid from '@mui/material/Grid';
+import Stack from '@mui/material/Stack';
+import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { getNutrientsData } from '@/lib/utils';
 import Progress from './progress';
@@ -15,7 +16,7 @@ interface Props {
 const DailyNutrientsIntake = ({ totalDailyCalorieIntake, meals }: Props) => {
   const nutrients = getNutrientsData(totalDailyCalorieIntake);
   return (
-    <Grid container spacing={2} justifyContent="space-around">
+    <Stack direction="row" justifyContent="space-around">
       {nutrients.map(({ id, gram, label }) => {
         let value = 0;
         if (meals && meals.length) {
@@ -27,7 +28,7 @@ const DailyNutrientsIntake = ({ totalDailyCalorieIntake, meals }: Props) => {
         const gramsDiff = gram - value;
         const gramsLeft = gramsDiff > 0 ? gramsDiff : 0;
         return (
-          <Grid item key={id} xs={3}>
+          <Box key={id} width="20%">
             <Typography variant="overline" mb={0.5}>
               {label}
             </Typography>
@@ -35,10 +36,10 @@ const DailyNutrientsIntake = ({ totalDailyCalorieIntake, meals }: Props) => {
             <Typography variant="caption">
               {gramsLeft}g <Typography variant="caption">left</Typography>
             </Typography>
-          </Grid>
+          </Box>
         );
       })}
-    </Grid>
+    </Stack>
   );
 };
 

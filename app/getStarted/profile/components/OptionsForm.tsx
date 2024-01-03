@@ -2,7 +2,8 @@
 
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Profile } from '@/types/profile';
-import Grid from '@mui/material/Grid';
+import Stack from '@mui/material/Stack';
+import Box from '@mui/material/Box';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
@@ -38,13 +39,13 @@ const OptionsForm = ({ name, options, required = true }: Props) => {
   const watchField = watch(name);
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
-      <Grid container justifyContent="center" spacing={2}>
+      <Stack justifyContent="center" spacing={2}>
         {options.map(({ value, label, helperText }, index) => {
           const selected = watchField
             ? watchField === value
             : data[name as keyof Profile] === value;
           return (
-            <Grid item xs={12} key={index}>
+            <Box key={index} flex="1 1 auto">
               <input
                 type="radio"
                 id={label}
@@ -82,10 +83,10 @@ const OptionsForm = ({ name, options, required = true }: Props) => {
                 />
                 {selected ? <DoneIcon /> : null}
               </ListItemButton>
-            </Grid>
+            </Box>
           );
         })}
-      </Grid>
+      </Stack>
       {errors[name] ? (
         <Typography
           component="div"

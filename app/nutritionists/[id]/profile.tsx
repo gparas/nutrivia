@@ -8,12 +8,10 @@ import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
-import ArrowBackIcon from '@mui/icons-material/ArrowBackRounded';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import Button from '@mui/material/Button';
-import Link from 'next/link';
 import Card from '@/components/card';
+import BackButton from '@/components/back-button';
 
 const tabs = {
   overview: dynamic(() => import('./overview'), {
@@ -53,16 +51,7 @@ const NutritionistProfile = ({
   const Component = tabs[value as keyof Tabs];
   return (
     <>
-      <Button
-        color="inherit"
-        component={Link}
-        href="/nutritionists"
-        startIcon={<ArrowBackIcon />}
-        size="large"
-        sx={{ fontWeight: 400 }}
-      >
-        Back
-      </Button>
+      <BackButton />
       <Card p={0}>
         <Stack direction="row" spacing={2} p={2} alignItems="center">
           <Avatar sx={{ width: 88, height: 88 }}>

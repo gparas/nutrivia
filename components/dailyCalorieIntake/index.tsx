@@ -1,5 +1,6 @@
+import Stack from '@mui/material/Stack';
+import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
 import CircularProgressWithLabel from '../circularProgressWithLabel';
 
 interface Props {
@@ -16,8 +17,8 @@ const DailyCalorieIntake = async ({
   const totalDailyCalorieIntake = dailyCalorieIntake + dailyKcalBurned;
 
   return (
-    <Grid container alignItems="center" mb={2}>
-      <Grid item xs={4}>
+    <Stack direction="row" alignItems="center" mb={2}>
+      <Box textAlign="center" flex="1 1 auto">
         <Typography
           variant="h5"
           component="div"
@@ -30,8 +31,8 @@ const DailyCalorieIntake = async ({
             eaten
           </Typography>
         </Typography>
-      </Grid>
-      <Grid item xs={4}>
+      </Box>
+      <Box textAlign="center" flex="1 1 auto">
         <CircularProgressWithLabel
           value={(dailyKcalEaten / totalDailyCalorieIntake) * 100}
         >
@@ -48,8 +49,8 @@ const DailyCalorieIntake = async ({
             </Typography>
           </Typography>
         </CircularProgressWithLabel>
-      </Grid>
-      <Grid item xs={4}>
+      </Box>
+      <Box textAlign="center" flex="1 1 auto">
         <Typography
           variant="h5"
           component="div"
@@ -62,8 +63,8 @@ const DailyCalorieIntake = async ({
             burned
           </Typography>
         </Typography>
-      </Grid>
-    </Grid>
+      </Box>
+    </Stack>
   );
 };
 

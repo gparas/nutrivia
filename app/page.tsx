@@ -1,7 +1,7 @@
 import { cookies } from 'next/headers';
 import { createClient } from '@/supabase/server';
 import { redirect } from 'next/navigation';
-import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import DailyCalorieIntake from '@/components/dailyCalorieIntake';
 import DailyNutrientsIntake from '@/components/dailyNutrientsIntake';
@@ -90,15 +90,14 @@ const HomePage = async () => {
   );
 
   return (
-    <Grid container spacing={2}>
-      <Grid item xs={12} sm={6} md={5} lg={4}>
-        <Card
-          py={3}
-          top={64}
-          position="sticky"
-          bgcolor="primary.main"
-          color="primary.contrastText"
-        >
+    <Box
+      display="grid"
+      gap={2}
+      gridTemplateColumns="repeat(auto-fit, minmax(300px, 1fr))"
+      alignItems="flex-start"
+    >
+      <Card py={3} bgcolor="primary.main" color="primary.contrastText">
+        <div>
           <DailyCalorieIntake
             dailyCalorieIntake={dailyCalorieIntake}
             dailyKcalBurned={dailyKcalBurned}
@@ -108,24 +107,22 @@ const HomePage = async () => {
             meals={meals}
             totalDailyCalorieIntake={totalDailyCalorieIntake}
           />
-        </Card>
-      </Grid>
-      <Grid item xs={12} sm={6} md={7} lg={8}>
-        <Stack spacing={2}>
-          {dailyMeals.map(meal => (
-            <ListItem key={meal.id} {...meal} />
-          ))}
-          <ListItem {...DAILY_EXTRAS.WATER} />
-          <ListItem
-            textSecondary={`Daily exercise - ${exercises?.reduce(
-              (acc, cur) => acc + Number(cur.kcal),
-              0,
-            )} kcal`}
-            {...DAILY_EXTRAS.EXERCISE}
-          />
-        </Stack>
-      </Grid>
-    </Grid>
+        </div>
+      </Card>
+      <Stack spacing={2}>
+        {dailyMeals.map(meal => (
+          <ListItem key={meal.id} {...meal} />
+        ))}
+        <ListItem {...DAILY_EXTRAS.WATER} />
+        <ListItem
+          textSecondary={`Daily exercise - ${exercises?.reduce(
+            (acc, cur) => acc + Number(cur.kcal),
+            0,
+          )} kcal`}
+          {...DAILY_EXTRAS.EXERCISE}
+        />
+      </Stack>
+    </Box>
   );
 };
 

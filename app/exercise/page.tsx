@@ -1,15 +1,18 @@
+import { Fragment } from 'react';
 import { cookies } from 'next/headers';
 import { createClient } from '@/supabase/server';
 import Container from '@mui/material/Container';
+import Stack from '@mui/material/Stack';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 import Card from '@/components/card';
 import dayjs from 'dayjs';
-import Form from './form';
 import Typography from '@mui/material/Typography';
-import { Fragment } from 'react';
+import SportsIcon from '@mui/icons-material/SportsGymnasticsRounded';
+import BackButton from '@/components/back-button';
+import Form from './form';
 
 const ExercisePage = async () => {
   const cookieStore = cookies();
@@ -26,14 +29,15 @@ const ExercisePage = async () => {
 
   return (
     <Container maxWidth="xs" disableGutters>
+      <BackButton />
       <Card p={0} mb={2}>
         <Form />
       </Card>
-      {exercises ? (
-        <Card p={0}>
-          <Typography variant="h6" p={2}>
-            Activities
-          </Typography>
+      <Card p={0}>
+        <Typography variant="h6" p={2}>
+          Activities
+        </Typography>
+        {exercises && exercises.length ? (
           <List
             disablePadding
             sx={{ '& .MuiDivider-root:last-child': { display: 'none' } }}
@@ -50,8 +54,15 @@ const ExercisePage = async () => {
               </Fragment>
             ))}
           </List>
-        </Card>
-      ) : null}
+        ) : (
+          <Stack p={2} alignItems="center">
+            <SportsIcon color="action" sx={{ fontSize: 80 }} />
+            <Typography variant="body2" mb={1}>
+              No activity found
+            </Typography>
+          </Stack>
+        )}
+      </Card>
     </Container>
   );
 };

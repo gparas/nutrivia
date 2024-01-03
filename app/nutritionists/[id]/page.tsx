@@ -13,7 +13,7 @@ const NutritionistPage = async ({
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
 
-  const { data: nutritionists, error } = await supabase
+  const { data: nutritionists } = await supabase
     .from('nutritionists')
     .select()
     .match({ id });

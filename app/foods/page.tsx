@@ -6,7 +6,6 @@ import Image from 'next/image';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid';
 import Card from '@/components/card';
 
 import Nutrients from './components/nutrients';
@@ -45,49 +44,51 @@ const FoodsPage = async ({ searchParams }: Props) => {
       {!foods?.length ? (
         <EmptyState />
       ) : (
-        <Grid container spacing={2}>
+        <Box
+          display="grid"
+          gap={2}
+          gridTemplateColumns="repeat(auto-fit, minmax(300px, 1fr))"
+        >
           {foods.map(food => {
             return (
-              <Grid key={food.id} item xs={12} sm={6} md={4}>
-                <Card p={0} height="100%">
-                  <Stack
-                    direction="row"
-                    spacing={2}
-                    px={2}
-                    py={1}
-                    flex="1 1 auto"
+              <Card key={food.id} p={0} height="100%">
+                <Stack
+                  direction="row"
+                  spacing={2}
+                  px={2}
+                  py={1}
+                  flex="1 1 auto"
+                >
+                  <Image
+                    alt={food.name}
+                    src={food.image}
+                    priority
+                    width={104}
+                    height={104}
+                    style={{ margin: -8 }}
+                  />
+                  <Box flex="1 1 auto" py={1}>
+                    <Name name={food.name} />
+                    <Price price={food.price} />
+                  </Box>
+                </Stack>
+                <Divider light />
+                <Stack direction="row" alignItems="center" p={1}>
+                  <Nutrients {...food} />
+                  <Button
+                    color="primary"
+                    size="small"
+                    sx={{ fontWeight: 500 }}
+                    component={NextLink}
+                    href={`/foods/${food.id}`}
                   >
-                    <Image
-                      alt={food.name}
-                      src={food.image}
-                      priority
-                      width={104}
-                      height={104}
-                      style={{ margin: -8 }}
-                    />
-                    <Box flex="1 1 auto" py={1}>
-                      <Name name={food.name} />
-                      <Price price={food.price} />
-                    </Box>
-                  </Stack>
-                  <Divider light />
-                  <Stack direction="row" alignItems="center" p={1}>
-                    <Nutrients {...food} />
-                    <Button
-                      color="primary"
-                      size="small"
-                      sx={{ fontWeight: 500 }}
-                      component={NextLink}
-                      href={`/foods/${food.id}`}
-                    >
-                      View Details
-                    </Button>
-                  </Stack>
-                </Card>
-              </Grid>
+                    View Details
+                  </Button>
+                </Stack>
+              </Card>
             );
           })}
-        </Grid>
+        </Box>
       )}
     </>
   );

@@ -11,7 +11,8 @@ import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 import dayjs from 'dayjs';
 import { notFound } from 'next/navigation';
-import SubmitFormButton from '@/components/submitFormButton';
+import SubmitFormButton from '@/components/submit-form-button';
+import BackButton from '@/components/back-button';
 import { priceFormat } from '@/lib/utils';
 import { submit } from './actions';
 
@@ -36,6 +37,7 @@ const MealPage = async ({ params: { id } }: { params: { id: string } }) => {
 
   return (
     <Container maxWidth="xs" disableGutters>
+      <BackButton />
       <Card p={0}>
         <Box
           position="relative"

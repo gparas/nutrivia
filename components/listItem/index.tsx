@@ -11,9 +11,9 @@ import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import AddIcon from '@mui/icons-material/AddCircleRounded';
-import CheckIcon from '@mui/icons-material/CheckCircleRounded';
-import HappyIcon from '@mui/icons-material/SentimentSatisfiedRounded';
-import SadIcon from '@mui/icons-material/SentimentDissatisfied';
+import CheckCircleRounded from '@mui/icons-material/CheckCircleRounded';
+import CheckIcon from '@mui/icons-material/Check';
+import WarningIcon from '@mui/icons-material/WarningAmber';
 import Card from '../card';
 
 const Breakfast = dynamic(() => import('@/icons/Breakfast'));
@@ -66,7 +66,11 @@ const ListItem = ({
           <Icon sx={{ fontSize: 40 }} />
         </ListItemIcon>
         <ListItemText primary={textPrimary} secondary={textSecondary} />
-        {ordered ? <CheckIcon color="success" /> : <AddIcon color="disabled" />}
+        {ordered ? (
+          <CheckCircleRounded color="success" />
+        ) : (
+          <AddIcon color="disabled" />
+        )}
       </ListItemButton>
       {ordered && (
         <>
@@ -80,9 +84,9 @@ const ListItem = ({
             spacing={0.4}
           >
             {orderedKcalDiff && orderedKcalDiff > 0 ? (
-              <HappyIcon sx={{ fontSize: 18 }} color="success" />
+              <CheckIcon sx={{ fontSize: 18 }} color="success" />
             ) : (
-              <SadIcon sx={{ fontSize: 18 }} color="warning" />
+              <WarningIcon sx={{ fontSize: 18 }} color="warning" />
             )}
             <Typography variant="body2">{orderedKcal}kcal</Typography>
             <Typography variant="body2" color="text.secondary">
