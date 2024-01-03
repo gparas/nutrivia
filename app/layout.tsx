@@ -1,4 +1,5 @@
-import { PropsWithChildren, ReactNode } from 'react';
+import { PropsWithChildren } from 'react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata } from 'next';
 import Container from '@mui/material/Container';
 import ThemeRegistry from '@/themeRegistry';
@@ -10,12 +11,7 @@ export const metadata: Metadata = {
   description: 'Healthy eating simplified',
 };
 
-interface Props {
-  children: ReactNode;
-  dialog: ReactNode;
-}
-
-const RootLayout = ({ children, dialog }: Props) => {
+const RootLayout = ({ children }: PropsWithChildren) => {
   return (
     <html lang="en">
       <ThemeRegistry>
@@ -32,7 +28,7 @@ const RootLayout = ({ children, dialog }: Props) => {
           >
             <Localization>{children}</Localization>
           </Container>
-          {dialog}
+          <SpeedInsights />
         </body>
       </ThemeRegistry>
     </html>
