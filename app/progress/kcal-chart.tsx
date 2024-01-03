@@ -1,13 +1,14 @@
 'use client';
 
 import { useTheme } from '@mui/material/styles';
-import { BarChart } from '@mui/x-charts/BarChart';
+import dynamic from 'next/dynamic';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Card from '@/components/card';
 
+const ApexChart = dynamic(() => import('react-apexcharts'), { ssr: false });
 interface Props {
   dataset: { eaten: number; burned: number; day: string }[];
 }
@@ -20,41 +21,90 @@ const KcalChart = async ({ dataset }: Props) => {
   const totalKcalEaten = dataset.reduce((acc, cur) => acc + cur.eaten, 0);
   const totalKcalBurned = dataset.reduce((acc, cur) => acc + cur.burned, 0);
 
+  const series = [
+    {
+      name: 'eaten',
+      data: dataset.map(item => item.eaten),
+    },
+    {
+      name: 'burned',
+      data: dataset.map(item => item.burned),
+    },
+  ];
+  const options = {
+    chart: {
+      toolbar: {
+        show: false,
+      },
+    },
+    colors: [theme.palette.primary.main, theme.palette.secondary.main],
+    plotOptions: {
+      bar: {
+        borderRadius: 2,
+      },
+    },
+    dataLabels: {
+      enabled: false,
+    },
+    xaxis: {
+      categories: dataset.map(item => item.day),
+      axisBorder: {
+        show: false,
+      },
+      axisTicks: {
+        show: false,
+      },
+      labels: {
+        style: {
+          cssClass: 'apexcharts-label',
+        },
+      },
+    },
+    yaxis: {
+      axisBorder: {
+        show: false,
+      },
+      axisTicks: {
+        show: false,
+      },
+      labels: {
+        style: {
+          cssClass: 'apexcharts-label',
+        },
+      },
+    },
+    stroke: {
+      show: true,
+      width: 1,
+      colors: ['transparent'],
+    },
+    tooltip: {
+      shared: true,
+      intersect: false,
+      x: {
+        show: false,
+      },
+      y: {
+        formatter: valueFormatter,
+      },
+    },
+  };
+
   return (
     <Card
-      sx={{ '& div[class*="MuiResponsiveChart-container"]': { flexGrow: 0 } }}
+      sx={{
+        '& .apexcharts-label': { fill: theme => theme.palette.text.secondary },
+      }}
     >
       <Typography variant="h6" mb={3}>
         Calories (kcal)
       </Typography>
-      <BarChart
+      <ApexChart
+        type="bar"
+        options={options}
+        series={series}
         height={360}
-        dataset={dataset}
-        margin={{ left: 40, right: 16, bottom: 24 }}
-        xAxis={[{ scaleType: 'band', dataKey: 'day' }]}
-        series={[
-          {
-            dataKey: 'eaten',
-            label: 'Eaten',
-            color: theme.palette.primary.main,
-            valueFormatter,
-          },
-          {
-            dataKey: 'burned',
-            label: 'Burned',
-            color: theme.palette.secondary.main,
-            valueFormatter,
-          },
-        ]}
-        slotProps={{
-          legend: {
-            itemMarkWidth: 10,
-            itemMarkHeight: 10,
-            labelStyle: {
-              fontSize: 13,
-            },
-          },
-        }}
+        width="100%"
       />
       <List sx={{ flex: '1 1 auto' }}>
         <ListItem>

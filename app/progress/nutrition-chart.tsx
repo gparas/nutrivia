@@ -1,14 +1,14 @@
 'use client';
 
 import { useTheme } from '@mui/material/styles';
-import { BarChart } from '@mui/x-charts/BarChart';
+import dynamic from 'next/dynamic';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
 import Card from '@/components/card';
 
+const ApexChart = dynamic(() => import('react-apexcharts'), { ssr: false });
 interface Props {
   dataset: { carbs: number; protein: number; fat: number; day: string }[];
 }
@@ -22,45 +22,93 @@ const NutritionChart = async ({ dataset }: Props) => {
   const totalProtein = dataset.reduce((acc, cur) => acc + cur.protein, 0);
   const totalFat = dataset.reduce((acc, cur) => acc + cur.fat, 0);
 
+  const series = [
+    {
+      name: 'carbs',
+      data: dataset.map(item => item.carbs),
+    },
+    {
+      name: 'protein',
+      data: dataset.map(item => item.protein),
+    },
+    {
+      name: 'fat',
+      data: dataset.map(item => item.fat),
+    },
+  ];
+  const options = {
+    chart: {
+      toolbar: {
+        show: false,
+      },
+    },
+    colors: [
+      theme.palette.carbs.main,
+      theme.palette.protein.main,
+      theme.palette.fat.main,
+    ],
+    dataLabels: {
+      enabled: false,
+    },
+    xaxis: {
+      categories: dataset.map(item => item.day),
+      axisBorder: {
+        show: false,
+      },
+      axisTicks: {
+        show: false,
+      },
+      labels: {
+        style: {
+          cssClass: 'apexcharts-label',
+        },
+      },
+    },
+    yaxis: {
+      axisBorder: {
+        show: false,
+      },
+      axisTicks: {
+        show: false,
+      },
+      labels: {
+        style: {
+          cssClass: 'apexcharts-label',
+        },
+      },
+    },
+    stroke: {
+      show: true,
+      width: 1,
+      colors: ['transparent'],
+    },
+    tooltip: {
+      shared: true,
+      intersect: false,
+      x: {
+        show: false,
+      },
+      y: {
+        formatter: valueFormatter,
+      },
+    },
+  };
+
   return (
-    <Card>
+    <Card
+      sx={{
+        '& .apexcharts-label': { fill: theme => theme.palette.text.secondary },
+      }}
+    >
       <Typography variant="h6" mb={3}>
         Nutrition (g)
       </Typography>
-      <BarChart
+      <ApexChart
+        type="bar"
+        options={options}
+        series={series}
         height={360}
-        dataset={dataset}
-        margin={{ left: 32, right: 16, bottom: 24 }}
-        xAxis={[{ scaleType: 'band', dataKey: 'day' }]}
-        series={[
-          {
-            dataKey: 'carbs',
-            label: 'Carbs',
-            color: theme.palette.carbs.main,
-            valueFormatter,
-          },
-          {
-            dataKey: 'protein',
-            label: 'Proten',
-            color: theme.palette.protein.main,
-            valueFormatter,
-          },
-          {
-            dataKey: 'fat',
-            label: 'Fat',
-            color: theme.palette.fat.main,
-            valueFormatter,
-          },
-        ]}
-        slotProps={{
-          legend: {
-            itemMarkWidth: 10,
-            itemMarkHeight: 10,
-            labelStyle: {
-              fontSize: 13,
-            },
-          },
-        }}
+        width="100%"
       />
       <List>
         <ListItem>

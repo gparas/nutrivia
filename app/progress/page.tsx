@@ -104,7 +104,7 @@ const ProgressPage = async () => {
     <Box
       display="grid"
       gap={2}
-      gridTemplateColumns="repeat(auto-fit, minmax(300px, 1fr))"
+      gridTemplateColumns="repeat(auto-fit, minmax(320px, 1fr))"
     >
       <KcalChart dataset={kcalDataset} />
       <NutritionChart dataset={nutritionDataset} />
