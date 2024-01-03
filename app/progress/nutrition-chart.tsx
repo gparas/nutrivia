@@ -28,8 +28,9 @@ const NutritionChart = async ({ dataset }: Props) => {
         Nutrition (g)
       </Typography>
       <BarChart
-        height={400}
+        height={360}
         dataset={dataset}
+        margin={{ left: 32, right: 16, bottom: 24 }}
         xAxis={[{ scaleType: 'band', dataKey: 'day' }]}
         series={[
           {

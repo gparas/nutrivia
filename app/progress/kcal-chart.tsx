@@ -21,13 +21,16 @@ const KcalChart = async ({ dataset }: Props) => {
   const totalKcalBurned = dataset.reduce((acc, cur) => acc + cur.burned, 0);
 
   return (
-    <Card>
+    <Card
+      sx={{ '& div[class*="MuiResponsiveChart-container"]': { flexGrow: 0 } }}
+    >
       <Typography variant="h6" mb={3}>
         Calories (kcal)
       </Typography>
       <BarChart
-        height={400}
+        height={360}
         dataset={dataset}
+        margin={{ left: 40, right: 16, bottom: 24 }}
         xAxis={[{ scaleType: 'band', dataKey: 'day' }]}
         series={[
           {
@@ -53,7 +56,7 @@ const KcalChart = async ({ dataset }: Props) => {
           },
         }}
       />
-      <List>
+      <List sx={{ flex: '1 1 auto' }}>
         <ListItem>
           <Typography variant="body2" flex="1 1 auto" my={0.5}>
             Average calories eaten
