@@ -165,7 +165,7 @@ export interface Database {
           avatar_url: string | null
           created_at: string
           food_preference: string | null
-          full_name: string | null
+          full_name: string
           gender: string | null
           goal: string | null
           height: string | null
@@ -181,7 +181,7 @@ export interface Database {
           avatar_url?: string | null
           created_at?: string
           food_preference?: string | null
-          full_name?: string | null
+          full_name: string
           gender?: string | null
           goal?: string | null
           height?: string | null
@@ -197,7 +197,7 @@ export interface Database {
           avatar_url?: string | null
           created_at?: string
           food_preference?: string | null
-          full_name?: string | null
+          full_name?: string
           gender?: string | null
           goal?: string | null
           height?: string | null
