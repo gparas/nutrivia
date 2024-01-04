@@ -82,9 +82,14 @@ const NutritionChart = async ({ dataset }: Props) => {
       width: 1,
       colors: ['transparent'],
     },
+    grid: {
+      borderColor: theme.palette.action.disabledBackground,
+      strokeDashArray: 4,
+    },
     tooltip: {
       shared: true,
       intersect: false,
+      theme: theme.palette.mode,
       x: {
         show: false,
       },
