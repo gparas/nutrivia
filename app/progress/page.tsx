@@ -4,8 +4,10 @@ import dayjs from 'dayjs';
 import { groupBy } from '@/lib/utils';
 import { notFound } from 'next/navigation';
 import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
 import KcalChart from './kcal-chart';
 import NutritionChart from './nutrition-chart';
+import Typography from '@mui/material/Typography';
 
 const ProgressPage = async () => {
   const cookieStore = cookies();
@@ -101,14 +103,30 @@ const ProgressPage = async () => {
   });
 
   return (
-    <Box
-      display="grid"
-      gap={2}
-      gridTemplateColumns="repeat(auto-fit, minmax(320px, 1fr))"
-    >
-      <KcalChart dataset={kcalDataset} />
-      <NutritionChart dataset={nutritionDataset} />
-    </Box>
+    <>
+      <Stack
+        direction="row"
+        justifyContent="space-between"
+        alignItems="center"
+        mb={3}
+      >
+        <Typography variant="h5" fontWeight={500}>
+          Progress
+        </Typography>
+        <Typography variant="body2">
+          {dayjs().subtract(7, 'days').format('DD MMM YY')} -{' '}
+          {dayjs().format('DD MMM YY')}
+        </Typography>
+      </Stack>
+      <Box
+        display="grid"
+        gap={2}
+        gridTemplateColumns="repeat(auto-fit, minmax(320px, 1fr))"
+      >
+        <KcalChart dataset={kcalDataset} />
+        <NutritionChart dataset={nutritionDataset} />
+      </Box>
+    </>
   );
 };
 

@@ -20,7 +20,10 @@ const GetStartedPage = async () => {
     redirect('/login');
   }
 
-  const { data: profiles } = await supabase.from('profiles').select();
+  const { data: profiles } = await supabase
+    .from('profiles')
+    .select()
+    .eq('id', session.user.id);
 
   if (profiles?.some(item => item.nutritionist_id)) {
     redirect('/');

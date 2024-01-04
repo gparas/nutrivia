@@ -23,11 +23,10 @@ const HomePage = async () => {
     redirect('/login');
   }
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  const { data: profiles } = await supabase.from('profiles').select();
+  const { data: profiles } = await supabase
+    .from('profiles')
+    .select()
+    .eq('id', session.user.id);
 
   if (profiles?.some(item => !item.nutritionist_id)) {
     redirect('/getStarted');
@@ -55,7 +54,7 @@ const HomePage = async () => {
     .from('exercises')
     .select()
     .eq('created_at', dayjs().format('YYYY-MM-DD'))
-    .eq('user_id', user?.id!);
+    .eq('id', session.user.id);
 
   const dailyCalorieIntake = getDailyCalorieIntake(profiles![0]);
   const dailyKcalBurned =

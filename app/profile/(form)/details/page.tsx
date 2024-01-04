@@ -10,7 +10,11 @@ const DetailsPage = async () => {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
 
-  const { data } = await supabase.from('profiles').select();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const { data } = await supabase.from('profiles').select().eq('id', user?.id!);
 
   return (
     <>
