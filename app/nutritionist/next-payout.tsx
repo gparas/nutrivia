@@ -1,11 +1,11 @@
-import Card from '@/components/card';
-import React from 'react';
 import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
-import { priceFormat } from '@/lib/utils';
 import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Card from '@/components/card';
+import { priceFormat } from '@/lib/utils';
 
 const NextPayout = () => {
   return (
@@ -13,7 +13,7 @@ const NextPayout = () => {
       <Typography variant="h6" fontWeight={500} mb={2}>
         Next payout
       </Typography>
-      <Typography variant="h3" mb={0.25}>
+      <Typography variant="h4" mb={0.25}>
         {priceFormat(2000)}
       </Typography>
       <Typography variant="body2" color="success.main" fontWeight={500} mb={2}>
@@ -41,9 +41,16 @@ const NextPayout = () => {
           </Typography>
         </ListItem>
       </List>
-      <Button variant="outlined" color="inherit" size="large">
-        Payout History
-      </Button>
+      <Box color="text.secondary">
+        <Button
+          variant="outlined"
+          color="inherit"
+          fullWidth
+          sx={{ fontWeight: 500 }}
+        >
+          Payout History
+        </Button>
+      </Box>
     </Card>
   );
 };

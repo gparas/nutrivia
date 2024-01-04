@@ -19,7 +19,7 @@ const AffiliateLink = () => {
         color="primary"
         size="small"
         startIcon={<CopyIcon />}
-        sx={{ flexGrow: 1, minWidth: 160 }}
+        sx={{ flexGrow: 1, minWidth: 160, whiteSpace: 'nowrap' }}
       >
         Copy Affiliate Link
       </Button>

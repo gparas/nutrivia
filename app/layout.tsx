@@ -5,6 +5,7 @@ import Container from '@mui/material/Container';
 import ThemeRegistry from '@/themeRegistry';
 import Localization from '@/localization';
 import Header from '@/components/header';
+import Footer from '@/components/footer';
 
 export const metadata: Metadata = {
   title: 'Nutrivia',
@@ -28,6 +29,7 @@ const RootLayout = ({ children }: PropsWithChildren) => {
           >
             <Localization>{children}</Localization>
           </Container>
+          <Footer />
           <SpeedInsights />
         </body>
       </ThemeRegistry>
