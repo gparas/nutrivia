@@ -59,20 +59,20 @@ export const getNutrientsData = (dailyCalorieIntake: number) => {
       gram: Math.ceil((dailyCalorieIntake * 0.45) / 4),
     },
     {
-      id: 'protein',
-      value: 25,
-      label: 'Protein',
-      color: 'protein',
-      kcal: Math.ceil(dailyCalorieIntake * 0.25),
-      gram: Math.ceil((dailyCalorieIntake * 0.25) / 4),
-    },
-    {
       id: 'fat',
       value: 30,
       label: 'Fat',
       color: 'fat',
       kcal: Math.ceil(dailyCalorieIntake * 0.3),
       gram: Math.ceil((dailyCalorieIntake * 0.3) / 9),
+    },
+    {
+      id: 'protein',
+      value: 25,
+      label: 'Protein',
+      color: 'protein',
+      kcal: Math.ceil(dailyCalorieIntake * 0.25),
+      gram: Math.ceil((dailyCalorieIntake * 0.25) / 4),
     },
   ];
 };

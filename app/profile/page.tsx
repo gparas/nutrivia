@@ -3,6 +3,7 @@ import { createClient } from '@/supabase/server';
 import Image from 'next/image';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -21,6 +22,7 @@ import { getYearsOld } from '@/lib/utils';
 import { Fragment } from 'react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { PROFILE } from '@/lib/constants';
 
 const ProfilePage = async () => {
   const cookieStore = cookies();
@@ -37,7 +39,8 @@ const ProfilePage = async () => {
     .select()
     .match({ id: profiles[0].nutritionist_id });
 
-  const { full_name, avatar_url, age, gender } = profiles[0];
+  const { full_name, avatar_url, age, gender, goal, weight, food_preference } =
+    profiles[0];
 
   const settings = [
     {
@@ -67,6 +70,7 @@ const ProfilePage = async () => {
       display="grid"
       gap={2}
       gridTemplateColumns="repeat(auto-fit, minmax(300px, 1fr))"
+      alignItems="flex-start"
     >
       <Card p={0}>
         <List>
@@ -82,6 +86,40 @@ const ProfilePage = async () => {
               secondary={`${gender} ${getYearsOld(age)} years`}
             />
           </ListItem>
+          <Divider light component="li" variant="middle" sx={{ mb: 1 }} />
+          <ListItem>
+            <Typography variant="body2" flex="1 1 auto">
+              Current weight
+            </Typography>
+            <Typography variant="body2" fontWeight={500}>
+              {weight} kg
+            </Typography>
+          </ListItem>
+          <ListItem>
+            <Typography variant="body2" flex="1 1 auto">
+              Goal
+            </Typography>
+            <Typography variant="body2" fontWeight={500}>
+              {
+                PROFILE.goal.options.find(option => option.value === goal)
+                  ?.label
+              }
+            </Typography>
+          </ListItem>
+          {food_preference && (
+            <ListItem>
+              <Typography variant="body2" flex="1 1 auto">
+                Dietary Preference
+              </Typography>
+              <Typography variant="body2" fontWeight={500}>
+                {
+                  PROFILE.food_preference.options.find(
+                    option => option.value === food_preference,
+                  )?.label
+                }
+              </Typography>
+            </ListItem>
+          )}
         </List>
       </Card>
       <Stack spacing={2}>

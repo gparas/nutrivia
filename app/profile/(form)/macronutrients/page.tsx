@@ -22,23 +22,7 @@ const page = async () => {
   return (
     <Box>
       <Box height={300} position="relative">
-        <Box
-          sx={{
-            position: 'absolute',
-            left: '50%',
-            top: '42%',
-            transform: 'translate(-50%)',
-            textAlign: 'center',
-          }}
-        >
-          <Typography variant="h5" fontWeight={500}>
-            {dailyCalorieIntake} <Typography variant="caption">kcal</Typography>
-          </Typography>
-          <Typography variant="caption" color="text.secondary" fontWeight={500}>
-            Daily Calories
-          </Typography>
-        </Box>
-        <Chart data={nutrientsData} />
+        <Chart data={nutrientsData} dailyCalorieIntake={dailyCalorieIntake} />
       </Box>
       {nutrientsData.map(item => (
         <Grid container key={item.label} spacing={2}>

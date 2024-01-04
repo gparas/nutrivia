@@ -57,7 +57,7 @@ const light = {
   action: {
     active: alpha(grey[800], 0.54),
     disabled: alpha(grey[800], 0.26),
-    disabledBackground: alpha(grey[800], 0.12),
+    disabledBackground: alpha(grey[800], 0.08),
     focus: alpha(grey[800], 0.12),
     hover: alpha(grey[800], 0.04),
     selected: alpha(grey[800], 0.08),
@@ -79,7 +79,7 @@ const dark = {
   action: {
     active: alpha('#ffffff', 0.54),
     disabled: alpha('#ffffff', 0.26),
-    disabledBackground: alpha('#ffffff', 0.12),
+    disabledBackground: alpha('#ffffff', 0.08),
     focus: alpha('#ffffff', 0.12),
     hover: alpha('#ffffff', 0.04),
     selected: alpha('#ffffff', 0.1),
