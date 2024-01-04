@@ -10,7 +10,7 @@ import Card from '@/components/card';
 
 const ApexChart = dynamic(() => import('react-apexcharts'), { ssr: false });
 interface Props {
-  dataset: { eaten: number; burned: number; day: string }[];
+  dataset: { eaten: number; burned: number; date: string }[];
 }
 
 const KcalChart = async ({ dataset }: Props) => {
@@ -47,7 +47,8 @@ const KcalChart = async ({ dataset }: Props) => {
       enabled: false,
     },
     xaxis: {
-      categories: dataset.map(item => item.day),
+      type: 'datetime',
+      categories: dataset.map(item => item.date),
       axisBorder: {
         show: false,
       },
@@ -55,11 +56,14 @@ const KcalChart = async ({ dataset }: Props) => {
         show: false,
       },
       labels: {
+        datetimeFormatter: {
+          day: 'ddd',
+        },
         style: {
           cssClass: 'apexcharts-label',
         },
       },
-    },
+    } as const,
     yaxis: {
       axisBorder: {
         show: false,
@@ -82,12 +86,22 @@ const KcalChart = async ({ dataset }: Props) => {
       borderColor: theme.palette.action.disabledBackground,
       strokeDashArray: 4,
     },
+    legend: {
+      position: 'top',
+      colors: [...Array(2).keys()].map(() => theme.palette.text.secondary),
+      markers: {
+        radius: 12,
+      },
+      itemMargin: {
+        horizontal: 8,
+      },
+    } as const,
     tooltip: {
       shared: true,
       intersect: false,
       theme: theme.palette.mode,
       x: {
-        show: false,
+        format: 'dd MMM yy',
       },
       y: {
         formatter: valueFormatter,
@@ -108,7 +122,7 @@ const KcalChart = async ({ dataset }: Props) => {
         type="bar"
         options={options}
         series={series}
-        height={360}
+        height={350}
         width="100%"
       />
       <List sx={{ flex: '1 1 auto' }}>

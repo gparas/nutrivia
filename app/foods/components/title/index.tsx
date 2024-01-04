@@ -2,10 +2,10 @@
 
 import { useSearchParams, useRouter } from 'next/navigation';
 import { capitalize } from '@mui/material';
-import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
 import ArrowBackIcon from '@mui/icons-material/ArrowBackRounded';
+import PageTitle from '@/components/page-title';
 
 const Title = () => {
   const router = useRouter();
@@ -16,9 +16,9 @@ const Title = () => {
       <IconButton edge="start" onClick={() => router.back()}>
         <ArrowBackIcon fontSize="small" />
       </IconButton>
-      <Typography variant="h4" flexGrow={1}>
+      <PageTitle flexGrow={1}>
         {category ? capitalize(category) : 'Meals'}
-      </Typography>
+      </PageTitle>
     </Stack>
   );
 };

@@ -10,7 +10,7 @@ import Card from '@/components/card';
 
 const ApexChart = dynamic(() => import('react-apexcharts'), { ssr: false });
 interface Props {
-  dataset: { carbs: number; protein: number; fat: number; day: string }[];
+  dataset: { carbs: number; protein: number; fat: number; date: string }[];
 }
 
 const NutritionChart = async ({ dataset }: Props) => {
@@ -51,7 +51,8 @@ const NutritionChart = async ({ dataset }: Props) => {
       enabled: false,
     },
     xaxis: {
-      categories: dataset.map(item => item.day),
+      type: 'datetime',
+      categories: dataset.map(item => item.date),
       axisBorder: {
         show: false,
       },
@@ -59,11 +60,14 @@ const NutritionChart = async ({ dataset }: Props) => {
         show: false,
       },
       labels: {
+        datetimeFormatter: {
+          day: 'ddd',
+        },
         style: {
           cssClass: 'apexcharts-label',
         },
       },
-    },
+    } as const,
     yaxis: {
       axisBorder: {
         show: false,
@@ -86,12 +90,22 @@ const NutritionChart = async ({ dataset }: Props) => {
       borderColor: theme.palette.action.disabledBackground,
       strokeDashArray: 4,
     },
+    legend: {
+      position: 'top',
+      colors: [...Array(3).keys()].map(() => theme.palette.text.secondary),
+      markers: {
+        radius: 12,
+      },
+      itemMargin: {
+        horizontal: 8,
+      },
+    } as const,
     tooltip: {
       shared: true,
       intersect: false,
       theme: theme.palette.mode,
       x: {
-        show: false,
+        format: 'dd MMM yy',
       },
       y: {
         formatter: valueFormatter,
@@ -112,7 +126,7 @@ const NutritionChart = async ({ dataset }: Props) => {
         type="bar"
         options={options}
         series={series}
-        height={360}
+        height={350}
         width="100%"
       />
       <List>

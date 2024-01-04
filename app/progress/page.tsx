@@ -8,6 +8,7 @@ import Stack from '@mui/material/Stack';
 import KcalChart from './kcal-chart';
 import NutritionChart from './nutrition-chart';
 import Typography from '@mui/material/Typography';
+import PageTitle from '@/components/page-title';
 
 const ProgressPage = async () => {
   const cookieStore = cookies();
@@ -67,7 +68,7 @@ const ProgressPage = async () => {
             ),
           )
         : 0,
-      day: dayjs(day).format('dd'),
+      date: dayjs(day).format('YYYY-MM-DD'),
     };
   });
 
@@ -98,7 +99,7 @@ const ProgressPage = async () => {
             ),
           )
         : 0,
-      day: dayjs(day).format('dd'),
+      date: dayjs(day).format('YYYY-MM-DD'),
     };
   });
 
@@ -110,9 +111,7 @@ const ProgressPage = async () => {
         alignItems="center"
         mb={3}
       >
-        <Typography variant="h5" fontWeight={500}>
-          Progress
-        </Typography>
+        <PageTitle>Progress</PageTitle>
         <Typography variant="body2">
           {dayjs().subtract(7, 'days').format('DD MMM YY')} -{' '}
           {dayjs().format('DD MMM YY')}

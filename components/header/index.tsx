@@ -23,7 +23,7 @@ const Header = async () => {
       sx={{ flex: '0 0 auto' }}
     >
       <Toolbar>
-        <Typography variant="h5" fontWeight="bold" sx={{ flexGrow: 1 }}>
+        <Typography variant="h6" fontWeight="500" sx={{ flexGrow: 1 }}>
           <Link component={NextLink} href="/" underline="none" color="inherit">
             nutrivia
           </Link>
