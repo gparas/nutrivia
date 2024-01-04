@@ -8,6 +8,7 @@ import NextPayout from './next-payout';
 import Earnings from './earnings';
 import Conversion from './conversion';
 import AffiliateLink from './affiliate-link';
+import ClientsTable from './clients-table';
 
 const NutritionistPage = async () => {
   const cookieStore = cookies();
@@ -38,6 +39,9 @@ const NutritionistPage = async () => {
         </Grid>
         <Grid item md={6}>
           <Conversion />
+        </Grid>
+        <Grid item xs={12}>
+          <ClientsTable />
         </Grid>
       </Grid>
     </>
