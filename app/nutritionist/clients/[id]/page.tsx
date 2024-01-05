@@ -7,6 +7,7 @@ import KcalChart from '@/components/kcal-chart';
 import KcalOverview from '@/components/kcal-overview';
 import WeightChart from '@/components/weight-chart';
 import WaterChart from '@/components/water-chart';
+import MealsTable from '@/components/meals-table';
 import {
   getDailyCalorieIntake,
   getKcalDataset,
@@ -31,10 +32,13 @@ const ClientPage = async ({ params: { id } }: { params: { id: string } }) => {
       `
     created_at,
     foods (
+      image,
+      name,
+      category,
       kcal,
       carbs,
-      fat,
-      protein
+      protein,
+      fat
     )
   `,
     )
@@ -91,6 +95,11 @@ const ClientPage = async ({ params: { id } }: { params: { id: string } }) => {
         </Grid>
         <Grid item xs={12} md={6}>
           <WaterChart dataset={getWaterDataset(water)} />
+        </Grid>
+        <Grid item xs={12}>
+          <MealsTable
+            meals={meals.map((meal, index) => ({ id: index, ...meal.foods }))}
+          />
         </Grid>
       </Grid>
     </>
