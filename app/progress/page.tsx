@@ -9,11 +9,13 @@ import PageTitle from '@/components/page-title';
 import KcalChart from '@/components/kcal-chart';
 import KcalOverview from '@/components/kcal-overview';
 import WeightChart from '@/components/weight-chart';
+import WaterChart from '@/components/water-chart';
 import {
   getDailyCalorieIntake,
   getKcalDataset,
   getNutritionDataset,
   getWeightDataset,
+  getWaterDataset,
 } from '@/lib/utils';
 
 const ProgressPage = async () => {
@@ -60,6 +62,13 @@ const ProgressPage = async () => {
     .gte('created_at', dayjs().subtract(7, 'days').format('YYYY-MM-DD'))
     .lte('created_at', dayjs().format('YYYY-MM-DD'));
 
+  const { data: water } = await supabase
+    .from('water')
+    .select('created_at, liter')
+    .eq('user_id', user?.id!)
+    .gte('created_at', dayjs().subtract(7, 'days').format('YYYY-MM-DD'))
+    .lte('created_at', dayjs().format('YYYY-MM-DD'));
+
   if (!meals || !exercises) {
     return notFound();
   }
@@ -96,6 +105,9 @@ const ProgressPage = async () => {
             profile={profiles![0]}
             dataset={getWeightDataset(weights, profiles![0].weight)}
           />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <WaterChart dataset={getWaterDataset(water)} />
         </Grid>
       </Grid>
     </>

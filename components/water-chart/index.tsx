@@ -6,7 +6,6 @@ import Card from '@/components/card';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import ComponentLoader from '@/components/component-loader';
-import { Tables } from '@/types/supabase';
 
 const CHART_HEIGHT = 144;
 
@@ -16,20 +15,16 @@ const ApexChart = dynamic(() => import('react-apexcharts'), {
 });
 
 interface Props {
-  profile: Tables<'profiles'>;
-  dataset: { weight: number; date: string }[];
+  dataset: { liter: number; date: string }[];
 }
 
-const WeightChart = ({ dataset, profile }: Props) => {
+const WaterChart = ({ dataset }: Props) => {
   const theme = useTheme();
-
-  const current_weight = Number(profile.weight);
-  const target_weight = Number(profile.target_weight);
 
   const series = [
     {
-      name: 'Weight',
-      data: dataset.map(item => item.weight),
+      name: 'Liter',
+      data: dataset.map(item => item.liter),
     },
   ];
   const options = {
@@ -57,10 +52,8 @@ const WeightChart = ({ dataset, profile }: Props) => {
         show: false,
       },
     } as const,
-    colors: [theme.palette.success.main],
     yaxis: {
       show: false,
-      min: target_weight || current_weight,
     },
     grid: {
       show: false,
@@ -73,50 +66,23 @@ const WeightChart = ({ dataset, profile }: Props) => {
     },
   };
 
-  const avgWeight =
-    dataset.reduce((acc, cur) => acc + cur.weight, 0) / dataset.length;
-
-  const weightDiff = avgWeight - current_weight;
-
-  const getTextColor = () => {
-    if (profile.goal === 'lose_weight') {
-      return weightDiff <= 0 ? 'success.main' : 'error.main';
-    }
-    if (profile.goal === 'gain_weight') {
-      return weightDiff < 0 ? 'error.main' : 'success.main';
-    }
-    return 'inherit';
-  };
+  const totalWater = dataset.reduce((acc, cur) => acc + cur.liter, 0);
 
   return (
     <Card>
       <Typography variant="h6" fontWeight={500} mb={2}>
-        Weight
+        Water
       </Typography>
       <Grid container alignItems="flex-end">
         <Grid item xs={12} sm={5} mb={[0, 3]}>
           <Typography variant="h3" mb={0.25}>
-            {current_weight}
+            {totalWater}
             <Typography variant="h6" component="span" fontWeight={400}>
-              kg
+              L
             </Typography>
           </Typography>
-          <Typography
-            variant="body2"
-            color={getTextColor()}
-            fontWeight={500}
-            mb={1}
-          >
-            {weightDiff <= 0 ? <span>&darr;</span> : <span>&uarr;</span>}
-            {Math.abs(Math.round(weightDiff * 100) / 100)}{' '}
-            <Typography
-              variant="inherit"
-              color={'text.secondary'}
-              component="span"
-              fontWeight={400}
-            >
-              kg this week
-            </Typography>
+          <Typography variant="body2" color={'text.secondary'}>
+            intake this week
           </Typography>
         </Grid>
         <Grid item xs={12} sm={7}>
@@ -133,4 +99,4 @@ const WeightChart = ({ dataset, profile }: Props) => {
   );
 };
 
-export default WeightChart;
+export default WaterChart;

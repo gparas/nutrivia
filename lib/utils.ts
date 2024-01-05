@@ -202,3 +202,21 @@ export const getWeightDataset = (
     };
   });
 };
+
+type Water =
+  | {
+      created_at: string;
+      liter: string;
+    }[]
+  | null;
+
+export const getWaterDataset = (water: Water) => {
+  const days = getDays();
+  return days.reverse().map(day => {
+    const liter = water?.find(({ created_at }) => created_at === day)?.liter;
+    return {
+      liter: Number(liter) || 0,
+      date: dayjs(day).format('YYYY-MM-DD'),
+    };
+  });
+};

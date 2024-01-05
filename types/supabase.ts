@@ -224,6 +224,27 @@ export interface Database {
           }
         ]
       }
+      water: {
+        Row: {
+          created_at: string
+          id: string
+          liter: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          liter: string
+          user_id?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          liter?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       weights: {
         Row: {
           created_at: string
