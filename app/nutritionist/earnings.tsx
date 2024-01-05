@@ -5,7 +5,6 @@ import dynamic from 'next/dynamic';
 import Card from '@/components/card';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
-import { priceFormat } from '@/lib/utils';
 
 const ApexChart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
@@ -81,8 +80,11 @@ const Earnings = () => {
       </Typography>
       <Grid container alignItems="flex-end">
         <Grid item xs={12} md={5} mb={[0, 3]}>
-          <Typography variant="h4" mb={0.25}>
-            {priceFormat(1260)}
+          <Typography variant="h3" mb={0.25}>
+            1260
+            <Typography variant="h6" component="span" fontWeight={400}>
+              €
+            </Typography>
           </Typography>
           <Typography variant="body2" color="success.main" fontWeight={500}>
             &uarr;75{' '}
