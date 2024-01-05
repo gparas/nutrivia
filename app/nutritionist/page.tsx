@@ -1,3 +1,5 @@
+import { cookies } from 'next/headers';
+import { createClient } from '@/supabase/server';
 import PageTitle from '@/components/page-title';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
@@ -8,7 +10,12 @@ import Conversion from './conversion';
 import AffiliateLink from './affiliate-link';
 import ClientsTable from './clients-table';
 
-const NutritionistPage = () => {
+const NutritionistPage = async () => {
+  const cookieStore = cookies();
+  const supabase = createClient(cookieStore);
+
+  const { data: profiles } = await supabase.from('profiles').select();
+
   return (
     <>
       <Stack
@@ -27,14 +34,14 @@ const NutritionistPage = () => {
         <Grid item xs={12} md={4}>
           <NextPayout />
         </Grid>
-        <Grid item md={6}>
+        <Grid item xs={12} md={6}>
           <Earnings />
         </Grid>
-        <Grid item md={6}>
+        <Grid item xs={12} md={6}>
           <Conversion />
         </Grid>
         <Grid item xs={12}>
-          <ClientsTable />
+          <ClientsTable profiles={profiles || []} />
         </Grid>
       </Grid>
     </>

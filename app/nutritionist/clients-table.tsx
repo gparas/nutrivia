@@ -1,6 +1,5 @@
 'use client';
 
-import { createClient } from '@/supabase/client';
 import {
   DataGrid,
   GridRowsProp,
@@ -16,6 +15,7 @@ import Card from '@/components/card';
 import { getYearsOld } from '@/lib/utils';
 import { PROFILE } from '@/lib/constants';
 import Button from '@mui/material/Button';
+import { Tables } from '@/types/supabase';
 
 function RenderAge(props: GridRenderCellParams) {
   const { value } = props;
@@ -101,11 +101,12 @@ const columns: GridColDef[] = [
   },
 ];
 
-const ClientsTable = async () => {
-  const supabase = createClient();
-  const { data: profiles } = await supabase.from('profiles').select();
+type Props = {
+  profiles: Tables<'profiles'>[];
+};
 
-  const rows: GridRowsProp = profiles || [];
+const ClientsTable = ({ profiles }: Props) => {
+  const rows: GridRowsProp = profiles;
   return (
     <Card p={1}>
       <Stack

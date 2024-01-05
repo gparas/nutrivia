@@ -5,8 +5,14 @@ import dynamic from 'next/dynamic';
 import Card from '@/components/card';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
+import ComponentLoader from '@/components/component-loader';
 
-const ApexChart = dynamic(() => import('react-apexcharts'), { ssr: false });
+const CHART_HEIGHT = 144;
+
+const ApexChart = dynamic(() => import('react-apexcharts'), {
+  loading: () => <ComponentLoader height={CHART_HEIGHT} />,
+  ssr: false,
+});
 
 const Earnings = () => {
   const theme = useTheme();
@@ -79,7 +85,7 @@ const Earnings = () => {
         Earnings
       </Typography>
       <Grid container alignItems="flex-end">
-        <Grid item xs={12} md={5} mb={[0, 3]}>
+        <Grid item xs={12} sm={5} mb={[0, 3]}>
           <Typography variant="h3" mb={0.25}>
             1260
             <Typography variant="h6" component="span" fontWeight={400}>
@@ -98,12 +104,12 @@ const Earnings = () => {
             </Typography>
           </Typography>
         </Grid>
-        <Grid item xs={12} md={7}>
+        <Grid item xs={12} sm={7}>
           <ApexChart
             options={options}
             series={series}
             type="area"
-            height={144}
+            height={CHART_HEIGHT}
             width={'100%'}
           />
         </Grid>

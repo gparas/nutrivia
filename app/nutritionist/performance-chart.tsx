@@ -4,8 +4,14 @@ import { useTheme } from '@mui/material/styles';
 import Card from '@/components/card';
 import dynamic from 'next/dynamic';
 import Typography from '@mui/material/Typography';
+import ComponentLoader from '@/components/component-loader';
 
-const ApexChart = dynamic(() => import('react-apexcharts'), { ssr: false });
+const CHART_HEIGHT = 300;
+
+const ApexChart = dynamic(() => import('react-apexcharts'), {
+  loading: () => <ComponentLoader height={CHART_HEIGHT} />,
+  ssr: false,
+});
 
 const PerformanceChart = () => {
   const theme = useTheme();
@@ -98,7 +104,7 @@ const PerformanceChart = () => {
         options={options}
         series={series}
         type="area"
-        height={300}
+        height={CHART_HEIGHT}
         width={'100%'}
       />
     </Card>

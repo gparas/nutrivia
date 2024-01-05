@@ -7,8 +7,9 @@ import Stack from '@mui/material/Stack';
 import KcalChart from './kcal-chart';
 import Typography from '@mui/material/Typography';
 import PageTitle from '@/components/page-title';
-import { getDailyCalorieIntake, groupBy } from '@/lib/utils';
+import { getDailyCalorieIntake } from '@/lib/utils';
 import KcalOverview from './kcal-overview';
+import { getNutritionDataset, getKcalDataset } from './utils';
 
 const ProgressPage = async () => {
   const cookieStore = cookies();
@@ -51,62 +52,7 @@ const ProgressPage = async () => {
     return notFound();
   }
 
-  const mealsGroup = groupBy(meals, i => i.created_at);
-  const exercisesGroup = groupBy(exercises, i => i.created_at);
   const dailyCalorieIntake = getDailyCalorieIntake(profiles![0]);
-
-  const days = [];
-  for (let i = 0; i < 7; i++) {
-    days.push(dayjs().subtract(i, 'days').format('YYYY-MM-DD'));
-  }
-
-  const kcalDataset = days.reverse().map(day => {
-    const mealsData = Object.keys(mealsGroup).find(key => key === day);
-    const exercisesData = Object.keys(exercisesGroup).find(key => key === day);
-    return {
-      eaten: mealsData
-        ? Math.ceil(
-            mealsGroup[mealsData].reduce(
-              (acc, cur) => acc + Number(cur.foods?.kcal),
-              0,
-            ),
-          )
-        : 0,
-      burned: exercisesData
-        ? Math.ceil(
-            exercisesGroup[exercisesData].reduce(
-              (acc, cur) => acc + Number(cur.kcal),
-              0,
-            ),
-          )
-        : 0,
-      date: dayjs(day).format('YYYY-MM-DD'),
-    };
-  });
-
-  const nutritionDataset = [
-    {
-      id: 'carbs',
-      label: 'carbs',
-      value: Math.round(
-        meals.reduce((acc, cur) => acc + cur.foods?.carbs!, 0) / meals.length,
-      ),
-    },
-    {
-      id: 'protein',
-      label: 'protein',
-      value: Math.round(
-        meals.reduce((acc, cur) => acc + cur.foods?.protein!, 0) / meals.length,
-      ),
-    },
-    {
-      id: 'fat',
-      label: 'fat',
-      value: Math.round(
-        meals.reduce((acc, cur) => acc + cur.foods?.fat!, 0) / meals.length,
-      ),
-    },
-  ];
 
   return (
     <>
@@ -124,12 +70,12 @@ const ProgressPage = async () => {
       </Stack>
       <Grid container spacing={2}>
         <Grid item xs={12} md={8}>
-          <KcalChart dataset={kcalDataset} />
+          <KcalChart dataset={getKcalDataset(meals, exercises)} />
         </Grid>
         <Grid item xs={12} md={4}>
           <KcalOverview
-            dataset={kcalDataset}
-            nutritionDataset={nutritionDataset}
+            dataset={getKcalDataset(meals, exercises)}
+            nutritionDataset={getNutritionDataset(meals)}
             dailyCalorieIntake={dailyCalorieIntake}
           />
         </Grid>
