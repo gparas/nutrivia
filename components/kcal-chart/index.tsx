@@ -12,6 +12,7 @@ const ApexChart = dynamic(() => import('react-apexcharts'), {
   loading: () => <ComponentLoader height={CHART_HEIGHT} />,
   ssr: false,
 });
+
 interface Props {
   dataset: { eaten: number; burned: number; date: string }[];
 }
@@ -20,6 +21,9 @@ const KcalChart = ({ dataset }: Props) => {
   const theme = useTheme();
 
   const valueFormatter = (value: number) => `${value} kcal`;
+  const chartLabelsColors = [...Array(dataset.length).keys()].map(
+    () => theme.palette.text.secondary,
+  );
 
   const series = [
     {
@@ -60,7 +64,7 @@ const KcalChart = ({ dataset }: Props) => {
           day: 'ddd',
         },
         style: {
-          cssClass: 'apexcharts-label',
+          colors: chartLabelsColors,
         },
       },
     } as const,
@@ -73,7 +77,7 @@ const KcalChart = ({ dataset }: Props) => {
       },
       labels: {
         style: {
-          cssClass: 'apexcharts-label',
+          colors: chartLabelsColors,
         },
       },
     },
@@ -88,7 +92,9 @@ const KcalChart = ({ dataset }: Props) => {
     },
     legend: {
       position: 'top',
-      colors: [...Array(2).keys()].map(() => theme.palette.text.secondary),
+      labels: {
+        colors: chartLabelsColors,
+      },
       markers: {
         radius: 12,
       },
@@ -110,11 +116,7 @@ const KcalChart = ({ dataset }: Props) => {
   };
 
   return (
-    <Card
-      sx={{
-        '& .apexcharts-label': { fill: theme => theme.palette.text.secondary },
-      }}
-    >
+    <Card>
       <Typography variant="h6" mb={3}>
         Calories (kcal)
       </Typography>

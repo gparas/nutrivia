@@ -41,7 +41,7 @@ const KcalOverview = ({
         variant="body2"
         color={kcalDiff <= 0 ? 'success.main' : 'error.main'}
         fontWeight={500}
-        mb={2}
+        mb={3}
       >
         {kcalDiff <= 0 ? <span>&darr;</span> : <span>&uarr;</span>}
         {Math.abs(kcalDiff)}{' '}
@@ -54,7 +54,7 @@ const KcalOverview = ({
           kcal this week
         </Typography>
       </Typography>
-      <List dense sx={{ mt: 'auto' }}>
+      <List disablePadding dense sx={{ mt: 'auto' }}>
         <ListItem disableGutters>
           <ListItemText secondary="kcal eaten" />
           <Typography variant="body2" fontWeight={500} component="span">
@@ -76,7 +76,7 @@ const KcalOverview = ({
             <ListItem key={id} disableGutters>
               <ListItemText secondary={`${label}`} />
               <Typography variant="body2" fontWeight={500} component="span">
-                {value} / {defaultNutrient} g
+                {value || 0} / {defaultNutrient} g
               </Typography>
             </ListItem>
           );
