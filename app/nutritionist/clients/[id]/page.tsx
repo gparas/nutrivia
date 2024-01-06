@@ -32,6 +32,7 @@ const ClientPage = async ({ params: { id } }: { params: { id: string } }) => {
       `
     created_at,
     foods (
+      id,
       image,
       name,
       category,
@@ -98,7 +99,20 @@ const ClientPage = async ({ params: { id } }: { params: { id: string } }) => {
         </Grid>
         <Grid item xs={12}>
           <MealsTable
-            meals={meals.map((meal, index) => ({ id: index, ...meal.foods }))}
+            user_id={id}
+            meals={meals.map((meal, index) => {
+              return {
+                id: index,
+                meal_id: meal.foods?.id,
+                image: meal.foods?.image,
+                name: meal.foods?.name,
+                category: meal.foods?.category,
+                kcal: meal.foods?.kcal,
+                carbs: meal.foods?.carbs,
+                protein: meal.foods?.protein,
+                fat: meal.foods?.fat,
+              };
+            })}
           />
         </Grid>
       </Grid>

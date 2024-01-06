@@ -7,8 +7,8 @@ import {
   GridRenderCellParams,
 } from '@mui/x-data-grid';
 import NextLink from 'next/link';
-import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
+import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
 import Card from '@/components/card';
