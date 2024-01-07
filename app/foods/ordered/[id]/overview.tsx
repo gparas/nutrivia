@@ -2,19 +2,19 @@ import Typography from '@mui/material/Typography';
 import Card from '@/components/card';
 
 interface Props {
-  foodKcal: number;
+  kcal: number;
   recommendedKcal: number;
 }
 
-const Overview = ({ recommendedKcal, foodKcal }: Props) => {
-  const kcalDiff = foodKcal - recommendedKcal;
+const Overview = ({ recommendedKcal, kcal }: Props) => {
+  const kcalDiff = kcal - recommendedKcal;
   return (
-    <Card height={'100%'}>
+    <Card mb={2}>
       <Typography variant="h6" fontWeight={500} mb={2}>
-        Calories intake
+        Overview
       </Typography>
       <Typography variant="h3" mb={0.25}>
-        {foodKcal}
+        {kcal}
         <Typography variant="h6" component="span" fontWeight={400}>
           kcal
         </Typography>
@@ -23,6 +23,7 @@ const Overview = ({ recommendedKcal, foodKcal }: Props) => {
         variant="body2"
         color={kcalDiff <= 0 ? 'success.main' : 'error.main'}
         fontWeight={500}
+        mb={1}
       >
         {kcalDiff <= 0 ? <span>&darr;</span> : <span>&uarr;</span>}
         {Math.abs(kcalDiff)}{' '}

@@ -9,11 +9,12 @@ type Meal = {
   protein: number;
 };
 
-export const getnutrientsDataset = (nutrientsData: NutrientsData, meal: Meal) =>
+export const getNutrientsDataset = (nutrientsData: NutrientsData, meal: Meal) =>
   nutrientsData.map(data => {
     return {
+      id: data.id,
       eaten: meal[data.id as keyof Meal],
       recommended: data.gram,
-      nutrient: data.id,
+      label: data.id,
     };
   });

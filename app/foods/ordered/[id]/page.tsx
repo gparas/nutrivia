@@ -3,10 +3,13 @@ import { createClient } from '@/supabase/server';
 import { notFound } from 'next/navigation';
 import Grid from '@mui/material/Grid';
 import Overview from './overview';
-import NutrientsChart from './nutrients-chart';
+import ComparisonChart from './comparison-chart';
 import { getDailyCalorieIntake, getNutrientsData } from '@/lib/utils';
 import { DAILY_MEALS } from '@/lib/constants';
-import { getnutrientsDataset } from './utils';
+import { getNutrientsDataset } from './utils';
+import Info from './info';
+import Intake from './intake';
+import NutrientsIntake from './nutrients-intake';
 
 const OrderedFoodPage = async ({
   params: { id },
@@ -47,11 +50,20 @@ const OrderedFoodPage = async ({
   const nutrientsData = getNutrientsData(recommendedKcal);
   return (
     <Grid container spacing={2}>
+      <Grid item xs={12}>
+        <Info {...food} />
+      </Grid>
       <Grid item xs={12} sm={4}>
-        <Overview foodKcal={food.kcal} recommendedKcal={recommendedKcal} />
+        <Overview kcal={food.kcal} recommendedKcal={recommendedKcal} />
+        <Intake
+          food={food}
+          nutrientsData={nutrientsData}
+          recommendedKcal={recommendedKcal}
+        />
       </Grid>
       <Grid item xs={12} sm={8}>
-        <NutrientsChart dataset={getnutrientsDataset(nutrientsData, food)} />
+        <ComparisonChart dataset={getNutrientsDataset(nutrientsData, food)} />
+        <NutrientsIntake nutrientsData={nutrientsData} food={food} />
       </Grid>
     </Grid>
   );

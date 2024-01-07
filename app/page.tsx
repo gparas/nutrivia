@@ -83,7 +83,9 @@ const HomePage = async () => {
         textSecondary: data
           ? data.foods?.name
           : `Recommended - ${recommended} kcal`,
-        href: data ? `/foods/${data.foods?.id}` : `/foods?category=${id}`,
+        href: data
+          ? `/foods/ordered/${data.foods?.id}?user_id=${session.user.id}`
+          : `/foods?category=${id}`,
         scroll: false,
       };
     },
