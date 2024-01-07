@@ -9,6 +9,19 @@ const inter = Inter({
   display: 'swap',
 });
 
+declare module '@mui/material/styles' {
+  interface Palette {
+    carbs: Palette['primary'];
+    fat: Palette['primary'];
+    protein: Palette['primary'];
+  }
+  interface PaletteOptions {
+    carbs: PaletteOptions['primary'];
+    fat: PaletteOptions['primary'];
+    protein: PaletteOptions['primary'];
+  }
+}
+
 declare module '@mui/material/LinearProgress' {
   interface LinearProgressPropsColorOverrides {
     carbs: true;
@@ -20,19 +33,6 @@ declare module '@mui/material/LinearProgress' {
 declare module '@mui/material/Button' {
   interface ButtonPropsVariantOverrides {
     soft: true;
-  }
-}
-
-declare module '@mui/material/styles/createPalette' {
-  interface Palette {
-    carbs: Palette['primary'];
-    fat: Palette['primary'];
-    protein: Palette['primary'];
-  }
-  interface PaletteOptions {
-    carbs: PaletteOptions['primary'];
-    fat: PaletteOptions['primary'];
-    protein: PaletteOptions['primary'];
   }
 }
 

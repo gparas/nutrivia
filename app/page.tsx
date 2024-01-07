@@ -57,6 +57,7 @@ const HomePage = async () => {
     .eq('id', session.user.id);
 
   const dailyCalorieIntake = getDailyCalorieIntake(profiles![0]);
+
   const dailyKcalBurned =
     exercises?.reduce((acc, cur) => acc + Number(cur.kcal), 0) || 0;
   const dailyKcalEaten =
@@ -67,7 +68,7 @@ const HomePage = async () => {
   const dailyMeals = DAILY_MEALS.map(
     ({ id, iconId, textPrimary, recommendedKcal }) => {
       const data = meals?.find(meal => meal.meal_category === id);
-      const recommended = Math.round(totalDailyCalorieIntake * recommendedKcal);
+      const recommended = Math.round(dailyCalorieIntake * recommendedKcal);
       const orderedKcal = data ? data.foods?.kcal : undefined;
       const orderedKcalDiff = data
         ? recommended - data?.foods?.kcal!
@@ -82,7 +83,9 @@ const HomePage = async () => {
         textSecondary: data
           ? data.foods?.name
           : `Recommended - ${recommended} kcal`,
-        href: data ? `/foods/${data.foods?.id}` : `/foods?category=${id}`,
+        href: data
+          ? `/foods/ordered/${data.foods?.id}?user_id=${session.user.id}`
+          : `/foods?category=${id}`,
         scroll: false,
       };
     },

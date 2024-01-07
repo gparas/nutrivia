@@ -14,10 +14,6 @@ const grey = {
   900: '#161C24',
 };
 
-const secondary = {
-  main: '#c3de0a',
-};
-
 const carbs = {
   main: '#5ecfcd',
 };
@@ -47,8 +43,11 @@ const light = {
   primary: {
     main: '#7E57C2',
   },
+  secondary: {
+    main: '#03dac6',
+  },
   error: {
-    main: '#E91E63',
+    main: '#dc3545',
   },
   text: {
     primary: grey[800],
@@ -72,8 +71,11 @@ const dark = {
   primary: {
     main: '#B39DDB',
   },
+  secondary: {
+    main: '#98FBD6',
+  },
   error: {
-    main: '#F48FB1',
+    main: '#F48E85',
   },
   divider: '#444d56',
   action: {
@@ -96,7 +98,6 @@ const palette = {
   grey,
   info,
   mode,
-  secondary,
   success,
   warning,
   carbs,

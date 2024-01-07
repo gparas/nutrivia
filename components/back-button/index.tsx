@@ -12,7 +12,7 @@ const BackButton = () => {
       startIcon={<ArrowBackIcon />}
       size="large"
       onClick={() => router.back()}
-      sx={{ fontWeight: 400 }}
+      sx={{ fontWeight: 400, alignSelf: 'flex-start' }}
     >
       Back
     </Button>

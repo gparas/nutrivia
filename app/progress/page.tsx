@@ -38,6 +38,7 @@ const ProgressPage = async () => {
       `
     created_at,
     foods (
+      id,
       image,
       name,
       category,
@@ -115,7 +116,20 @@ const ProgressPage = async () => {
         </Grid>
         <Grid item xs={12}>
           <MealsTable
-            meals={meals.map((meal, index) => ({ id: index, ...meal.foods }))}
+            user_id={user?.id}
+            meals={meals.map((meal, index) => {
+              return {
+                id: index,
+                meal_id: meal.foods?.id,
+                image: meal.foods?.image,
+                name: meal.foods?.name,
+                category: meal.foods?.category,
+                kcal: meal.foods?.kcal,
+                carbs: meal.foods?.carbs,
+                protein: meal.foods?.protein,
+                fat: meal.foods?.fat,
+              };
+            })}
           />
         </Grid>
       </Grid>
