@@ -20,12 +20,13 @@ const GetStartedPage = async () => {
     redirect('/login');
   }
 
-  const { data: profiles } = await supabase
+  const { data: profile } = await supabase
     .from('profiles')
     .select()
-    .eq('id', session.user.id);
+    .eq('id', session.user.id)
+    .single();
 
-  if (profiles?.some(item => item.nutritionist_id)) {
+  if (!profile?.kcal_intake) {
     redirect('/');
   }
 

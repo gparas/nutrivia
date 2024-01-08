@@ -164,12 +164,6 @@ export const DAILY_EXTRAS = {
     textPrimary: 'Water',
     textSecondary: 'Daily water intake',
   },
-  EXERCISE: {
-    id: 'exercise',
-    iconId: 'exercise',
-    textPrimary: 'Exercise',
-    href: '/exercise',
-  },
 };
 
 export const KG_PER_MONTH = 2;

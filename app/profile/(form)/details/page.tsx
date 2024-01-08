@@ -5,6 +5,7 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Age from './age';
 import { FIELDS, Fields } from './constants';
+import { notFound } from 'next/navigation';
 
 const DetailsPage = async () => {
   const cookieStore = cookies();
@@ -14,7 +15,15 @@ const DetailsPage = async () => {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const { data } = await supabase.from('profiles').select().eq('id', user?.id!);
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select()
+    .eq('id', user?.id!)
+    .single();
+
+  if (!profile) {
+    return notFound();
+  }
 
   return (
     <>
@@ -27,7 +36,7 @@ const DetailsPage = async () => {
           fullWidth
           label={field.label}
           select={Boolean(field.options)}
-          defaultValue={data![0][field.name as keyof Profile]}
+          defaultValue={profile[field.name as keyof Profile]}
           inputProps={{
             name: field.name,
           }}
@@ -44,7 +53,7 @@ const DetailsPage = async () => {
             : null}
         </TextField>
       ))}
-      <Age age={data![0].age} />
+      <Age age={profile.age} />
     </>
   );
 };

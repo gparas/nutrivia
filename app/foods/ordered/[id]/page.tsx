@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation';
 import Grid from '@mui/material/Grid';
 import Overview from './overview';
 import ComparisonChart from './comparison-chart';
-import { getDailyCalorieIntake, getNutrientsData } from '@/lib/utils';
+import { getNutrientsData } from '@/lib/utils';
 import { DAILY_MEALS } from '@/lib/constants';
 import { getNutrientsDataset } from './utils';
 import Info from './info';
@@ -23,12 +23,13 @@ const OrderedFoodPage = async ({
 
   const user_id = searchParams.user_id;
 
-  const { data: profiles } = await supabase
+  const { data: profile } = await supabase
     .from('profiles')
     .select()
-    .eq('id', user_id || '');
+    .eq('id', user_id || '')
+    .single();
 
-  if (!profiles) {
+  if (!profile) {
     return notFound();
   }
 
@@ -40,7 +41,7 @@ const OrderedFoodPage = async ({
     return 'No food found';
   }
 
-  const dailyCalorieIntake = getDailyCalorieIntake(profiles[0]);
+  const dailyCalorieIntake = profile.kcal_intake || 0;
 
   const recommendedKcal = Math.round(
     DAILY_MEALS.find(meal => meal.id === food.category)?.recommendedKcal! *
