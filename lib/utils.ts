@@ -152,14 +152,12 @@ export const getNutritionDataset = (meals: Meals) => [
   },
 ];
 
-export const getKcalDataset = (meals: Meals, exercises: Exercises) => {
+export const getKcalDataset = (meals: Meals) => {
   const mealsGroup = groupBy(meals, i => i.created_at);
-  const exercisesGroup = groupBy(exercises, i => i.created_at);
   const days = getDays();
 
   return days.reverse().map(day => {
     const mealsData = Object.keys(mealsGroup).find(key => key === day);
-    const exercisesData = Object.keys(exercisesGroup).find(key => key === day);
     return {
       eaten: mealsData
         ? Math.ceil(
@@ -169,29 +167,19 @@ export const getKcalDataset = (meals: Meals, exercises: Exercises) => {
             ),
           )
         : 0,
-      burned: exercisesData
-        ? Math.ceil(
-            exercisesGroup[exercisesData].reduce(
-              (acc, cur) => acc + Number(cur.kcal),
-              0,
-            ),
-          )
-        : 0,
       date: dayjs(day).format('YYYY-MM-DD'),
     };
   });
 };
 
-type Weights =
-  | {
-      created_at: string;
-      kg: string;
-    }[]
-  | null;
-
 export const getWeightDataset = (
-  weights: Weights,
-  current_weight: string | null,
+  weights:
+    | {
+        created_at: string;
+        kg: string;
+      }[]
+    | null,
+  current_weight: string | null | undefined,
 ) => {
   const days = getDays();
   return days.reverse().map(day => {

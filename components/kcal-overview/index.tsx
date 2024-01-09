@@ -1,14 +1,13 @@
 import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import Divider from '@mui/material/Divider';
 import ListItemText from '@mui/material/ListItemText';
 import Card from '@/components/card';
 import { getNutrientsData } from '@/lib/utils';
 
 interface Props {
   dailyCalorieIntake: number;
-  dataset: { eaten: number; burned: number }[];
+  dataset: { eaten: number }[];
   nutritionDataset: { id: string; label: string; value: number }[];
 }
 
@@ -20,10 +19,7 @@ const KcalOverview = ({
   const totalKcalEaten = Math.floor(
     dataset.reduce((acc, cur) => acc + cur.eaten, 0) / dataset.length,
   );
-  const totalKcalBurned = Math.floor(
-    dataset.reduce((acc, cur) => acc + cur.burned, 0) / dataset.length,
-  );
-  const totalKcalIntake = dailyCalorieIntake + totalKcalBurned;
+  const totalKcalIntake = dailyCalorieIntake;
   const kcalDiff = totalKcalEaten - totalKcalIntake;
   const nutrientsData = getNutrientsData(totalKcalIntake);
   return (
@@ -56,18 +52,11 @@ const KcalOverview = ({
       </Typography>
       <List disablePadding dense sx={{ mt: 'auto' }}>
         <ListItem disableGutters>
-          <ListItemText secondary="kcal eaten" />
+          <ListItemText secondary="calories" />
           <Typography variant="body2" fontWeight={500} component="span">
             {totalKcalEaten} kcal
           </Typography>
         </ListItem>
-        <ListItem disableGutters>
-          <ListItemText secondary="kcal burned" />
-          <Typography variant="body2" fontWeight={500} component="span">
-            {totalKcalBurned} kcal
-          </Typography>
-        </ListItem>
-        <Divider component="li" light sx={{ my: 1 }} />
         {nutritionDataset.map(({ id, label, value }) => {
           const defaultNutrient = nutrientsData.find(
             item => item.id === id,

@@ -9,38 +9,6 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
-      exercises: {
-        Row: {
-          created_at: string
-          id: string
-          kcal: string | null
-          title: string | null
-          user_id: string
-        }
-        Insert: {
-          created_at?: string
-          id?: string
-          kcal?: string | null
-          title?: string | null
-          user_id?: string
-        }
-        Update: {
-          created_at?: string
-          id?: string
-          kcal?: string | null
-          title?: string | null
-          user_id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "exercises_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          }
-        ]
-      }
       foods: {
         Row: {
           carbs: number

@@ -74,9 +74,12 @@ const NutrientsIntake = ({ nutrientsData, food }: Props) => {
       show: false,
     },
     tooltip: {
-      y: {
-        formatter: function (value: number) {
-          return value + '%';
+      enabled: false,
+    },
+    states: {
+      hover: {
+        filter: {
+          type: 'none',
         },
       },
     },
@@ -88,7 +91,7 @@ const NutrientsIntake = ({ nutrientsData, food }: Props) => {
         Nutrients Intake
       </Typography>
       <Grid container spacing={2} mb={1}>
-        <Grid item sm={6} xs={12}>
+        <Grid item xs={12} md={6}>
           <ApexChart
             type="donut"
             options={{
@@ -111,7 +114,7 @@ const NutrientsIntake = ({ nutrientsData, food }: Props) => {
             width="100%"
           />
         </Grid>
-        <Grid item sm={6} xs={12}>
+        <Grid item xs={12} md={6}>
           <ApexChart
             type="donut"
             options={{

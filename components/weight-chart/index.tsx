@@ -6,7 +6,6 @@ import Card from '@/components/card';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import ComponentLoader from '@/components/component-loader';
-import { Tables } from '@/types/supabase';
 
 const CHART_HEIGHT = 144;
 
@@ -16,15 +15,19 @@ const ApexChart = dynamic(() => import('react-apexcharts'), {
 });
 
 interface Props {
-  profile: Tables<'profiles'>;
+  goal: string | null;
+  current_weight: number | null;
+  target_weight: number | null;
   dataset: { weight: number; date: string }[];
 }
 
-const WeightChart = ({ dataset, profile }: Props) => {
+const WeightChart = ({
+  dataset,
+  goal,
+  current_weight,
+  target_weight,
+}: Props) => {
   const theme = useTheme();
-
-  const current_weight = Number(profile.weight);
-  const target_weight = Number(profile.target_weight);
 
   const series = [
     {
@@ -60,7 +63,7 @@ const WeightChart = ({ dataset, profile }: Props) => {
     colors: [theme.palette.success.main],
     yaxis: {
       show: false,
-      min: target_weight || current_weight,
+      min: target_weight || current_weight || 0,
     },
     grid: {
       show: false,
@@ -76,13 +79,13 @@ const WeightChart = ({ dataset, profile }: Props) => {
   const avgWeight =
     dataset.reduce((acc, cur) => acc + cur.weight, 0) / dataset.length;
 
-  const weightDiff = avgWeight - current_weight;
+  const weightDiff = avgWeight - current_weight!;
 
   const getTextColor = () => {
-    if (profile.goal === 'lose_weight') {
+    if (goal === 'lose_weight') {
       return weightDiff <= 0 ? 'success.main' : 'error.main';
     }
-    if (profile.goal === 'gain_weight') {
+    if (goal === 'gain_weight') {
       return weightDiff < 0 ? 'error.main' : 'success.main';
     }
     return 'inherit';

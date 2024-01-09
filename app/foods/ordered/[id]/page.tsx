@@ -7,9 +7,9 @@ import ComparisonChart from './comparison-chart';
 import { getNutrientsData } from '@/lib/utils';
 import { DAILY_MEALS } from '@/lib/constants';
 import { getNutrientsDataset } from './utils';
-import Info from './info';
 import Intake from './intake';
 import NutrientsIntake from './nutrients-intake';
+import BackButton from '@/components/back-button';
 
 const OrderedFoodPage = async ({
   params: { id },
@@ -33,12 +33,14 @@ const OrderedFoodPage = async ({
     return notFound();
   }
 
-  const { data: foods } = await supabase.from('foods').select().match({ id });
-
-  const food = foods?.find(food => food.id === id);
+  const { data: food } = await supabase
+    .from('foods')
+    .select()
+    .match({ id })
+    .single();
 
   if (!food) {
-    return 'No food found';
+    return 'Not found food';
   }
 
   const dailyCalorieIntake = profile.kcal_intake || 0;
@@ -52,17 +54,17 @@ const OrderedFoodPage = async ({
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
-        <Info {...food} />
+        <BackButton />
       </Grid>
-      <Grid item xs={12} sm={4}>
-        <Overview kcal={food.kcal} recommendedKcal={recommendedKcal} />
+      <Grid item xs={12} sm={6} md={4}>
+        <Overview recommendedKcal={recommendedKcal} {...food} />
         <Intake
           food={food}
           nutrientsData={nutrientsData}
           recommendedKcal={recommendedKcal}
         />
       </Grid>
-      <Grid item xs={12} sm={8}>
+      <Grid item xs={12} sm={6} md={8}>
         <ComparisonChart dataset={getNutrientsDataset(nutrientsData, food)} />
         <NutrientsIntake nutrientsData={nutrientsData} food={food} />
       </Grid>

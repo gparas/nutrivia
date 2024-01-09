@@ -9,7 +9,6 @@ import WeightChart from '@/components/weight-chart';
 import WaterChart from '@/components/water-chart';
 import MealsTable from '@/components/meals-table';
 import {
-  getDailyCalorieIntake,
   getKcalDataset,
   getNutritionDataset,
   getWeightDataset,
@@ -21,10 +20,11 @@ const ClientPage = async ({ params: { id } }: { params: { id: string } }) => {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
 
-  const { data: profiles } = await supabase
+  const { data: profile } = await supabase
     .from('profiles')
     .select()
-    .eq('id', id);
+    .eq('id', id)
+    .single();
 
   const { data: meals } = await supabase
     .from('meals')
@@ -47,13 +47,6 @@ const ClientPage = async ({ params: { id } }: { params: { id: string } }) => {
     .gte('created_at', dayjs().subtract(7, 'days').format('YYYY-MM-DD'))
     .lte('created_at', dayjs().format('YYYY-MM-DD'));
 
-  const { data: exercises } = await supabase
-    .from('exercises')
-    .select('created_at, kcal')
-    .eq('user_id', id)
-    .gte('created_at', dayjs().subtract(7, 'days').format('YYYY-MM-DD'))
-    .lte('created_at', dayjs().format('YYYY-MM-DD'));
-
   const { data: weights } = await supabase
     .from('weights')
     .select('created_at, kg')
@@ -68,30 +61,32 @@ const ClientPage = async ({ params: { id } }: { params: { id: string } }) => {
     .gte('created_at', dayjs().subtract(7, 'days').format('YYYY-MM-DD'))
     .lte('created_at', dayjs().format('YYYY-MM-DD'));
 
-  if (!meals || !exercises) {
+  if (!meals || !profile) {
     return notFound();
   }
 
-  const dailyCalorieIntake = getDailyCalorieIntake(profiles![0]);
+  const dailyCalorieIntake = profile?.kcal_intake || 0;
 
   return (
     <>
-      <Title name={profiles?.find(profile => profile.id === id)?.full_name} />
+      <Title name={profile?.full_name} />
       <Grid container spacing={2}>
         <Grid item xs={12} md={8}>
-          <KcalChart dataset={getKcalDataset(meals, exercises)} />
+          <KcalChart dataset={getKcalDataset(meals)} />
         </Grid>
         <Grid item xs={12} md={4}>
           <KcalOverview
-            dataset={getKcalDataset(meals, exercises)}
+            dataset={getKcalDataset(meals)}
             nutritionDataset={getNutritionDataset(meals)}
             dailyCalorieIntake={dailyCalorieIntake}
           />
         </Grid>
         <Grid item xs={12} md={6}>
           <WeightChart
-            profile={profiles![0]}
-            dataset={getWeightDataset(weights, profiles![0].weight)}
+            goal={profile.goal}
+            current_weight={Number(profile.weight)}
+            target_weight={Number(profile.target_weight)}
+            dataset={getWeightDataset(weights, profile?.weight)}
           />
         </Grid>
         <Grid item xs={12} md={6}>

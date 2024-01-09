@@ -1,6 +1,6 @@
 import { PaletteMode, alpha } from '@mui/material';
 
-const mode = 'light' as PaletteMode;
+const mode = 'dark' as PaletteMode;
 
 const grey = {
   100: '#F9FAFB',
@@ -78,6 +78,9 @@ const dark = {
     main: '#F48E85',
   },
   divider: '#444d56',
+  text: {
+    secondary: '#959da5',
+  },
   action: {
     active: alpha('#ffffff', 0.54),
     disabled: alpha('#ffffff', 0.26),
