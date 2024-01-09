@@ -39,7 +39,7 @@ const DetailsPage = async () => {
           <Typography variant="h6">Edit personal Details</Typography>
           {Object.values(FIELDS).map((field: Fields) => {
             if (field.name === 'age') {
-              return <Age age={profile.age} />;
+              return <Age key={field.name} age={profile.age} />;
             }
             return (
               <TextField
