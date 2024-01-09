@@ -9,7 +9,7 @@ interface Props {
   nutrientsData: Macronutrients;
 }
 
-const CHART_HEIGHT = 320;
+const CHART_HEIGHT = 300;
 
 const ApexChart = dynamic(() => import('react-apexcharts'), {
   loading: () => <ComponentLoader height={CHART_HEIGHT} />,
@@ -26,6 +26,23 @@ const Chart = ({ nutrientsData }: Props) => {
     plotOptions: {
       pie: {
         expandOnClick: false,
+        donut: {
+          size: '80%',
+          labels: {
+            show: true,
+            value: {
+              offsetY: 2,
+              color: theme.palette.text.primary,
+            },
+            total: {
+              show: true,
+              label: 'Goal',
+              color: theme.palette.text.secondary,
+              formatter: () =>
+                `${nutrientsData.reduce((acc, cur) => acc + cur.kcal, 0)} kcal`,
+            },
+          },
+        },
       },
     },
     dataLabels: {

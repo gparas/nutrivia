@@ -50,7 +50,6 @@ const UserInfo = ({ profile, children }: Props) => {
           }
         </Typography>
       </Stack>
-      <Divider light variant="middle" />
       <List>
         <ListItem>
           <ListItemText
@@ -61,6 +60,7 @@ const UserInfo = ({ profile, children }: Props) => {
             {profile.gender}
           </Typography>
         </ListItem>
+        <Divider light variant="middle" component="li" />
         <ListItem>
           <ListItemText
             primary="Age"
@@ -70,6 +70,7 @@ const UserInfo = ({ profile, children }: Props) => {
             {getYearsOld(profile.age)} y/o
           </Typography>
         </ListItem>
+        <Divider light variant="middle" component="li" />
         <ListItem>
           <ListItemText
             primary="Height"
@@ -79,6 +80,7 @@ const UserInfo = ({ profile, children }: Props) => {
             {profile.height} cm
           </Typography>
         </ListItem>
+        <Divider light variant="middle" component="li" />
         <ListItem>
           <ListItemText
             primary="Current weight"
@@ -88,6 +90,7 @@ const UserInfo = ({ profile, children }: Props) => {
             {profile.weight} kg
           </Typography>
         </ListItem>
+        <Divider light variant="middle" component="li" />
         <ListItem>
           <ListItemText
             primary="Target weight"
@@ -97,6 +100,7 @@ const UserInfo = ({ profile, children }: Props) => {
             {profile.target_weight} kg
           </Typography>
         </ListItem>
+        <Divider light variant="middle" component="li" />
         <ListItem>
           <ListItemText
             primary="Activity"

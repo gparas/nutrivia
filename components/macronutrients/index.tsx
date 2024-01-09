@@ -26,20 +26,6 @@ const Macronutrients = ({ profile, children, ...other }: Props) => {
         position="relative"
       >
         <Chart nutrientsData={nutrientsData} />
-        <Typography
-          variant="h5"
-          component="div"
-          position="absolute"
-          left={'50%'}
-          top={'50%'}
-          fontWeight={400}
-          sx={{ transform: 'translate(-50%, -50%)' }}
-        >
-          {profile.kcal_intake}{' '}
-          <Typography variant="body2" component="span">
-            kcal
-          </Typography>
-        </Typography>
       </Box>
       {nutrientsData.map(item => (
         <Grid container key={item.label} spacing={2} mb={1}>
