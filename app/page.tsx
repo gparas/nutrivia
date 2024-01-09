@@ -8,7 +8,6 @@ import DailyNutrientsIntake from '@/components/dailyNutrientsIntake';
 import ListItem from '@/components/listItem';
 import { DAILY_MEALS, DAILY_EXTRAS } from '@/lib/constants';
 import dayjs from 'dayjs';
-import { getDailyCalorieIntake } from '@/lib/utils';
 import Card from '@/components/card';
 
 const HomePage = async () => {
@@ -23,12 +22,13 @@ const HomePage = async () => {
     redirect('/login');
   }
 
-  const { data: profiles } = await supabase
+  const { data: profile } = await supabase
     .from('profiles')
     .select()
-    .eq('id', session.user.id);
+    .eq('id', session.user.id)
+    .single();
 
-  if (profiles?.some(item => !item.nutritionist_id)) {
+  if (!profile?.kcal_intake) {
     redirect('/getStarted');
   }
 
@@ -50,25 +50,15 @@ const HomePage = async () => {
     )
     .eq('created_at', dayjs().format('YYYY-MM-DD'));
 
-  const { data: exercises } = await supabase
-    .from('exercises')
-    .select()
-    .eq('created_at', dayjs().format('YYYY-MM-DD'))
-    .eq('id', session.user.id);
+  const { kcal_intake } = profile;
 
-  const dailyCalorieIntake = getDailyCalorieIntake(profiles![0]);
-
-  const dailyKcalBurned =
-    exercises?.reduce((acc, cur) => acc + Number(cur.kcal), 0) || 0;
   const dailyKcalEaten =
     meals?.reduce((acc, cur) => acc + Number(cur.foods?.kcal), 0) || 0;
-
-  const totalDailyCalorieIntake = dailyCalorieIntake + dailyKcalBurned;
 
   const dailyMeals = DAILY_MEALS.map(
     ({ id, iconId, textPrimary, recommendedKcal }) => {
       const data = meals?.find(meal => meal.meal_category === id);
-      const recommended = Math.round(dailyCalorieIntake * recommendedKcal);
+      const recommended = Math.round(kcal_intake * recommendedKcal);
       const orderedKcal = data ? data.foods?.kcal : undefined;
       const orderedKcalDiff = data
         ? recommended - data?.foods?.kcal!
@@ -101,13 +91,12 @@ const HomePage = async () => {
       <Card py={3} bgcolor="primary.main" color="primary.contrastText">
         <div>
           <DailyCalorieIntake
-            dailyCalorieIntake={dailyCalorieIntake}
-            dailyKcalBurned={dailyKcalBurned}
             dailyKcalEaten={dailyKcalEaten}
+            dailyCalorieIntake={kcal_intake}
           />
           <DailyNutrientsIntake
             meals={meals}
-            totalDailyCalorieIntake={totalDailyCalorieIntake}
+            totalDailyCalorieIntake={kcal_intake}
           />
         </div>
       </Card>
@@ -116,13 +105,6 @@ const HomePage = async () => {
           <ListItem key={meal.id} {...meal} />
         ))}
         <ListItem {...DAILY_EXTRAS.WATER} />
-        <ListItem
-          textSecondary={`Daily exercise - ${exercises?.reduce(
-            (acc, cur) => acc + Number(cur.kcal),
-            0,
-          )} kcal`}
-          {...DAILY_EXTRAS.EXERCISE}
-        />
       </Stack>
     </Box>
   );

@@ -9,38 +9,6 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
-      exercises: {
-        Row: {
-          created_at: string
-          id: string
-          kcal: string | null
-          title: string | null
-          user_id: string
-        }
-        Insert: {
-          created_at?: string
-          id?: string
-          kcal?: string | null
-          title?: string | null
-          user_id?: string
-        }
-        Update: {
-          created_at?: string
-          id?: string
-          kcal?: string | null
-          title?: string | null
-          user_id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "exercises_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          }
-        ]
-      }
       foods: {
         Row: {
           carbs: number
@@ -163,14 +131,18 @@ export interface Database {
           activity: string | null
           age: number | null
           avatar_url: string | null
+          carbs: number
           created_at: string
+          fat: number
           food_preference: string | null
           full_name: string
           gender: string | null
           goal: string | null
           height: string | null
           id: string
+          kcal_intake: number | null
           nutritionist_id: string | null
+          protein: number
           target_weight: string | null
           updated_at: string | null
           weight: string | null
@@ -179,14 +151,18 @@ export interface Database {
           activity?: string | null
           age?: number | null
           avatar_url?: string | null
+          carbs?: number
           created_at?: string
+          fat?: number
           food_preference?: string | null
           full_name: string
           gender?: string | null
           goal?: string | null
           height?: string | null
           id: string
+          kcal_intake?: number | null
           nutritionist_id?: string | null
+          protein?: number
           target_weight?: string | null
           updated_at?: string | null
           weight?: string | null
@@ -195,14 +171,18 @@ export interface Database {
           activity?: string | null
           age?: number | null
           avatar_url?: string | null
+          carbs?: number
           created_at?: string
+          fat?: number
           food_preference?: string | null
           full_name?: string
           gender?: string | null
           goal?: string | null
           height?: string | null
           id?: string
+          kcal_intake?: number | null
           nutritionist_id?: string | null
+          protein?: number
           target_weight?: string | null
           updated_at?: string | null
           weight?: string | null
@@ -235,7 +215,7 @@ export interface Database {
           created_at?: string
           id?: string
           liter: string
-          user_id?: string
+          user_id: string
         }
         Update: {
           created_at?: string
@@ -243,7 +223,15 @@ export interface Database {
           liter?: string
           user_id?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "water_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
       }
       weights: {
         Row: {

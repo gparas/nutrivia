@@ -21,6 +21,7 @@ export const PROFILE = {
     unit: 'kg',
   },
   age: {
+    name: 'age',
     min: 20,
     max: 100,
     unit: 'yo',
@@ -163,12 +164,6 @@ export const DAILY_EXTRAS = {
     iconId: 'water',
     textPrimary: 'Water',
     textSecondary: 'Daily water intake',
-  },
-  EXERCISE: {
-    id: 'exercise',
-    iconId: 'exercise',
-    textPrimary: 'Exercise',
-    href: '/exercise',
   },
 };
 

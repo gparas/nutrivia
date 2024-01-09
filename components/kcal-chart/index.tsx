@@ -14,7 +14,7 @@ const ApexChart = dynamic(() => import('react-apexcharts'), {
 });
 
 interface Props {
-  dataset: { eaten: number; burned: number; date: string }[];
+  dataset: { eaten: number; date: string }[];
 }
 
 const KcalChart = ({ dataset }: Props) => {
@@ -30,10 +30,6 @@ const KcalChart = ({ dataset }: Props) => {
       name: 'eaten',
       data: dataset.map(item => item.eaten),
     },
-    {
-      name: 'burned',
-      data: dataset.map(item => item.burned),
-    },
   ];
   const options = {
     chart: {
@@ -41,7 +37,7 @@ const KcalChart = ({ dataset }: Props) => {
         show: false,
       },
     },
-    colors: [theme.palette.primary.main, theme.palette.secondary.main],
+    colors: [theme.palette.primary.main],
     plotOptions: {
       bar: {
         borderRadius: 2,

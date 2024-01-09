@@ -5,17 +5,10 @@ import CircularProgressWithLabel from '../circularProgressWithLabel';
 
 interface Props {
   dailyCalorieIntake: number;
-  dailyKcalBurned: number;
   dailyKcalEaten: number;
 }
 
-const DailyCalorieIntake = async ({
-  dailyCalorieIntake,
-  dailyKcalEaten,
-  dailyKcalBurned,
-}: Props) => {
-  const totalDailyCalorieIntake = dailyCalorieIntake + dailyKcalBurned;
-
+const DailyCalorieIntake = ({ dailyCalorieIntake, dailyKcalEaten }: Props) => {
   return (
     <Stack direction="row" alignItems="center" mb={2}>
       <Box textAlign="center" flex="1 1 auto">
@@ -34,7 +27,7 @@ const DailyCalorieIntake = async ({
       </Box>
       <Box textAlign="center" flex="1 1 auto">
         <CircularProgressWithLabel
-          value={(dailyKcalEaten / totalDailyCalorieIntake) * 100}
+          value={(dailyKcalEaten / dailyCalorieIntake) * 100}
         >
           <Typography
             variant="h4"
@@ -42,27 +35,13 @@ const DailyCalorieIntake = async ({
             textAlign="center"
             lineHeight={1}
           >
-            {totalDailyCalorieIntake - dailyKcalEaten}
+            {dailyCalorieIntake - dailyKcalEaten}
             <br />
             <Typography variant="overline" fontSize={11}>
               kcal left
             </Typography>
           </Typography>
         </CircularProgressWithLabel>
-      </Box>
-      <Box textAlign="center" flex="1 1 auto">
-        <Typography
-          variant="h5"
-          component="div"
-          textAlign="center"
-          lineHeight={1}
-        >
-          {dailyKcalBurned}
-          <br />
-          <Typography variant="overline" fontSize={11}>
-            burned
-          </Typography>
-        </Typography>
       </Box>
     </Stack>
   );
