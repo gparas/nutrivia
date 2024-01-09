@@ -33,6 +33,7 @@ const Chart = ({ nutrientsData }: Props) => {
             value: {
               offsetY: 2,
               color: theme.palette.text.primary,
+              formatter: (val: string) => `${val} %`,
             },
             total: {
               show: true,
@@ -57,6 +58,7 @@ const Chart = ({ nutrientsData }: Props) => {
     tooltip: {
       enabled: false,
     },
+    labels: nutrientsData.map(data => data.label),
     states: {
       hover: {
         filter: {
