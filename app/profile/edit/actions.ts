@@ -6,7 +6,7 @@ import { createClient } from '@/supabase/server';
 import { redirect } from 'next/navigation';
 import { getDailyCalorieIntake } from '@/lib/utils';
 
-export async function submit(formData: FormData) {
+export async function updateProfile(formData: FormData) {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
 

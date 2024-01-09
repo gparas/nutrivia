@@ -21,6 +21,7 @@ export const PROFILE = {
     unit: 'kg',
   },
   age: {
+    name: 'age',
     min: 20,
     max: 100,
     unit: 'yo',
