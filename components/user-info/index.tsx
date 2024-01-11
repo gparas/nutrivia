@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 import { Tables } from '@/types/supabase';
 import Image from 'next/image';
 import Typography from '@mui/material/Typography';
-import Stack from '@mui/material/Stack';
+import Stack, { StackProps } from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 import Avatar from '@mui/material/Avatar';
 import Card from '@/components/card';
@@ -12,16 +12,16 @@ import ListItemText from '@mui/material/ListItemText';
 import { getYearsOld } from '@/lib/utils';
 import { PROFILE } from '@/lib/constants';
 
-interface Props {
+type Props = {
   profile: Tables<'profiles'>;
   children?: ReactNode;
-}
+} & StackProps;
 
 const AVATAR_SIZE = 96;
 
-const UserInfo = ({ profile, children }: Props) => {
+const UserInfo = ({ profile, children, ...other }: Props) => {
   return (
-    <Card p={0}>
+    <Card p={0} {...other}>
       <Stack alignItems="center" p={3}>
         <Avatar
           sx={{

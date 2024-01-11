@@ -4,17 +4,14 @@ import dayjs from 'dayjs';
 import { notFound } from 'next/navigation';
 import Grid from '@mui/material/Grid';
 import KcalChart from '@/components/kcal-chart';
-import KcalOverview from '@/components/kcal-overview';
 import WeightChart from '@/components/weight-chart';
 import WaterChart from '@/components/water-chart';
 import MealsTable from '@/components/meals-table';
-import {
-  getKcalDataset,
-  getNutritionDataset,
-  getWeightDataset,
-  getWaterDataset,
-} from '@/lib/utils';
-import Title from './title';
+import UserInfo from '@/components/user-info';
+import BackButton from '@/components/back-button';
+import Macronutrients from '@/components/macronutrients';
+import { getKcalDataset, getWeightDataset, getWaterDataset } from '@/lib/utils';
+import { DAILY_MEALS } from '@/lib/constants';
 
 const ClientPage = async ({ params: { id } }: { params: { id: string } }) => {
   const cookieStore = cookies();
@@ -69,46 +66,59 @@ const ClientPage = async ({ params: { id } }: { params: { id: string } }) => {
 
   return (
     <>
-      <Title name={profile?.full_name} />
       <Grid container spacing={2}>
-        <Grid item xs={12} md={8}>
-          <KcalChart dataset={getKcalDataset(meals)} />
+        <Grid item xs={12}>
+          <BackButton />
         </Grid>
         <Grid item xs={12} md={4}>
-          <KcalOverview
-            dataset={getKcalDataset(meals)}
-            nutritionDataset={getNutritionDataset(meals)}
-            dailyCalorieIntake={dailyCalorieIntake}
-          />
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={6} md={12}>
+              <UserInfo profile={profile} />
+            </Grid>
+            <Grid item xs={12} sm={6} md={12}>
+              <Macronutrients profile={profile} chartHeight={240} />
+            </Grid>
+          </Grid>
         </Grid>
-        <Grid item xs={12} md={6}>
-          <WeightChart
-            goal={profile.goal}
-            current_weight={Number(profile.weight)}
-            target_weight={Number(profile.target_weight)}
-            dataset={getWeightDataset(weights, profile?.weight)}
-          />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <WaterChart dataset={getWaterDataset(water)} />
-        </Grid>
-        <Grid item xs={12}>
-          <MealsTable
-            user_id={id}
-            meals={meals.map((meal, index) => {
-              return {
-                id: index,
-                meal_id: meal.foods?.id,
-                image: meal.foods?.image,
-                name: meal.foods?.name,
-                category: meal.foods?.category,
-                kcal: meal.foods?.kcal,
-                carbs: meal.foods?.carbs,
-                protein: meal.foods?.protein,
-                fat: meal.foods?.fat,
-              };
-            })}
-          />
+        <Grid item xs={12} md={8}>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <KcalChart
+                dataset={getKcalDataset(meals)}
+                dailyCalorieIntake={dailyCalorieIntake}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <WeightChart
+                goal={profile.goal}
+                current_weight={Number(profile.weight)}
+                target_weight={Number(profile.target_weight)}
+                dataset={getWeightDataset(weights, profile?.weight)}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <WaterChart dataset={getWaterDataset(water)} />
+            </Grid>
+            <Grid item xs={12}>
+              <MealsTable
+                user_id={id}
+                meals={meals.map((meal, index) => {
+                  const recommendedKcal =
+                    DAILY_MEALS.find(item => item.id === meal.foods?.category)
+                      ?.recommendedKcal || 0;
+                  return {
+                    id: index,
+                    meal_id: meal.foods?.id,
+                    image: meal.foods?.image,
+                    name: meal.foods?.name,
+                    category: meal.foods?.category,
+                    kcal: meal.foods?.kcal,
+                    status: Math.round(recommendedKcal * dailyCalorieIntake),
+                  };
+                })}
+              />
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
     </>

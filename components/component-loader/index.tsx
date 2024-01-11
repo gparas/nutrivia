@@ -4,7 +4,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 const ComponentLoader = ({ ...other }: StackProps) => {
   return (
     <Stack alignItems="center" justifyContent="center" {...other}>
-      <CircularProgress color="inherit" thickness={2} />
+      <CircularProgress color="inherit" thickness={1.5} />
     </Stack>
   );
 };

@@ -6,6 +6,7 @@ import Card from '@/components/card';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import ComponentLoader from '@/components/component-loader';
+import { StackProps } from '@mui/material';
 
 const CHART_HEIGHT = 144;
 
@@ -14,18 +15,19 @@ const ApexChart = dynamic(() => import('react-apexcharts'), {
   ssr: false,
 });
 
-interface Props {
+type Props = {
   goal: string | null;
   current_weight: number | null;
   target_weight: number | null;
   dataset: { weight: number; date: string }[];
-}
+} & StackProps;
 
 const WeightChart = ({
   dataset,
   goal,
   current_weight,
   target_weight,
+  ...other
 }: Props) => {
   const theme = useTheme();
 
@@ -92,12 +94,15 @@ const WeightChart = ({
   };
 
   return (
-    <Card>
-      <Typography variant="h6" fontWeight={500} mb={2}>
+    <Card {...other}>
+      <Typography variant="h6" fontWeight={500}>
         Weight
       </Typography>
+      <Typography variant="body2" color="text.secondary" mb={[2, 0]}>
+        Goal {target_weight || current_weight} kg
+      </Typography>
       <Grid container alignItems="flex-end">
-        <Grid item xs={12} sm={5} mb={[0, 3]}>
+        <Grid item xs={12} sm={4} md={5}>
           <Typography variant="h3" mb={0.25}>
             {current_weight}
             <Typography variant="h6" component="span" fontWeight={400}>
@@ -122,7 +127,7 @@ const WeightChart = ({
             </Typography>
           </Typography>
         </Grid>
-        <Grid item xs={12} sm={7}>
+        <Grid item xs={12} sm={8} md={7}>
           <ApexChart
             options={options}
             series={series}

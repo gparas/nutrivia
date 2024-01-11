@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic';
 import Typography from '@mui/material/Typography';
 import Card from '@/components/card';
 import ComponentLoader from '@/components/component-loader';
+import { StackProps } from '@mui/material';
 
 const CHART_HEIGHT = 320;
 
@@ -13,11 +14,12 @@ const ApexChart = dynamic(() => import('react-apexcharts'), {
   ssr: false,
 });
 
-interface Props {
+type Props = {
+  dailyCalorieIntake: number;
   dataset: { eaten: number; date: string }[];
-}
+} & StackProps;
 
-const KcalChart = ({ dataset }: Props) => {
+const KcalChart = ({ dataset, dailyCalorieIntake, ...other }: Props) => {
   const theme = useTheme();
 
   const valueFormatter = (value: number) => `${value} kcal`;
@@ -27,8 +29,22 @@ const KcalChart = ({ dataset }: Props) => {
 
   const series = [
     {
-      name: 'eaten',
-      data: dataset.map(item => item.eaten),
+      name: 'Your intake',
+      data: dataset.map(item => {
+        return {
+          x: item.date,
+          y: item.eaten,
+          goals: [
+            {
+              name: 'Goal intake',
+              value: dailyCalorieIntake,
+              strokeHeight: 2,
+              strokeDashArray: 2,
+              strokeColor: theme.palette.secondary.main,
+            },
+          ],
+        };
+      }),
     },
   ];
   const options = {
@@ -40,7 +56,7 @@ const KcalChart = ({ dataset }: Props) => {
     colors: [theme.palette.primary.main],
     plotOptions: {
       bar: {
-        borderRadius: 2,
+        columnWidth: '25%',
       },
     },
     dataLabels: {
@@ -112,9 +128,10 @@ const KcalChart = ({ dataset }: Props) => {
   };
 
   return (
-    <Card>
-      <Typography variant="h6" mb={3}>
-        Calories (kcal)
+    <Card {...other}>
+      <Typography variant="h6">Calories</Typography>
+      <Typography variant="body2" color="text.secondary" mb={3}>
+        Goal {dailyCalorieIntake} kcal / day
       </Typography>
       <ApexChart
         type="bar"

@@ -12,9 +12,15 @@ import Chart from './chart';
 type Props = {
   profile: Tables<'profiles'>;
   children?: ReactNode;
+  chartHeight?: number;
 } & StackProps;
 
-const Macronutrients = ({ profile, children, ...other }: Props) => {
+const Macronutrients = ({
+  profile,
+  children,
+  chartHeight = 240,
+  ...other
+}: Props) => {
   const nutrientsData = getNutrientsData(profile.kcal_intake || 0);
   return (
     <Card {...other}>
@@ -25,7 +31,7 @@ const Macronutrients = ({ profile, children, ...other }: Props) => {
         justifyContent="center"
         position="relative"
       >
-        <Chart nutrientsData={nutrientsData} />
+        <Chart nutrientsData={nutrientsData} chartHeight={chartHeight} />
       </Box>
       {nutrientsData.map(item => (
         <Grid container key={item.label} spacing={2} mb={1}>

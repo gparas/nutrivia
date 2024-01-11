@@ -36,6 +36,12 @@ declare module '@mui/material/Button' {
   }
 }
 
+declare module '@mui/material/Chip' {
+  interface ChipPropsVariantOverrides {
+    soft: true;
+  }
+}
+
 let theme = createTheme();
 
 theme = createTheme({
@@ -126,6 +132,21 @@ theme = createTheme({
                   0.18,
                 ),
               },
+            }),
+        }),
+      },
+    },
+    MuiChip: {
+      styleOverrides: {
+        root: ({ theme, ownerState }) => ({
+          ...(ownerState.variant === 'soft' &&
+            ownerState.color !== 'default' &&
+            ownerState.color !== undefined && {
+              color: theme.palette[ownerState.color].main,
+              backgroundColor: alpha(
+                theme.palette[ownerState.color].main,
+                0.12,
+              ),
             }),
         }),
       },

@@ -70,11 +70,14 @@ const WaterChart = ({ dataset }: Props) => {
 
   return (
     <Card>
-      <Typography variant="h6" fontWeight={500} mb={2}>
+      <Typography variant="h6" fontWeight={500}>
         Water
       </Typography>
+      <Typography variant="body2" color="text.secondary" mb={[2, 0]}>
+        Goal 2L / day
+      </Typography>
       <Grid container alignItems="flex-end">
-        <Grid item xs={12} sm={5} mb={[0, 3]}>
+        <Grid item xs={12} sm={4} md={5}>
           <Typography variant="h3" mb={0.25}>
             {totalWater}
             <Typography variant="h6" component="span" fontWeight={400}>
@@ -85,7 +88,7 @@ const WaterChart = ({ dataset }: Props) => {
             intake this week
           </Typography>
         </Grid>
-        <Grid item xs={12} sm={7}>
+        <Grid item xs={12} sm={8} md={7}>
           <ApexChart
             options={options}
             series={series}

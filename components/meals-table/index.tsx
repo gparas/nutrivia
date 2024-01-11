@@ -1,74 +1,78 @@
 'use client';
 
-import {
-  DataGrid,
-  GridRowsProp,
-  GridColDef,
-  GridRenderCellParams,
-} from '@mui/x-data-grid';
+import { DataGrid, GridRowsProp, GridRenderCellParams } from '@mui/x-data-grid';
 import Typography from '@mui/material/Typography';
+import Chip from '@mui/material/Chip';
 import NextLink from 'next/link';
 import Link from '@mui/material/Link';
 import Image from 'next/image';
 import Card from '@/components/card';
+import CheckIcon from '@mui/icons-material/Check';
+import CloseIcon from '@mui/icons-material/Close';
 
 const getColumns = (user_id: string | undefined) => {
-  function RenderImage(props: GridRenderCellParams) {
-    const { value } = props;
-    return <Image alt={'food'} src={value} priority width={48} height={48} />;
-  }
-
-  function RenderAction(props: GridRenderCellParams) {
-    const { value } = props;
+  function RenderName(props: GridRenderCellParams) {
+    const { value, row } = props;
     return (
       <Link
         color="inherit"
         component={NextLink}
-        href={`/foods/ordered/${value}?user_id=${user_id}`}
+        href={`/foods/ordered/${row.meal_id}?user_id=${user_id}`}
+        sx={{ textUnderlineOffset: 2 }}
       >
-        view details
+        {value}
       </Link>
     );
   }
+  function RenderImage(props: GridRenderCellParams) {
+    const { value } = props;
+    return <Image alt={'food'} src={value} priority width={48} height={48} />;
+  }
+  function RenderStatus(props: GridRenderCellParams) {
+    const { value, row } = props;
+    const kcalDiff = row.kcal - value;
+    const label = kcalDiff <= 0 ? 'on target' : 'exceeded';
+    const icon = kcalDiff <= 0 ? <CheckIcon /> : <CloseIcon />;
+    const color = kcalDiff <= 0 ? 'success' : 'error';
+    return (
+      <Chip
+        size="small"
+        variant="soft"
+        label={label}
+        icon={icon}
+        color={color}
+      />
+    );
+  }
+
   return [
     {
       field: 'image',
       headerName: 'image',
-      maxWidth: 72,
+      maxWidth: 80,
       renderCell: RenderImage,
       sortable: false,
     },
-    { field: 'name', headerName: 'name', minWidth: 200, flex: 1 },
-    { field: 'category', headerName: 'category', minWidth: 120, flex: 1 },
+    {
+      field: 'name',
+      headerName: 'name',
+      minWidth: 200,
+      flex: 1,
+      renderCell: RenderName,
+    },
     {
       field: 'kcal',
       headerName: 'calories',
       minWidth: 120,
       flex: 1,
     },
+    { field: 'category', headerName: 'category', minWidth: 120, flex: 1 },
     {
-      field: 'carbs',
-      headerName: 'carbs',
+      field: 'status',
+      headerName: 'status',
+      renderCell: RenderStatus,
       minWidth: 120,
       flex: 1,
-    },
-    {
-      field: 'protein',
-      headerName: 'protein',
-      minWidth: 120,
-      flex: 1,
-    },
-    {
-      field: 'fat',
-      headerName: 'fat',
-      minWidth: 120,
-      flex: 1,
-    },
-    {
-      field: 'meal_id',
-      headerName: 'actions',
-      renderCell: RenderAction,
-      sortable: false,
     },
   ];
 };

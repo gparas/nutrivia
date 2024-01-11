@@ -7,16 +7,15 @@ import { Macronutrients } from '@/types/macronutrients';
 
 interface Props {
   nutrientsData: Macronutrients;
+  chartHeight: number;
 }
 
-const CHART_HEIGHT = 300;
-
 const ApexChart = dynamic(() => import('react-apexcharts'), {
-  loading: () => <ComponentLoader height={CHART_HEIGHT} />,
+  loading: () => <ComponentLoader height={300} />,
   ssr: false,
 });
 
-const Chart = ({ nutrientsData }: Props) => {
+const Chart = ({ nutrientsData, chartHeight }: Props) => {
   const theme = useTheme();
   const series = nutrientsData.map(data => data.value);
   const options = {
@@ -73,7 +72,7 @@ const Chart = ({ nutrientsData }: Props) => {
       type="donut"
       options={options}
       series={series}
-      height={CHART_HEIGHT}
+      height={chartHeight}
       width="100%"
     />
   );

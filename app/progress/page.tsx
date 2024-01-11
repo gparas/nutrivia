@@ -17,6 +17,7 @@ import {
   getWeightDataset,
   getWaterDataset,
 } from '@/lib/utils';
+import { DAILY_MEALS } from '@/lib/constants';
 
 const ProgressPage = async () => {
   const cookieStore = cookies();
@@ -89,7 +90,10 @@ const ProgressPage = async () => {
       </Stack>
       <Grid container spacing={2}>
         <Grid item xs={12} md={8}>
-          <KcalChart dataset={getKcalDataset(meals)} />
+          <KcalChart
+            dataset={getKcalDataset(meals)}
+            dailyCalorieIntake={dailyCalorieIntake}
+          />
         </Grid>
         <Grid item xs={12} md={4}>
           <KcalOverview
@@ -113,6 +117,9 @@ const ProgressPage = async () => {
           <MealsTable
             user_id={user?.id}
             meals={meals.map((meal, index) => {
+              const recommendedKcal =
+                DAILY_MEALS.find(item => item.id === meal.foods?.category)
+                  ?.recommendedKcal || 0;
               return {
                 id: index,
                 meal_id: meal.foods?.id,
@@ -120,9 +127,7 @@ const ProgressPage = async () => {
                 name: meal.foods?.name,
                 category: meal.foods?.category,
                 kcal: meal.foods?.kcal,
-                carbs: meal.foods?.carbs,
-                protein: meal.foods?.protein,
-                fat: meal.foods?.fat,
+                status: Math.round(recommendedKcal * dailyCalorieIntake),
               };
             })}
           />
