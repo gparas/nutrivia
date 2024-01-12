@@ -19,7 +19,7 @@ const Header = async () => {
     <AppBar
       color="default"
       elevation={0}
-      position="sticky"
+      position="relative"
       sx={{ flex: '0 0 auto' }}
     >
       <Toolbar>

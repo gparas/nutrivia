@@ -36,7 +36,7 @@ const Macronutrients = ({
       {nutrientsData.map(item => (
         <Grid container key={item.label} spacing={2} mb={1}>
           <Grid item xs={12}>
-            <Divider sx={{ mt: 2 }} />
+            <Divider sx={{ mt: 2 }} light />
           </Grid>
           <Grid item xs={4}>
             <Stack direction="row" spacing={1} alignItems="center">

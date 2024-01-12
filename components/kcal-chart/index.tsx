@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic';
 import Typography from '@mui/material/Typography';
 import Card from '@/components/card';
 import ComponentLoader from '@/components/component-loader';
-import { StackProps } from '@mui/material';
+import { StackProps, alpha } from '@mui/material';
 
 const CHART_HEIGHT = 320;
 
@@ -99,7 +99,7 @@ const KcalChart = ({ dataset, dailyCalorieIntake, ...other }: Props) => {
       colors: ['transparent'],
     },
     grid: {
-      borderColor: theme.palette.action.disabledBackground,
+      borderColor: alpha(theme.palette.text.primary, 0.08),
       strokeDashArray: 4,
     },
     legend: {

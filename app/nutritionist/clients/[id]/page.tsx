@@ -76,7 +76,11 @@ const ClientPage = async ({ params: { id } }: { params: { id: string } }) => {
               <UserInfo profile={profile} />
             </Grid>
             <Grid item xs={12} sm={6} md={12}>
-              <Macronutrients profile={profile} chartHeight={240} />
+              <Macronutrients
+                profile={profile}
+                chartHeight={240}
+                height={'100%'}
+              />
             </Grid>
           </Grid>
         </Grid>

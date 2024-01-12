@@ -18,7 +18,6 @@ const getColumns = (user_id: string | undefined) => {
         color="inherit"
         component={NextLink}
         href={`/foods/ordered/${row.meal_id}?user_id=${user_id}`}
-        sx={{ textUnderlineOffset: 2 }}
       >
         {value}
       </Link>
@@ -98,31 +97,7 @@ const MealsTable = ({ meals, user_id }: Props) => {
       <Typography variant="h6" fontWeight={500} p={1}>
         Meals
       </Typography>
-      <DataGrid
-        rows={rows}
-        columns={getColumns(user_id)}
-        autoHeight
-        disableRowSelectionOnClick
-        disableColumnFilter
-        disableColumnMenu
-        disableColumnSelector
-        pagination
-        pageSizeOptions={[5]}
-        initialState={{
-          pagination: {
-            paginationModel: {
-              pageSize: 5,
-              page: 0,
-            },
-          },
-        }}
-        sx={{
-          border: 0,
-          '& .MuiDataGrid-withBorderColor': {
-            borderColor: 'divider',
-          },
-        }}
-      />
+      <DataGrid rows={rows} columns={getColumns(user_id)} />
     </Card>
   );
 };

@@ -16,6 +16,7 @@ import { getYearsOld } from '@/lib/utils';
 import { PROFILE } from '@/lib/constants';
 import Button from '@mui/material/Button';
 import { Tables } from '@/types/supabase';
+import { alpha } from '@mui/material';
 
 function RenderAge(props: GridRenderCellParams) {
   const { value } = props;
@@ -42,15 +43,15 @@ function RenderAvatar(props: GridRenderCellParams) {
   return <Avatar alt="user" src={value} />;
 }
 
-function RenderAction(props: GridRenderCellParams) {
-  const { value } = props;
+function RenderName(props: GridRenderCellParams) {
+  const { value, row } = props;
   return (
     <Link
       color="inherit"
       component={NextLink}
-      href={`/nutritionist/clients/${value}`}
+      href={`/nutritionist/clients/${row.id}`}
     >
-      view profile
+      {value}
     </Link>
   );
 }
@@ -58,12 +59,18 @@ function RenderAction(props: GridRenderCellParams) {
 const columns: GridColDef[] = [
   {
     field: 'avatar_url',
-    headerName: '',
-    maxWidth: 64,
+    headerName: 'image',
+    maxWidth: 80,
     renderCell: RenderAvatar,
     sortable: false,
   },
-  { field: 'full_name', headerName: 'name', minWidth: 200, flex: 1 },
+  {
+    field: 'full_name',
+    headerName: 'name',
+    renderCell: RenderName,
+    minWidth: 200,
+    flex: 1,
+  },
   { field: 'gender', headerName: 'gender', minWidth: 120, flex: 1 },
   {
     field: 'age',
@@ -93,12 +100,6 @@ const columns: GridColDef[] = [
     minWidth: 120,
     flex: 1,
   },
-  {
-    field: 'id',
-    headerName: 'actions',
-    renderCell: RenderAction,
-    sortable: false,
-  },
 ];
 
 type Props = {
@@ -127,31 +128,7 @@ const ClientsTable = ({ profiles }: Props) => {
           view all
         </Button>
       </Stack>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        autoHeight
-        disableRowSelectionOnClick
-        disableColumnFilter
-        disableColumnMenu
-        disableColumnSelector
-        pagination
-        pageSizeOptions={[5]}
-        initialState={{
-          pagination: {
-            paginationModel: {
-              pageSize: 5,
-              page: 0,
-            },
-          },
-        }}
-        sx={{
-          border: 0,
-          '& .MuiDataGrid-withBorderColor': {
-            borderColor: 'divider',
-          },
-        }}
-      />
+      <DataGrid rows={rows} columns={columns} />
     </Card>
   );
 };

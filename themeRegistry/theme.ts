@@ -1,6 +1,8 @@
 import { Inter } from 'next/font/google';
-import { alpha, createTheme } from '@mui/material/styles';
+import { alpha, createTheme, darken, lighten } from '@mui/material/styles';
 import { linearProgressClasses } from '@mui/material/LinearProgress';
+import type {} from '@mui/x-data-grid/themeAugmentation';
+import { gridClasses } from '@mui/x-data-grid';
 import palette from './palette';
 
 const inter = Inter({
@@ -99,12 +101,8 @@ theme = createTheme({
       },
     },
     MuiDivider: {
-      styleOverrides: {
-        root: ({ theme, ownerState }) => ({
-          ...(ownerState.light && {
-            borderColor: alpha(theme.palette.divider, 0.5),
-          }),
-        }),
+      defaultProps: {
+        light: true,
       },
     },
     MuiButtonBase: {
@@ -138,17 +136,19 @@ theme = createTheme({
     },
     MuiChip: {
       styleOverrides: {
-        root: ({ theme, ownerState }) => ({
+        root: ({ theme, ownerState }) => {
+          const getColor = theme.palette.mode === 'light' ? darken : lighten;
+          return {
           ...(ownerState.variant === 'soft' &&
             ownerState.color !== 'default' &&
             ownerState.color !== undefined && {
-              color: theme.palette[ownerState.color].main,
+              color: getColor(theme.palette[ownerState.color].light, 0.6),
               backgroundColor: alpha(
                 theme.palette[ownerState.color].main,
                 0.12,
               ),
             }),
-        }),
+        }},
       },
     },
     MuiCardHeader: {
@@ -157,6 +157,46 @@ theme = createTheme({
           variant: 'h6',
           fontWeight: 'bold',
         },
+      },
+    },
+    MuiDataGrid: {
+      defaultProps: {
+        autoHeight: true,
+        disableRowSelectionOnClick: true,
+        disableColumnFilter: true,
+        disableColumnMenu: true,
+        disableColumnSelector: true,
+        pagination: true,
+        pageSizeOptions: [5],
+        initialState:{
+          pagination: {
+            paginationModel: {
+              pageSize: 5,
+              page: 0,
+            },
+          },
+        }
+      },
+      styleOverrides: {
+        root: ({ theme }) => ({
+          border: 0,
+          [`& .${gridClasses.withBorderColor}`]: {
+            borderColor: alpha(theme.palette.text.primary, 0.08),
+          },
+          [`& .${gridClasses.columnSeparator}`]: {
+            display: 'none'
+          },
+          [`& .${gridClasses.columnHeader}`]: {
+            color: theme.palette.text.secondary,
+            '&:focus': {
+              outline: 'none'
+            }
+          },
+          '& a': {
+            textUnderlineOffset: 3,
+            textDecorationThickness: '1%'
+          }
+        }),
       },
     },
   },

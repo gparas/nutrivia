@@ -1,18 +1,20 @@
 import { PaletteMode, alpha } from '@mui/material';
+import { blueGrey, deepPurple, teal, green, amber, lightBlue, pink, cyan } from '@mui/material/colors';
+
 
 const mode = 'dark' as PaletteMode;
 
-const grey = {
-  100: '#F9FAFB',
-  200: '#F4F6F8',
-  300: '#DFE3E8',
-  400: '#C4CDD5',
-  500: '#919EAB',
-  600: '#637381',
-  700: '#454F5B',
-  800: '#212B36',
-  900: '#161C24',
-};
+const grey = blueGrey;
+
+export const primary = deepPurple;
+
+export const secondary = teal;
+
+export const success = green;
+
+export const warning = amber;
+ 
+export const error = pink;
 
 const carbs = {
   main: '#5ecfcd',
@@ -27,27 +29,24 @@ const fat = {
 };
 
 const info = {
-  main: '#5ecfcd',
-};
-
-const success = {
-  main: '#22C55E',
-};
-
-const warning = {
-  200: '#FFEDBD',
-  main: '#ffbf5a',
+  main: lightBlue[500],
 };
 
 const light = {
   primary: {
-    main: '#7E57C2',
+    main: primary[500],
   },
   secondary: {
-    main: '#03dac6',
+    main: secondary[500],
+  },
+  success: {
+    main: success[600],
+  },
+  warning: {
+    main: success[600],
   },
   error: {
-    main: '#dc3545',
+    main: error[500],
   },
   text: {
     primary: grey[800],
@@ -61,25 +60,29 @@ const light = {
     hover: alpha(grey[800], 0.04),
     selected: alpha(grey[800], 0.08),
   },
-  divider: grey[300],
   background: {
-    default: '#f6f8fa',
+    default: grey[50],
   },
 };
 
 const dark = {
   primary: {
-    main: '#B39DDB',
+    main: primary[200],
   },
   secondary: {
-    main: '#98FBD6',
+    main: secondary[200],
+  },
+  success: {
+    main: success[400],
+  },
+  warning: {
+    main: success[300],
   },
   error: {
-    main: '#F48E85',
+    main: error[300],
   },
-  divider: '#444d56',
   text: {
-    secondary: '#959da5',
+    secondary: alpha('#ffffff', 0.54),
   },
   action: {
     active: alpha('#ffffff', 0.54),
@@ -90,8 +93,8 @@ const dark = {
     selected: alpha('#ffffff', 0.1),
   },
   background: {
-    default: '#24292e',
-    paper: '#2f363d',
+    default: grey[900],
+    paper: grey[900],
   },
 };
 
@@ -101,8 +104,6 @@ const palette = {
   grey,
   info,
   mode,
-  success,
-  warning,
   carbs,
   protein,
   fat,
