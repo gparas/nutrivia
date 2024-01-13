@@ -34,15 +34,15 @@ const ProfilePage = async () => {
       </Grid>
       <Grid item xs={12} sm={6} md={4}>
         <UserInfo profile={profile}>
-          <Box color="text.secondary" p={2}>
+          <Box p={2}>
             <Button
               fullWidth
               variant="outlined"
-              color="inherit"
               component={Link}
               href="/profile/edit"
+              sx={{ fontWeight: 400 }}
             >
-              Edit
+              Edit Profile
             </Button>
           </Box>
         </UserInfo>

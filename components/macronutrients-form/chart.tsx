@@ -11,8 +11,10 @@ interface Props {
   series: number[];
 }
 
+const CHART_HEIGHT = 240;
+
 const ApexChart = dynamic(() => import('react-apexcharts'), {
-  loading: () => <ComponentLoader height={240} />,
+  loading: () => <ComponentLoader height={CHART_HEIGHT} />,
   ssr: false,
 });
 
@@ -76,7 +78,7 @@ const Chart = ({ dataSeries, series }: Props) => {
       type="donut"
       options={options}
       series={series}
-      height={240}
+      height={CHART_HEIGHT}
       width="100%"
     />
   );
