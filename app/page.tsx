@@ -50,6 +50,20 @@ const HomePage = async () => {
     )
     .eq('created_at', dayjs().format('YYYY-MM-DD'));
 
+  const { data: water } = await supabase
+    .from('water')
+    .select('liter')
+    .eq('created_at', dayjs().format('YYYY-MM-DD'))
+    .single();
+
+  const { data: weight } = await supabase
+    .from('weights')
+    .select('kg')
+    .eq('created_at', dayjs().format('YYYY-MM-DD'))
+    .single();
+
+  console.log(weight);
+
   const { kcal_intake } = profile;
 
   const dailyKcalEaten =
@@ -67,7 +81,7 @@ const HomePage = async () => {
         id,
         iconId,
         textPrimary,
-        ordered: Boolean(data),
+        added: Boolean(data),
         orderedKcal,
         orderedKcalDiff,
         textSecondary: data
@@ -101,7 +115,22 @@ const HomePage = async () => {
         {dailyMeals.map(meal => (
           <ListItem key={meal.id} {...meal} />
         ))}
-        <ListItem {...DAILY_EXTRAS.WATER} />
+        <ListItem
+          textPrimary="Water"
+          iconId="water"
+          textSecondary={
+            water ? `${water.liter}L intake` : 'Daily water intake'
+          }
+          href="/water-intake"
+          added={Boolean(water)}
+        />
+        <ListItem
+          textPrimary="Weight"
+          iconId="diet"
+          href="/log-weight"
+          textSecondary="Log weight"
+          added={Boolean(weight)}
+        />
       </Stack>
     </Box>
   );

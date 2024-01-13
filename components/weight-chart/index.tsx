@@ -6,6 +6,7 @@ import Card from '@/components/card';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import ComponentLoader from '@/components/component-loader';
+import dayjs from 'dayjs';
 import { StackProps } from '@mui/material';
 
 const CHART_HEIGHT = 144;
@@ -104,7 +105,10 @@ const WeightChart = ({
       <Grid container alignItems="flex-end">
         <Grid item xs={12} sm={4} md={5}>
           <Typography variant="h3" mb={0.25}>
-            {current_weight}
+            {
+              dataset.find(data => data.date === dayjs().format('YYYY-MM-DD'))
+                ?.weight
+            }
             <Typography variant="h6" component="span" fontWeight={400}>
               kg
             </Typography>

@@ -125,12 +125,6 @@ export const ACTIVITY_FACTOR = {
   intense: 2.5,
 };
 
-export const NUTRIENT_COLOR = {
-  carbs: '#5ecfcd',
-  protein: '#eb3478',
-  fat: '#ffbf5a',
-};
-
 export const DAILY_MEALS = [
   {
     id: 'breakfast',
@@ -164,6 +158,7 @@ export const DAILY_EXTRAS = {
     iconId: 'water',
     textPrimary: 'Water',
     textSecondary: 'Daily water intake',
+    href:"/water-intake"
   },
 };
 

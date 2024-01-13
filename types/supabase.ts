@@ -208,19 +208,19 @@ export interface Database {
         Row: {
           created_at: string
           id: string
-          liter: string
+          liter: number
           user_id: string
         }
         Insert: {
           created_at?: string
           id?: string
-          liter: string
+          liter: number
           user_id: string
         }
         Update: {
           created_at?: string
           id?: string
-          liter?: string
+          liter?: number
           user_id?: string
         }
         Relationships: [
@@ -237,19 +237,19 @@ export interface Database {
         Row: {
           created_at: string
           id: string
-          kg: string
+          kg: number
           user_id: string
         }
         Insert: {
           created_at?: string
           id?: string
-          kg: string
+          kg: number
           user_id: string
         }
         Update: {
           created_at?: string
           id?: string
-          kg?: string
+          kg?: number
           user_id?: string
         }
         Relationships: [

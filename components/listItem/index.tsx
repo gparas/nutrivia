@@ -29,7 +29,7 @@ type Props = ListItemButtonProps & {
   textPrimary: string;
   textSecondary?: string;
   href?: string;
-  ordered?: boolean;
+  added?: boolean;
   orderedKcal?: number;
   orderedKcalDiff?: number;
 };
@@ -49,7 +49,7 @@ const ListItem = ({
   textPrimary,
   textSecondary,
   href,
-  ordered,
+  added,
   orderedKcal,
   orderedKcalDiff,
   ...other
@@ -66,13 +66,13 @@ const ListItem = ({
           <Icon sx={{ fontSize: 40 }} />
         </ListItemIcon>
         <ListItemText primary={textPrimary} secondary={textSecondary} />
-        {ordered ? (
+        {added ? (
           <CheckCircleRounded color="success" />
         ) : (
           <AddIcon color="disabled" />
         )}
       </ListItemButton>
-      {ordered && (
+      {orderedKcalDiff && (
         <>
           <Divider light />
           <Stack
@@ -83,15 +83,15 @@ const ListItem = ({
             pr={2}
             spacing={0.4}
           >
-            {orderedKcalDiff && orderedKcalDiff > 0 ? (
+            {orderedKcalDiff > 0 ? (
               <CheckIcon sx={{ fontSize: 18 }} color="success" />
             ) : (
               <WarningIcon sx={{ fontSize: 18 }} color="warning" />
             )}
             <Typography variant="body2">{orderedKcal}kcal</Typography>
             <Typography variant="body2" color="text.secondary">
-              &#8226; {orderedKcalDiff && Math.abs(orderedKcalDiff)}kcal{' '}
-              {orderedKcalDiff && orderedKcalDiff > 0 ? 'under' : 'above'}
+              &#8226; {Math.abs(orderedKcalDiff)}kcal{' '}
+              {orderedKcalDiff > 0 ? 'under' : 'above'}
             </Typography>
           </Stack>
         </>

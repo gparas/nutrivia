@@ -177,7 +177,7 @@ export const getWeightDataset = (
   weights:
     | {
         created_at: string;
-        kg: string;
+        kg: number;
       }[]
     | null,
   current_weight: string | null | undefined,
@@ -195,7 +195,7 @@ export const getWeightDataset = (
 type Water =
   | {
       created_at: string;
-      liter: string;
+      liter: number;
     }[]
   | null;
 

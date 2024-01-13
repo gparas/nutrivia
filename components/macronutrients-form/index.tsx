@@ -11,7 +11,6 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Slider from '@mui/material/Slider';
-import Divider from '@mui/material/Divider';
 import SubmitFormButton from '../submit-form-button';
 import Chart from './chart';
 import { updateProfile } from './actions';
