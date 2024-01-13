@@ -1,3 +1,4 @@
+import { Tables } from '@/types/supabase';
 import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -6,22 +7,18 @@ import Card from '@/components/card';
 import { getNutrientsData } from '@/lib/utils';
 
 interface Props {
-  dailyCalorieIntake: number;
+  profile: Tables<'profiles'>;
   dataset: { eaten: number }[];
   nutritionDataset: { id: string; label: string; value: number }[];
 }
 
-const KcalOverview = ({
-  dataset,
-  dailyCalorieIntake,
-  nutritionDataset,
-}: Props) => {
+const KcalOverview = ({ dataset, profile, nutritionDataset }: Props) => {
   const totalKcalEaten = Math.floor(
     dataset.reduce((acc, cur) => acc + cur.eaten, 0) / dataset.length,
   );
-  const totalKcalIntake = dailyCalorieIntake;
+  const totalKcalIntake = profile.kcal_intake || 0;
   const kcalDiff = totalKcalEaten - totalKcalIntake;
-  const nutrientsData = getNutrientsData(totalKcalIntake);
+  const nutrientsData = getNutrientsData(profile, totalKcalIntake);
   return (
     <Card height={'100%'}>
       <Typography variant="h6" fontWeight={500} mb={2}>

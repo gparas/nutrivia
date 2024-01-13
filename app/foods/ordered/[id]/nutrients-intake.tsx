@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import ComponentLoader from '@/components/component-loader';
 import Grid from '@mui/material/Grid';
 import { Tables } from '@/types/supabase';
+import { Macronutrients } from '@/types/macronutrients';
 
 const CHART_HEIGHT = 320;
 
@@ -27,12 +28,6 @@ interface Props {
   food: Tables<'foods'>;
 }
 
-type Nutrients = {
-  carbs: number;
-  protein: number;
-  fat: number;
-};
-
 const NutrientsIntake = ({ nutrientsData, food }: Props) => {
   const theme = useTheme();
 
@@ -40,7 +35,7 @@ const NutrientsIntake = ({ nutrientsData, food }: Props) => {
     const value =
       id === 'fat'
         ? ((food.fat * 9) / food.kcal) * 100
-        : ((food[id as keyof Nutrients] * 4) / food.kcal) * 100;
+        : ((food[id as keyof Macronutrients] * 4) / food.kcal) * 100;
     return {
       label,
       value: Math.floor(value),
@@ -56,6 +51,9 @@ const NutrientsIntake = ({ nutrientsData, food }: Props) => {
     plotOptions: {
       pie: {
         expandOnClick: false,
+        donut: {
+          size: '80%',
+        },
       },
     },
     legend: {

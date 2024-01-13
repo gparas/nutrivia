@@ -50,7 +50,7 @@ const OrderedFoodPage = async ({
       dailyCalorieIntake,
   );
 
-  const nutrientsData = getNutrientsData(recommendedKcal);
+  const nutrientsData = getNutrientsData(profile, recommendedKcal);
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>

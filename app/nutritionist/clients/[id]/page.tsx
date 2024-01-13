@@ -2,6 +2,7 @@ import { cookies } from 'next/headers';
 import { createClient } from '@/supabase/server';
 import dayjs from 'dayjs';
 import { notFound } from 'next/navigation';
+import NextLink from 'next/link';
 import Grid from '@mui/material/Grid';
 import KcalChart from '@/components/kcal-chart';
 import WeightChart from '@/components/weight-chart';
@@ -12,6 +13,7 @@ import BackButton from '@/components/back-button';
 import Macronutrients from '@/components/macronutrients';
 import { getKcalDataset, getWeightDataset, getWaterDataset } from '@/lib/utils';
 import { DAILY_MEALS } from '@/lib/constants';
+import Button from '@mui/material/Button';
 
 const ClientPage = async ({ params: { id } }: { params: { id: string } }) => {
   const cookieStore = cookies();
@@ -76,11 +78,17 @@ const ClientPage = async ({ params: { id } }: { params: { id: string } }) => {
               <UserInfo profile={profile} />
             </Grid>
             <Grid item xs={12} sm={6} md={12}>
-              <Macronutrients
-                profile={profile}
-                chartHeight={240}
-                height={'100%'}
-              />
+              <Macronutrients profile={profile} height={'100%'}>
+                <Button
+                  variant="outlined"
+                  color="inherit"
+                  component={NextLink}
+                  href={`macronutrients/${id}`}
+                  sx={{ mt: 3 }}
+                >
+                  Adjust Macronutrients
+                </Button>
+              </Macronutrients>
             </Grid>
           </Grid>
         </Grid>

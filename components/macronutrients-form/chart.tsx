@@ -3,26 +3,21 @@
 import { useTheme } from '@mui/material/styles';
 import dynamic from 'next/dynamic';
 import ComponentLoader from '@/components/component-loader';
+import { capitalize } from '@mui/material';
 import { Macronutrients } from '@/types/macronutrients';
 
 interface Props {
-  dailyKcal: number;
-  nutrientsData: {
-    id: string;
-    value: number;
-  }[];
+  dataSeries: Macronutrients;
+  series: number[];
 }
 
-const CHART_HEIGHT = 240;
-
 const ApexChart = dynamic(() => import('react-apexcharts'), {
-  loading: () => <ComponentLoader height={CHART_HEIGHT} />,
+  loading: () => <ComponentLoader height={240} />,
   ssr: false,
 });
 
-const Chart = ({ nutrientsData, dailyKcal }: Props) => {
+const Chart = ({ dataSeries, series }: Props) => {
   const theme = useTheme();
-  const series = nutrientsData.map(({ value }) => value);
   const options = {
     chart: {
       type: 'donut',
@@ -42,7 +37,11 @@ const Chart = ({ nutrientsData, dailyKcal }: Props) => {
               show: true,
               showAlways: true,
               color: theme.palette.text.secondary,
-              formatter: () => `${dailyKcal} kcal`,
+              formatter: (w: any) =>
+                `${w.globals.seriesTotals.reduce(
+                  (acc: number, cur: number) => acc + cur,
+                  0,
+                )} %`,
             },
           },
         },
@@ -60,7 +59,7 @@ const Chart = ({ nutrientsData, dailyKcal }: Props) => {
     tooltip: {
       enabled: false,
     },
-    labels: Object.keys(nutrientsData),
+    labels: Object.keys(dataSeries).map(key => capitalize(key)),
     states: {
       hover: {
         filter: {
@@ -68,8 +67,8 @@ const Chart = ({ nutrientsData, dailyKcal }: Props) => {
         },
       },
     },
-    colors: nutrientsData.map(
-      ({ id }) => theme.palette[id as keyof Macronutrients].main,
+    colors: Object.keys(dataSeries).map(
+      key => theme.palette[key as keyof Macronutrients].main,
     ),
   } as const;
   return (
@@ -77,7 +76,7 @@ const Chart = ({ nutrientsData, dailyKcal }: Props) => {
       type="donut"
       options={options}
       series={series}
-      height={CHART_HEIGHT}
+      height={240}
       width="100%"
     />
   );

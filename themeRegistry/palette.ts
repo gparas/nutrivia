@@ -7,14 +7,20 @@ const mode = 'dark' as PaletteMode;
 const grey = blueGrey;
 
 export const primary = deepPurple;
-
 export const secondary = teal;
-
-export const success = green;
-
-export const warning = amber;
- 
 export const error = pink;
+
+const info = {
+  main: lightBlue[500],
+};
+
+const success  = {
+  main: green[500]
+};
+
+const warning  = {
+  main: amber[500]
+};
 
 const carbs = {
   main: '#5ecfcd',
@@ -28,22 +34,12 @@ const fat = {
   main: '#ffbf5a',
 };
 
-const info = {
-  main: lightBlue[500],
-};
-
 const light = {
   primary: {
-    main: primary[500],
+    main: primary[400],
   },
   secondary: {
     main: secondary[500],
-  },
-  success: {
-    main: success[600],
-  },
-  warning: {
-    main: success[600],
   },
   error: {
     main: error[500],
@@ -70,16 +66,10 @@ const dark = {
     main: primary[200],
   },
   secondary: {
-    main: secondary[200],
-  },
-  success: {
-    main: success[400],
-  },
-  warning: {
-    main: success[300],
+    main: secondary[300],
   },
   error: {
-    main: error[300],
+    main: pink[300],
   },
   text: {
     secondary: alpha('#ffffff', 0.54),
@@ -103,6 +93,8 @@ const modes = { dark, light };
 const palette = {
   grey,
   info,
+  success,
+  warning,
   mode,
   carbs,
   protein,

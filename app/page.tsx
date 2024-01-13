@@ -94,10 +94,7 @@ const HomePage = async () => {
             dailyKcalEaten={dailyKcalEaten}
             dailyCalorieIntake={kcal_intake}
           />
-          <DailyNutrientsIntake
-            meals={meals}
-            totalDailyCalorieIntake={kcal_intake}
-          />
+          <DailyNutrientsIntake meals={meals} profile={profile} />
         </div>
       </Card>
       <Stack spacing={2}>

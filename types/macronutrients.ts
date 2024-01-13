@@ -1,8 +1,5 @@
 export type Macronutrients = {
-  id: string;
-  value: number;
-  color: 'carbs' | 'protein' | 'fat';
-  label: string;
-  kcal: number;
-  gram: number;
-}[];
+  carbs: number | 0;
+  protein: number | 0;
+  fat: number | 0;
+};

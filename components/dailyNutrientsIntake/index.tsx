@@ -1,3 +1,4 @@
+import { Tables } from '@/types/supabase';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -9,12 +10,12 @@ type Meals =
   | null;
 
 interface Props {
-  totalDailyCalorieIntake: number;
+  profile: Tables<'profiles'>;
   meals: Meals;
 }
 
-const DailyNutrientsIntake = ({ totalDailyCalorieIntake, meals }: Props) => {
-  const nutrients = getNutrientsData(totalDailyCalorieIntake);
+const DailyNutrientsIntake = ({ profile, meals }: Props) => {
+  const nutrients = getNutrientsData(profile, profile.kcal_intake || 0);
   return (
     <Stack direction="row" justifyContent="space-around">
       {nutrients.map(({ id, gram, label }) => {

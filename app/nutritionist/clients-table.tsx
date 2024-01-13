@@ -16,7 +16,6 @@ import { getYearsOld } from '@/lib/utils';
 import { PROFILE } from '@/lib/constants';
 import Button from '@mui/material/Button';
 import { Tables } from '@/types/supabase';
-import { alpha } from '@mui/material';
 
 function RenderAge(props: GridRenderCellParams) {
   const { value } = props;

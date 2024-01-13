@@ -32,6 +32,14 @@ declare module '@mui/material/LinearProgress' {
   }
 }
 
+declare module '@mui/material/Slider' {
+  interface SliderPropsColorOverrides {
+    carbs: true;
+    protein: true;
+    fat: true;
+  }
+}
+
 declare module '@mui/material/Button' {
   interface ButtonPropsVariantOverrides {
     soft: true;

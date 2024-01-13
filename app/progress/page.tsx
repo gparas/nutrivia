@@ -97,9 +97,9 @@ const ProgressPage = async () => {
         </Grid>
         <Grid item xs={12} md={4}>
           <KcalOverview
+            profile={profile}
             dataset={getKcalDataset(meals)}
             nutritionDataset={getNutritionDataset(meals)}
-            dailyCalorieIntake={dailyCalorieIntake}
           />
         </Grid>
         <Grid item xs={12} md={6}>

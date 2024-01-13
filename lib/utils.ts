@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import { ACTIVITY_FACTOR } from './constants';
 import { Profile } from '@/types/profile';
+import { Macronutrients } from '@/types/macronutrients';
 
 export const getYearsOld = (age: number | null | undefined) => {
   if (!age) return 30;
@@ -47,31 +48,31 @@ export const getDailyCalorieIntake = (data: Profile) => {
   return kcal;
 };
 
-export const getNutrientsData = (dailyCalorieIntake: number) => {
+export const getNutrientsData = (macronutrients: Macronutrients, calories: number) => {
   return [
     {
       id: 'carbs',
-      value: 45,
+      value: macronutrients.carbs,
       label: 'Carbs',
       color: 'carbs' as const,
-      kcal: Math.floor(dailyCalorieIntake * 0.45),
-      gram: Math.floor((dailyCalorieIntake * 0.45) / 4),
+      kcal: Math.floor(calories * macronutrients.carbs / 100),
+      gram: Math.floor((calories * macronutrients.carbs / 100) / 4),
     },
     {
       id: 'protein',
-      value: 25,
+      value: macronutrients.protein,
       label: 'Protein',
       color: 'protein' as const,
-      kcal: Math.floor(dailyCalorieIntake * 0.25),
-      gram: Math.floor((dailyCalorieIntake * 0.25) / 4),
+      kcal: Math.floor(calories * macronutrients.protein / 100),
+      gram: Math.floor((calories * macronutrients.protein / 100) / 4),
     },
     {
       id: 'fat',
-      value: 30,
+      value: macronutrients.fat,
       label: 'Fat',
       color: 'fat' as const,
-      kcal: Math.floor(dailyCalorieIntake * 0.3),
-      gram: Math.floor((dailyCalorieIntake * 0.3) / 9),
+      kcal: Math.floor(calories * macronutrients.fat / 100),
+      gram: Math.floor((calories * macronutrients.fat / 100) / 9),
     },
   ];
 };
