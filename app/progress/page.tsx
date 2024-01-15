@@ -5,7 +5,6 @@ import { notFound } from 'next/navigation';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import PageTitle from '@/components/page-title';
 import KcalChart from '@/components/kcal-chart';
 import KcalOverview from '@/components/kcal-overview';
 import WeightChart from '@/components/weight-chart';
@@ -14,10 +13,10 @@ import MealsTable from '@/components/meals-table';
 import {
   getKcalDataset,
   getNutritionDataset,
-  getWeightDataset,
   getWaterDataset,
 } from '@/lib/utils';
 import { DAILY_MEALS } from '@/lib/constants';
+import ProgressTitle from './title';
 
 const ProgressPage = async () => {
   const cookieStore = cookies();
@@ -73,6 +72,9 @@ const ProgressPage = async () => {
   }
 
   const dailyCalorieIntake = profile?.kcal_intake || 0;
+  const weightsData =
+    weights?.map(({ created_at, kg }) => ({ date: created_at, weight: kg })) ||
+    [];
 
   return (
     <>
@@ -82,7 +84,7 @@ const ProgressPage = async () => {
         alignItems="center"
         mb={3}
       >
-        <PageTitle>Progress</PageTitle>
+        <ProgressTitle />
         <Typography variant="body2">
           {dayjs().subtract(7, 'days').format('DD MMM YY')} -{' '}
           {dayjs().format('DD MMM YY')}
@@ -95,7 +97,7 @@ const ProgressPage = async () => {
             dailyCalorieIntake={dailyCalorieIntake}
           />
         </Grid>
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} md={4} order={[-1, -1, 0]}>
           <KcalOverview
             profile={profile}
             dataset={getKcalDataset(meals)}
@@ -103,12 +105,7 @@ const ProgressPage = async () => {
           />
         </Grid>
         <Grid item xs={12} md={6}>
-          <WeightChart
-            goal={profile.goal}
-            current_weight={Number(profile.weight)}
-            target_weight={Number(profile.target_weight)}
-            dataset={getWeightDataset(weights, profile?.weight)}
-          />
+          <WeightChart profile={profile} weights={weightsData} />
         </Grid>
         <Grid item xs={12} md={6}>
           <WaterChart dataset={getWaterDataset(water)} />
@@ -127,6 +124,7 @@ const ProgressPage = async () => {
                 name: meal.foods?.name,
                 category: meal.foods?.category,
                 kcal: meal.foods?.kcal,
+                date: meal.created_at,
                 status: Math.round(recommendedKcal * dailyCalorieIntake),
               };
             })}

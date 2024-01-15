@@ -11,7 +11,7 @@ import MealsTable from '@/components/meals-table';
 import UserInfo from '@/components/user-info';
 import BackButton from '@/components/back-button';
 import Macronutrients from '@/components/macronutrients';
-import { getKcalDataset, getWeightDataset, getWaterDataset } from '@/lib/utils';
+import { getKcalDataset, getWaterDataset } from '@/lib/utils';
 import { DAILY_MEALS } from '@/lib/constants';
 import Button from '@mui/material/Button';
 
@@ -65,6 +65,9 @@ const ClientPage = async ({ params: { id } }: { params: { id: string } }) => {
   }
 
   const dailyCalorieIntake = profile?.kcal_intake || 0;
+  const weightsData =
+    weights?.map(({ created_at, kg }) => ({ date: created_at, weight: kg })) ||
+    [];
 
   return (
     <>
@@ -101,12 +104,7 @@ const ClientPage = async ({ params: { id } }: { params: { id: string } }) => {
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <WeightChart
-                goal={profile.goal}
-                current_weight={Number(profile.weight)}
-                target_weight={Number(profile.target_weight)}
-                dataset={getWeightDataset(weights, profile?.weight)}
-              />
+              <WeightChart profile={profile} weights={weightsData} />
             </Grid>
             <Grid item xs={12} sm={6}>
               <WaterChart dataset={getWaterDataset(water)} />
@@ -125,6 +123,7 @@ const ClientPage = async ({ params: { id } }: { params: { id: string } }) => {
                     name: meal.foods?.name,
                     category: meal.foods?.category,
                     kcal: meal.foods?.kcal,
+                    date: meal.created_at,
                     status: Math.round(recommendedKcal * dailyCalorieIntake),
                   };
                 })}

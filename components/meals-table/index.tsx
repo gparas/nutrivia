@@ -9,6 +9,7 @@ import Image from 'next/image';
 import Card from '@/components/card';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
+import dayjs from 'dayjs';
 
 const getColumns = (user_id: string | undefined) => {
   function RenderName(props: GridRenderCellParams) {
@@ -26,6 +27,10 @@ const getColumns = (user_id: string | undefined) => {
   function RenderImage(props: GridRenderCellParams) {
     const { value } = props;
     return <Image alt={'food'} src={value} priority width={48} height={48} />;
+  }
+  function RenderDate(props: GridRenderCellParams) {
+    const { value } = props;
+    return dayjs(value).format('DD MMM YY');
   }
   function RenderStatus(props: GridRenderCellParams) {
     const { value, row } = props;
@@ -62,6 +67,13 @@ const getColumns = (user_id: string | undefined) => {
     {
       field: 'kcal',
       headerName: 'calories',
+      minWidth: 100,
+      flex: 1,
+    },
+    {
+      field: 'date',
+      headerName: 'date',
+      renderCell: RenderDate,
       minWidth: 120,
       flex: 1,
     },

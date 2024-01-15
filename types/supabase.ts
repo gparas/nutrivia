@@ -128,64 +128,64 @@ export interface Database {
       }
       profiles: {
         Row: {
-          activity: string | null
-          age: number | null
+          activity: string
+          age: number
           avatar_url: string | null
           carbs: number
           created_at: string
           fat: number
           food_preference: string | null
           full_name: string
-          gender: string | null
-          goal: string | null
-          height: string | null
+          gender: string
+          goal: string
+          height: string
           id: string
-          kcal_intake: number | null
+          kcal_intake: number
           nutritionist_id: string | null
           protein: number
           target_weight: string | null
           updated_at: string | null
-          weight: string | null
+          weight: string
         }
         Insert: {
-          activity?: string | null
-          age?: number | null
+          activity: string
+          age: number
           avatar_url?: string | null
           carbs?: number
           created_at?: string
           fat?: number
           food_preference?: string | null
           full_name: string
-          gender?: string | null
-          goal?: string | null
-          height?: string | null
+          gender: string
+          goal: string
+          height: string
           id: string
-          kcal_intake?: number | null
+          kcal_intake: number
           nutritionist_id?: string | null
           protein?: number
           target_weight?: string | null
           updated_at?: string | null
-          weight?: string | null
+          weight: string
         }
         Update: {
-          activity?: string | null
-          age?: number | null
+          activity?: string
+          age?: number
           avatar_url?: string | null
           carbs?: number
           created_at?: string
           fat?: number
           food_preference?: string | null
           full_name?: string
-          gender?: string | null
-          goal?: string | null
-          height?: string | null
+          gender?: string
+          goal?: string
+          height?: string
           id?: string
-          kcal_intake?: number | null
+          kcal_intake?: number
           nutritionist_id?: string | null
           protein?: number
           target_weight?: string | null
           updated_at?: string | null
-          weight?: string | null
+          weight?: string
         }
         Relationships: [
           {

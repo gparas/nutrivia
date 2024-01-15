@@ -1,13 +1,14 @@
 'use client';
 
 import { useTheme } from '@mui/material/styles';
+import { StackProps } from '@mui/material';
+import { Tables } from '@/types/supabase';
 import dynamic from 'next/dynamic';
 import Card from '@/components/card';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import ComponentLoader from '@/components/component-loader';
 import dayjs from 'dayjs';
-import { StackProps } from '@mui/material';
 
 const CHART_HEIGHT = 144;
 
@@ -17,25 +18,20 @@ const ApexChart = dynamic(() => import('react-apexcharts'), {
 });
 
 type Props = {
-  goal: string | null;
-  current_weight: number | null;
-  target_weight: number | null;
-  dataset: { weight: number; date: string }[];
+  profile: Tables<'profiles'>;
+  weights: { date: string; weight: number }[] | [];
 } & StackProps;
 
-const WeightChart = ({
-  dataset,
-  goal,
-  current_weight,
-  target_weight,
-  ...other
-}: Props) => {
+const WeightChart = ({ profile, weights, ...other }: Props) => {
   const theme = useTheme();
+
+  const initData = { date: profile.created_at, weight: profile.weight };
+  const dataset = [initData, ...weights];
 
   const series = [
     {
       name: 'Weight',
-      data: dataset.map(item => item.weight),
+      data: dataset.map(item => Number(item.weight)),
     },
   ];
   const options = {
@@ -66,7 +62,7 @@ const WeightChart = ({
     colors: [theme.palette.success.main],
     yaxis: {
       show: false,
-      min: target_weight || current_weight || 0,
+      min: Number(profile.target_weight) || Number(profile.weight),
     },
     grid: {
       show: false,
@@ -79,16 +75,17 @@ const WeightChart = ({
     },
   };
 
-  const avgWeight =
-    dataset.reduce((acc, cur) => acc + cur.weight, 0) / dataset.length;
+  const lastLoggedWeight = Number(dataset[dataset.length - 1].weight);
 
-  const weightDiff = avgWeight - current_weight!;
+  const weightDiff = !Number.isNaN(lastLoggedWeight)
+    ? lastLoggedWeight - Number(profile.weight)
+    : Number(profile.weight) - Number(profile.weight);
 
   const getTextColor = () => {
-    if (goal === 'lose_weight') {
+    if (profile.goal === 'lose_weight') {
       return weightDiff <= 0 ? 'success.main' : 'error.main';
     }
-    if (goal === 'gain_weight') {
+    if (profile.goal === 'gain_weight') {
       return weightDiff < 0 ? 'error.main' : 'success.main';
     }
     return 'inherit';
@@ -100,15 +97,12 @@ const WeightChart = ({
         Weight
       </Typography>
       <Typography variant="body2" color="text.secondary" mb={[2, 0]}>
-        Goal {target_weight || current_weight} kg
+        Goal {profile.target_weight || profile.weight} kg
       </Typography>
       <Grid container alignItems="flex-end">
         <Grid item xs={12} sm={4} md={5}>
           <Typography variant="h3" mb={0.25}>
-            {
-              dataset.find(data => data.date === dayjs().format('YYYY-MM-DD'))
-                ?.weight
-            }
+            {lastLoggedWeight}
             <Typography variant="h6" component="span" fontWeight={400}>
               kg
             </Typography>
@@ -127,7 +121,7 @@ const WeightChart = ({
               component="span"
               fontWeight={400}
             >
-              kg this week
+              kg {weightDiff <= 0 ? 'lost' : 'gain'}
             </Typography>
           </Typography>
         </Grid>

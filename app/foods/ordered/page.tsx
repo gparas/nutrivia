@@ -59,6 +59,7 @@ const FoodsOrderedPage = async ({
             kcal: meal.foods?.kcal,
             carbs: meal.foods?.carbs,
             protein: meal.foods?.protein,
+            date: meal.created_at,
             fat: meal.foods?.fat,
           };
         })}

@@ -173,25 +173,6 @@ export const getKcalDataset = (meals: Meals) => {
   });
 };
 
-export const getWeightDataset = (
-  weights:
-    | {
-        created_at: string;
-        kg: number;
-      }[]
-    | null,
-  current_weight: string | null | undefined,
-) => {
-  const days = getDays();
-  return days.reverse().map(day => {
-    const weight = weights?.find(weight => weight.created_at === day)?.kg;
-    return {
-      weight: Number(weight) || Number(current_weight),
-      date: dayjs(day).format('YYYY-MM-DD'),
-    };
-  });
-};
-
 type Water =
   | {
       created_at: string;

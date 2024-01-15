@@ -9,6 +9,8 @@ import { DAILY_MEALS, DAILY_EXTRAS } from '@/lib/constants';
 import dayjs from 'dayjs';
 import Card from '@/components/card';
 import HomeKcalChart from '@/components/home-kcal-chart';
+import Button from '@mui/material/Button';
+import Link from 'next/link';
 
 const HomePage = async () => {
   const cookieStore = cookies();
@@ -101,13 +103,21 @@ const HomePage = async () => {
       alignItems="flex-start"
     >
       <Card py={3} bgcolor="#8b5cf6" color="white">
-        <div>
-          <HomeKcalChart
-            dailyKcalEaten={dailyKcalEaten}
-            dailyCalorieIntake={kcal_intake}
-          />
-          <DailyNutrientsIntake meals={meals} profile={profile} />
-        </div>
+        <HomeKcalChart
+          dailyKcalEaten={dailyKcalEaten}
+          dailyCalorieIntake={kcal_intake}
+        />
+        <DailyNutrientsIntake meals={meals} profile={profile} />
+        <Button
+          variant="text"
+          color="inherit"
+          size="small"
+          component={Link}
+          href="/progress"
+          sx={{ fontWeight: 500, bottom: -16 }}
+        >
+          progress
+        </Button>
       </Card>
       <Stack spacing={2}>
         {dailyMeals.map(meal => (

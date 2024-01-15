@@ -83,7 +83,7 @@ const UserInfo = ({ profile, children, ...other }: Props) => {
         <Divider light variant="middle" component="li" />
         <ListItem>
           <ListItemText
-            primary="Current weight"
+            primary="Initial weight"
             primaryTypographyProps={{ variant: 'body2' }}
           />
           <Typography variant="body2" fontWeight={500}>
