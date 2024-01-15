@@ -26,7 +26,7 @@ const GetStartedPage = async () => {
     .eq('id', session.user.id)
     .single();
 
-  if (!profile?.kcal_intake) {
+  if (profile?.kcal_intake) {
     redirect('/');
   }
 

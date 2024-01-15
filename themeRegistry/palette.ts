@@ -2,8 +2,6 @@ import { PaletteMode, alpha } from '@mui/material';
 import { blueGrey, deepPurple, teal, green, amber, lightBlue, pink, cyan } from '@mui/material/colors';
 
 
-const mode = 'light' as PaletteMode;
-
 const grey = blueGrey;
 
 export const primary = deepPurple;
@@ -86,24 +84,29 @@ const dark = {
     selected: alpha('#ffffff', 0.1),
   },
   background: {
-    default: '#1f2937',
-    paper: '#374151',
+    default: '#24292e',
+    paper: '#2f363d',
   },
 };
 
 const modes = { dark, light };
 
-const palette = {
+type Mode = {
+  light: string,
+  dark: string
+}
+
+const palette = (mode: PaletteMode) => ({
+  mode,
   black,
   grey,
   info,
   success,
   warning,
-  mode,
   carbs,
   protein,
   fat,
-  ...modes[mode],
-};
+  ...modes[mode as keyof Mode],
+});
 
 export default palette;

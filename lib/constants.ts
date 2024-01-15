@@ -8,7 +8,7 @@ export const PROFILE = {
   },
   weight: {
     name: 'weight',
-    label: 'Current weight',
+    label: 'Initial weight',
     min: 40,
     max: 200,
     unit: 'kg',

@@ -128,64 +128,76 @@ export interface Database {
       }
       profiles: {
         Row: {
-          activity: string
-          age: number
+          activity: string | null
+          age: number | null
           avatar_url: string | null
+          breakfast: number
           carbs: number
           created_at: string
+          dinner: number
           fat: number
           food_preference: string | null
           full_name: string
-          gender: string
-          goal: string
-          height: string
+          gender: string | null
+          goal: string | null
+          height: string | null
           id: string
-          kcal_intake: number
+          kcal_intake: number | null
+          lunch: number
           nutritionist_id: string | null
           protein: number
+          snack: number
           target_weight: string | null
           updated_at: string | null
-          weight: string
+          weight: string | null
         }
         Insert: {
-          activity: string
-          age: number
+          activity?: string | null
+          age?: number | null
           avatar_url?: string | null
+          breakfast?: number
           carbs?: number
           created_at?: string
+          dinner?: number
           fat?: number
           food_preference?: string | null
           full_name: string
-          gender: string
-          goal: string
-          height: string
+          gender?: string | null
+          goal?: string | null
+          height?: string | null
           id: string
-          kcal_intake: number
+          kcal_intake?: number | null
+          lunch?: number
           nutritionist_id?: string | null
           protein?: number
+          snack?: number
           target_weight?: string | null
           updated_at?: string | null
-          weight: string
+          weight?: string | null
         }
         Update: {
-          activity?: string
-          age?: number
+          activity?: string | null
+          age?: number | null
           avatar_url?: string | null
+          breakfast?: number
           carbs?: number
           created_at?: string
+          dinner?: number
           fat?: number
           food_preference?: string | null
           full_name?: string
-          gender?: string
-          goal?: string
-          height?: string
+          gender?: string | null
+          goal?: string | null
+          height?: string | null
           id?: string
-          kcal_intake?: number
+          kcal_intake?: number | null
+          lunch?: number
           nutritionist_id?: string | null
           protein?: number
+          snack?: number
           target_weight?: string | null
           updated_at?: string | null
-          weight?: string
+          weight?: string | null
         }
         Relationships: [
           {
