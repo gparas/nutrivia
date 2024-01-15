@@ -13,7 +13,7 @@ export const root = {
     right: 0,
     bottom: 0,
     backgroundColor: 'currentColor',
-    opacity: 0.2,
+    opacity: 0.1,
   },
 };
 

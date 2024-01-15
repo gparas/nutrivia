@@ -3,12 +3,12 @@ import { createClient } from '@/supabase/server';
 import { redirect } from 'next/navigation';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
-import DailyCalorieIntake from '@/components/dailyCalorieIntake';
 import DailyNutrientsIntake from '@/components/dailyNutrientsIntake';
 import ListItem from '@/components/listItem';
 import { DAILY_MEALS, DAILY_EXTRAS } from '@/lib/constants';
 import dayjs from 'dayjs';
 import Card from '@/components/card';
+import HomeKcalChart from '@/components/home-kcal-chart';
 
 const HomePage = async () => {
   const cookieStore = cookies();
@@ -62,8 +62,6 @@ const HomePage = async () => {
     .eq('created_at', dayjs().format('YYYY-MM-DD'))
     .single();
 
-  console.log(weight);
-
   const { kcal_intake } = profile;
 
   const dailyKcalEaten =
@@ -102,9 +100,9 @@ const HomePage = async () => {
       gridTemplateColumns="repeat(auto-fit, minmax(300px, 1fr))"
       alignItems="flex-start"
     >
-      <Card py={3} bgcolor="primary.main" color="primary.contrastText">
+      <Card py={3} bgcolor="#8b5cf6" color="white">
         <div>
-          <DailyCalorieIntake
+          <HomeKcalChart
             dailyKcalEaten={dailyKcalEaten}
             dailyCalorieIntake={kcal_intake}
           />

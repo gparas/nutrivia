@@ -2,7 +2,7 @@ import { PaletteMode, alpha } from '@mui/material';
 import { blueGrey, deepPurple, teal, green, amber, lightBlue, pink, cyan } from '@mui/material/colors';
 
 
-const mode = 'dark' as PaletteMode;
+const mode = 'light' as PaletteMode;
 
 const grey = blueGrey;
 
@@ -10,12 +10,14 @@ export const primary = deepPurple;
 export const secondary = teal;
 export const error = pink;
 
+const black = '#111827';
+
 const info = {
   main: lightBlue[500],
 };
 
 const success  = {
-  main: green[500]
+  main: '#22c55e'
 };
 
 const warning  = {
@@ -36,34 +38,35 @@ const fat = {
 
 const light = {
   primary: {
-    main: primary[400],
+    main: '#8b5cf6',
+    dark: '#6d28d9'
   },
   secondary: {
-    main: secondary[500],
+    main: '#2dd4bf',
   },
   error: {
     main: error[500],
   },
   text: {
-    primary: grey[800],
-    secondary: grey[600],
+    primary: black,
+    secondary: '#6b7280',
   },
   action: {
-    active: alpha(grey[800], 0.54),
-    disabled: alpha(grey[800], 0.26),
-    disabledBackground: alpha(grey[800], 0.08),
-    focus: alpha(grey[800], 0.12),
-    hover: alpha(grey[800], 0.04),
-    selected: alpha(grey[800], 0.08),
+    active: alpha(black, 0.54),
+    disabled: alpha(black, 0.26),
+    disabledBackground: alpha(black, 0.08),
+    focus: alpha(black, 0.12),
+    hover: alpha(black, 0.04),
+    selected: alpha(black, 0.08),
   },
   background: {
-    default: grey[50],
+    default: '#f9fafb',
   },
 };
 
 const dark = {
   primary: {
-    main: primary[200],
+    main: '#c4b5fd',
   },
   secondary: {
     main: secondary[300],
@@ -83,14 +86,15 @@ const dark = {
     selected: alpha('#ffffff', 0.1),
   },
   background: {
-    default: grey[900],
-    paper: grey[900],
+    default: '#1f2937',
+    paper: '#374151',
   },
 };
 
 const modes = { dark, light };
 
 const palette = {
+  black,
   grey,
   info,
   success,
