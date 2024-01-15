@@ -1,10 +1,12 @@
 'use client';
 
+import { ReactNode } from 'react';
 import { DataGrid, GridRowsProp, GridRenderCellParams } from '@mui/x-data-grid';
 import Typography from '@mui/material/Typography';
 import Chip from '@mui/material/Chip';
 import NextLink from 'next/link';
 import Link from '@mui/material/Link';
+import Stack from '@mui/material/Stack';
 import Image from 'next/image';
 import Card from '@/components/card';
 import CheckIcon from '@mui/icons-material/Check';
@@ -90,6 +92,7 @@ const getColumns = (user_id: string | undefined) => {
 
 type Props = {
   user_id?: string;
+  action?: ReactNode;
   meals: {
     meal_id?: string;
     image?: string;
@@ -102,13 +105,16 @@ type Props = {
   }[];
 };
 
-const MealsTable = ({ meals, user_id }: Props) => {
+const MealsTable = ({ meals, user_id, action }: Props) => {
   const rows: GridRowsProp = meals;
   return (
     <Card p={1}>
-      <Typography variant="h6" fontWeight={500} p={1}>
-        Meals
-      </Typography>
+      <Stack direction="row" alignItems="center" justifyContent="space-between">
+        <Typography variant="h6" fontWeight={500} p={1}>
+          Meals
+        </Typography>
+        {action}
+      </Stack>
       <DataGrid rows={rows} columns={getColumns(user_id)} />
     </Card>
   );

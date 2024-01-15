@@ -12,8 +12,9 @@ import UserInfo from '@/components/user-info';
 import BackButton from '@/components/back-button';
 import Macronutrients from '@/components/macronutrients';
 import { getKcalDataset, getWaterDataset } from '@/lib/utils';
-import { DAILY_MEALS } from '@/lib/constants';
 import Button from '@mui/material/Button';
+import { Meals } from '@/types/meals';
+import Link from 'next/link';
 
 const ClientPage = async ({ params: { id } }: { params: { id: string } }) => {
   const cookieStore = cookies();
@@ -112,10 +113,20 @@ const ClientPage = async ({ params: { id } }: { params: { id: string } }) => {
             <Grid item xs={12}>
               <MealsTable
                 user_id={id}
+                action={
+                  <Button
+                    variant="outlined"
+                    component={Link}
+                    href={`adjust-meals/${id}`}
+                  >
+                    Adjust Meals
+                  </Button>
+                }
                 meals={meals.map((meal, index) => {
-                  const recommendedKcal =
-                    DAILY_MEALS.find(item => item.id === meal.foods?.category)
-                      ?.recommendedKcal || 0;
+                  const status =
+                    (dailyCalorieIntake *
+                      profile[meal.foods?.category as keyof Meals]) /
+                    100;
                   return {
                     id: index,
                     meal_id: meal.foods?.id,
@@ -124,7 +135,7 @@ const ClientPage = async ({ params: { id } }: { params: { id: string } }) => {
                     category: meal.foods?.category,
                     kcal: meal.foods?.kcal,
                     date: meal.created_at,
-                    status: Math.round(recommendedKcal * dailyCalorieIntake),
+                    status: Math.round(status),
                   };
                 })}
               />

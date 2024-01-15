@@ -5,11 +5,11 @@ import Grid from '@mui/material/Grid';
 import Overview from './overview';
 import ComparisonChart from './comparison-chart';
 import { getNutrientsData } from '@/lib/utils';
-import { DAILY_MEALS } from '@/lib/constants';
 import { getNutrientsDataset } from './utils';
 import Intake from './intake';
 import NutrientsIntake from './nutrients-intake';
 import BackButton from '@/components/back-button';
+import { Meals } from '@/types/meals';
 
 const OrderedFoodPage = async ({
   params: { id },
@@ -46,8 +46,7 @@ const OrderedFoodPage = async ({
   const dailyCalorieIntake = profile.kcal_intake || 0;
 
   const recommendedKcal = Math.round(
-    DAILY_MEALS.find(meal => meal.id === food.category)?.recommendedKcal! *
-      dailyCalorieIntake,
+    (dailyCalorieIntake * profile[food.category as keyof Meals]) / 100,
   );
 
   const nutrientsData = getNutrientsData(profile, recommendedKcal);

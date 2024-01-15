@@ -11,6 +11,7 @@ import Card from '@/components/card';
 import HomeKcalChart from '@/components/home-kcal-chart';
 import Button from '@mui/material/Button';
 import Link from 'next/link';
+import { Meals } from '@/types/meals';
 
 const HomePage = async () => {
   const cookieStore = cookies();
@@ -69,31 +70,28 @@ const HomePage = async () => {
   const dailyKcalEaten =
     meals?.reduce((acc, cur) => acc + Number(cur.foods?.kcal), 0) || 0;
 
-  const dailyMeals = DAILY_MEALS.map(
-    ({ id, iconId, textPrimary, recommendedKcal }) => {
-      const data = meals?.find(meal => meal.meal_category === id);
-      const recommended = Math.round(kcal_intake * recommendedKcal);
-      const orderedKcal = data ? data.foods?.kcal : undefined;
-      const orderedKcalDiff = data
-        ? recommended - data?.foods?.kcal!
-        : undefined;
-      return {
-        id,
-        iconId,
-        textPrimary,
-        added: Boolean(data),
-        orderedKcal,
-        orderedKcalDiff,
-        textSecondary: data
-          ? data.foods?.name
-          : `Recommended - ${recommended} kcal`,
-        href: data
-          ? `/foods/ordered/${data.foods?.id}?user_id=${session.user.id}`
-          : `/foods?category=${id}`,
-        scroll: false,
-      };
-    },
-  );
+  const dailyMeals = DAILY_MEALS.map(({ id, iconId, textPrimary }) => {
+    const data = meals?.find(meal => meal.meal_category === id);
+    const mealPercentage = profile[id as keyof Meals];
+    const recommended = Math.round((kcal_intake * mealPercentage) / 100);
+    const orderedKcal = data ? data.foods?.kcal : undefined;
+    const orderedKcalDiff = data ? recommended - data?.foods?.kcal! : undefined;
+    return {
+      id,
+      iconId,
+      textPrimary,
+      added: Boolean(data),
+      orderedKcal,
+      orderedKcalDiff,
+      textSecondary: data
+        ? data.foods?.name
+        : `Recommended - ${recommended} kcal`,
+      href: data
+        ? `/foods/ordered/${data.foods?.id}?user_id=${session.user.id}`
+        : `/foods?category=${id}`,
+      scroll: false,
+    };
+  });
 
   return (
     <Box
@@ -102,7 +100,7 @@ const HomePage = async () => {
       gridTemplateColumns="repeat(auto-fit, minmax(300px, 1fr))"
       alignItems="flex-start"
     >
-      <Card py={3} bgcolor="#8b5cf6" color="white">
+      <Card py={3} bgcolor="#7c3aed" color="white">
         <HomeKcalChart
           dailyKcalEaten={dailyKcalEaten}
           dailyCalorieIntake={kcal_intake}

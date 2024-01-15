@@ -1,8 +1,4 @@
-import {
-  ButtonOwnProps,
-  ChipOwnProps,
-  Theme,
-} from '@mui/material';
+import { ButtonOwnProps, ChipOwnProps, Theme } from '@mui/material';
 
 import { alpha, darken, lighten } from '@mui/material/styles';
 import { linearProgressClasses } from '@mui/material/LinearProgress';
@@ -100,6 +96,16 @@ const components = {
       },
     },
   },
+  MuiSlider: {
+    styleOverrides: {
+      rail: ({ theme }: { theme: Theme }) => {
+        return {
+          backgroundColor: theme.palette.text.primary,
+          opacity: 0.2,
+        };
+      },
+    },
+  },
   MuiDataGrid: {
     defaultProps: {
       autoHeight: true,
@@ -141,4 +147,4 @@ const components = {
   },
 };
 
-export default components
+export default components;

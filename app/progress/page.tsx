@@ -1,7 +1,8 @@
 import { cookies } from 'next/headers';
 import { createClient } from '@/supabase/server';
-import dayjs from 'dayjs';
 import { notFound } from 'next/navigation';
+import { Meals } from '@/types/meals';
+import dayjs from 'dayjs';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
@@ -15,7 +16,6 @@ import {
   getNutritionDataset,
   getWaterDataset,
 } from '@/lib/utils';
-import { DAILY_MEALS } from '@/lib/constants';
 import ProgressTitle from './title';
 
 const ProgressPage = async () => {
@@ -114,9 +114,10 @@ const ProgressPage = async () => {
           <MealsTable
             user_id={user?.id}
             meals={meals.map((meal, index) => {
-              const recommendedKcal =
-                DAILY_MEALS.find(item => item.id === meal.foods?.category)
-                  ?.recommendedKcal || 0;
+              const status =
+                (dailyCalorieIntake *
+                  profile[meal.foods?.category as keyof Meals]) /
+                100;
               return {
                 id: index,
                 meal_id: meal.foods?.id,
@@ -125,7 +126,7 @@ const ProgressPage = async () => {
                 category: meal.foods?.category,
                 kcal: meal.foods?.kcal,
                 date: meal.created_at,
-                status: Math.round(recommendedKcal * dailyCalorieIntake),
+                status: Math.round(status),
               };
             })}
           />

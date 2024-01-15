@@ -1,25 +1,22 @@
 import { PaletteMode, alpha } from '@mui/material';
-import { blueGrey, deepPurple, teal, green, amber, lightBlue, pink, cyan } from '@mui/material/colors';
+import { blueGrey} from '@mui/material/colors';
 
 
 const grey = blueGrey;
 
-export const primary = deepPurple;
-export const secondary = teal;
-export const error = pink;
-
 const black = '#111827';
 
-const info = {
-  main: lightBlue[500],
-};
 
 const success  = {
-  main: '#22c55e'
+  main: '#00E396'
+};
+
+const info = {
+  main: '#008FFB',
 };
 
 const warning  = {
-  main: amber[500]
+  main: '#FEB019'
 };
 
 const carbs = {
@@ -43,7 +40,7 @@ const light = {
     main: '#2dd4bf',
   },
   error: {
-    main: error[500],
+    main: '#FF4560',
   },
   text: {
     primary: black,
@@ -67,10 +64,10 @@ const dark = {
     main: '#c4b5fd',
   },
   secondary: {
-    main: secondary[300],
+    main: '#7FF2CE',
   },
   error: {
-    main: pink[300],
+    main: '#FF938F',
   },
   text: {
     secondary: alpha('#ffffff', 0.54),
