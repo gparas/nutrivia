@@ -39,6 +39,7 @@ const LogWeightForm = ({ initValue }: { initValue: number }) => {
         <Slider
           aria-label="kilos"
           value={value}
+          color="secondary"
           min={40}
           max={160}
           step={0.1}

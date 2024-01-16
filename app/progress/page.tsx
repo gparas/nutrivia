@@ -82,7 +82,7 @@ const ProgressPage = async () => {
         direction="row"
         justifyContent="space-between"
         alignItems="center"
-        mb={3}
+        mb={2}
       >
         <ProgressTitle />
         <Typography variant="body2">

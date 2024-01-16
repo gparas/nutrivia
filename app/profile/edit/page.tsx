@@ -47,6 +47,7 @@ const DetailsPage = async () => {
                 key={field.name}
                 id={field.name}
                 fullWidth
+                color="secondary"
                 label={field.label}
                 select={Boolean(field.options)}
                 defaultValue={profile[field.name as keyof Profile]}

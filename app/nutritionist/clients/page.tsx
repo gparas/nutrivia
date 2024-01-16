@@ -15,10 +15,9 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import TrophyIcon from '@mui/icons-material/EmojiEventsOutlined';
 import Card from '@/components/card';
 import PageTitle from '@/components/page-title';
-import IconButton from '@mui/material/IconButton';
-import ArrowBackIcon from '@mui/icons-material/ArrowBackRounded';
 import { PROFILE } from '@/lib/constants';
 import { getYearsOld } from '@/lib/utils';
+import BackButton from '@/components/back-button';
 
 const ClientsPage = async () => {
   const cookieStore = cookies();
@@ -31,15 +30,11 @@ const ClientsPage = async () => {
   }
   return (
     <>
-      <Stack direction="row" alignItems="center" mb={3}>
-        <IconButton edge="start" component={NextLink} href="/nutritionist">
-          <ArrowBackIcon fontSize="small" />
-        </IconButton>
-        <PageTitle flexGrow={1}>Clients</PageTitle>
-      </Stack>
+      <BackButton label={<PageTitle>Clients</PageTitle>} />
       <Box
         display="grid"
         gap={2}
+        mt={2}
         gridTemplateColumns="repeat(auto-fit, minmax(300px, 1fr))"
       >
         {profiles.map(profile => (
@@ -83,7 +78,7 @@ const ClientsPage = async () => {
                 </Typography>
               </Stack>
               <Button
-                color="primary"
+                color="secondary"
                 sx={{ fontWeight: 500 }}
                 component={NextLink}
                 href={`/nutritionist/clients/${profile.id}`}

@@ -9,7 +9,7 @@ const PageLoader = ({ ...other }: StackProps) => {
       justifyContent="center"
       {...other}
     >
-      <LinearProgress sx={{ width: 256 }} />
+      <LinearProgress color="secondary" sx={{ width: 256 }} />
     </Stack>
   );
 };

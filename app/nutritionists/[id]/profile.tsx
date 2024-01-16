@@ -52,7 +52,7 @@ const NutritionistProfile = ({
   return (
     <>
       <BackButton />
-      <Card p={0}>
+      <Card p={0} mt={2}>
         <Stack direction="row" spacing={2} p={2} alignItems="center">
           <Avatar sx={{ width: 88, height: 88 }}>
             <Image alt={name} src={image} priority width={88} height={88} />
@@ -61,12 +61,14 @@ const NutritionistProfile = ({
             <Typography variant="h6" fontWeight={500}>
               {name}
             </Typography>
-            <Typography variant="body2" mb={2}>
+            <Typography variant="body2" mb={2} color="text.secondary">
               {expertise}
             </Typography>
           </Box>
         </Stack>
         <Tabs
+          textColor="secondary"
+          indicatorColor="secondary"
           value={value}
           onChange={handleChange}
           aria-label="basic tabs example"

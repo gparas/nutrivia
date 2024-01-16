@@ -85,7 +85,7 @@ const ClientPage = async ({ params: { id } }: { params: { id: string } }) => {
               <Macronutrients profile={profile} height={'100%'}>
                 <Button
                   variant="outlined"
-                  color="primary"
+                  color="inherit"
                   component={NextLink}
                   href={`macronutrients/${id}`}
                   sx={{ mt: 3, fontWeight: 400 }}
@@ -116,8 +116,10 @@ const ClientPage = async ({ params: { id } }: { params: { id: string } }) => {
                 action={
                   <Button
                     variant="outlined"
+                    color="inherit"
                     component={Link}
                     href={`adjust-meals/${id}`}
+                    sx={{ fontWeight: 400 }}
                   >
                     Adjust Meals
                   </Button>

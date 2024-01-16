@@ -100,7 +100,7 @@ const HomePage = async () => {
       gridTemplateColumns="repeat(auto-fit, minmax(300px, 1fr))"
       alignItems="flex-start"
     >
-      <Card py={3} bgcolor="#7c3aed" color="white">
+      <Card py={3} bgcolor="primary.main" color="primary.contrastText">
         <HomeKcalChart
           dailyKcalEaten={dailyKcalEaten}
           dailyCalorieIntake={kcal_intake}

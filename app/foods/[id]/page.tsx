@@ -38,7 +38,7 @@ const MealPage = async ({ params: { id } }: { params: { id: string } }) => {
   return (
     <Container maxWidth="xs" disableGutters>
       <BackButton />
-      <Card p={0}>
+      <Card p={0} mt={2}>
         <Box
           position="relative"
           overflow="hidden"

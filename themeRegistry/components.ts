@@ -60,8 +60,8 @@ const components = {
         ...(ownerState.variant === 'soft' &&
           ownerState.color !== 'inherit' &&
           ownerState.color !== undefined && {
-            color: theme.palette[ownerState.color].main,
-            backgroundColor: alpha(theme.palette[ownerState.color].main, 0.12),
+            color: theme.palette[ownerState.color].dark,
+            backgroundColor: theme.palette[ownerState.color].light,
             '&:hover': {
               backgroundColor: alpha(
                 theme.palette[ownerState.color].main,
@@ -81,15 +81,14 @@ const components = {
         theme: Theme;
         ownerState: ChipOwnProps;
       }) => {
-        const getColor = theme.palette.mode === 'light' ? darken : lighten;
         return {
           ...(ownerState.variant === 'soft' &&
             ownerState.color !== 'default' &&
             ownerState.color !== undefined && {
-              color: getColor(theme.palette[ownerState.color].light, 0.6),
-              backgroundColor: alpha(
+              color: darken(theme.palette[ownerState.color].main, 0.7),
+              backgroundColor: lighten(
                 theme.palette[ownerState.color].main,
-                0.12,
+                0.6,
               ),
             }),
         };

@@ -18,6 +18,12 @@ const Age = ({ age }: { age: number | null }) => {
         minDate={minDate}
         maxDate={maxDate}
         onChange={newValue => setValue(newValue)}
+        slotProps={{
+          textField: {
+            required: true,
+            color: 'secondary',
+          },
+        }}
       />
       <input type="hidden" name="age" value={dayjs(value).year()} />
     </>

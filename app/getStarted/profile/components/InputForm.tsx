@@ -53,6 +53,7 @@ const InputForm = ({ name, label, unit, min, max }: Props) => {
               <TextField
                 autoFocus
                 type="tel"
+                color="secondary"
                 label={label}
                 ref={ref}
                 value={value}

@@ -18,7 +18,7 @@ const LinearProgress = ({ value, ...other }: Props) => {
   const width = progress > 100 ? 100 : progress;
   return (
     <Box sx={root} {...other}>
-      <Box sx={progress_bar} width={`${width}%`} bgcolor="primary.main" />
+      <Box sx={progress_bar} width={`${width}%`} bgcolor="secondary.main" />
     </Box>
   );
 };

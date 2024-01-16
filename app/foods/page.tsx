@@ -7,7 +7,6 @@ import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import Button from '@mui/material/Button';
 import Card from '@/components/card';
-
 import Nutrients from './components/nutrients';
 import Name from './components/name';
 import Price from './components/price';
@@ -76,7 +75,7 @@ const FoodsPage = async ({ searchParams }: Props) => {
                 <Stack direction="row" alignItems="center" p={1}>
                   <Nutrients {...food} />
                   <Button
-                    color="primary"
+                    color="secondary"
                     size="small"
                     sx={{ fontWeight: 500 }}
                     component={NextLink}

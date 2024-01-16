@@ -38,6 +38,7 @@ const WaterIntakeForm = () => {
       <Slider
         aria-label="Liters"
         value={value}
+        color="secondary"
         min={1}
         max={5}
         step={0.25}

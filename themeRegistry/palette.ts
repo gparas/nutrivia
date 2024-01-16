@@ -1,5 +1,6 @@
 import { PaletteMode, alpha } from '@mui/material';
 import { blueGrey} from '@mui/material/colors';
+import violet from './violet';
 
 
 const grey = blueGrey;
@@ -7,8 +8,8 @@ const grey = blueGrey;
 const black = '#111827';
 
 
-const success  = {
-  main: '#00E396'
+const primary = {
+  main: violet[500],
 };
 
 const info = {
@@ -32,15 +33,17 @@ const fat = {
 };
 
 const light = {
-  primary: {
-    main: '#8b5cf6',
-    dark: '#6d28d9'
-  },
   secondary: {
-    main: '#2dd4bf',
+    main: violet[500],
+  },
+  accent: {
+    main: '#5CD0B7',
+  },
+  success: {
+    main: '#16a34a',
   },
   error: {
-    main: '#FF4560',
+    main: '#ef4444',
   },
   text: {
     primary: black,
@@ -55,19 +58,22 @@ const light = {
     selected: alpha(black, 0.08),
   },
   background: {
-    default: '#f9fafb',
+    default: '#f1f5f9',
   },
 };
 
 const dark = {
-  primary: {
-    main: '#c4b5fd',
-  },
   secondary: {
+    main: violet[300],
+  },
+  accent: {
     main: '#7FF2CE',
   },
+  success: {
+    main: '#4ade80',
+  },
   error: {
-    main: '#FF938F',
+    main: '#fb7185',
   },
   text: {
     secondary: alpha('#ffffff', 0.54),
@@ -96,9 +102,9 @@ type Mode = {
 const palette = (mode: PaletteMode) => ({
   mode,
   black,
+  primary,
   grey,
   info,
-  success,
   warning,
   carbs,
   protein,

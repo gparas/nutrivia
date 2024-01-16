@@ -22,7 +22,7 @@ const NutritionistPage = async () => {
         direction={{ xs: 'column', sm: 'row' }}
         alignItems={{ xs: 'flex-start', sm: 'center' }}
         spacing={1}
-        mb={4}
+        mb={2}
       >
         <PageTitle flex="1 1 auto">Dashboard</PageTitle>
         <AffiliateLink />

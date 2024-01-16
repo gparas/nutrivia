@@ -38,6 +38,7 @@ const ProfilePage = async () => {
             <Button
               fullWidth
               variant="outlined"
+              color="inherit"
               component={Link}
               href="/profile/edit"
               sx={{ fontWeight: 400 }}

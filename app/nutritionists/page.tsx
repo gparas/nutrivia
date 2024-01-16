@@ -27,11 +27,12 @@ const NutritionistsPage = async () => {
 
   return (
     <>
-      <PageTitle mb={3}>Nutritionists</PageTitle>
+      <PageTitle mb={3}>Choose Nutritionist</PageTitle>
       <Box
         display="grid"
         gap={2}
         gridTemplateColumns="repeat(auto-fit, minmax(300px, 1fr))"
+        mb={3}
       >
         {nutritionists.map(nutritionist => (
           <Card key={nutritionist.id} p={0}>
@@ -83,7 +84,7 @@ const NutritionistsPage = async () => {
                 </Typography>
               </Stack>
               <Button
-                color="primary"
+                color="secondary"
                 size="small"
                 sx={{ fontWeight: 500 }}
                 component={NextLink}
@@ -95,6 +96,15 @@ const NutritionistsPage = async () => {
           </Card>
         ))}
       </Box>
+      <Button
+        variant="outlined"
+        color="inherit"
+        component={NextLink}
+        href="/"
+        sx={{ alignSelf: 'center' }}
+      >
+        Skip
+      </Button>
     </>
   );
 };

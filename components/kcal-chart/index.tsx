@@ -40,7 +40,7 @@ const KcalChart = ({ dataset, dailyCalorieIntake, ...other }: Props) => {
               value: dailyCalorieIntake,
               strokeHeight: 2,
               strokeDashArray: 2,
-              strokeColor: theme.palette.secondary.main,
+              strokeColor: theme.palette.accent.main,
             },
           ],
         };
@@ -53,7 +53,7 @@ const KcalChart = ({ dataset, dailyCalorieIntake, ...other }: Props) => {
         show: false,
       },
     },
-    colors: [theme.palette.primary.main],
+    colors: [theme.palette.secondary.main],
     plotOptions: {
       bar: {
         columnWidth: '25%',
@@ -104,11 +104,18 @@ const KcalChart = ({ dataset, dailyCalorieIntake, ...other }: Props) => {
     },
     legend: {
       position: 'top',
+      show: true,
+      showForSingleSeries: true,
+      customLegendItems: ['Your intake', 'Goal intake'] as string[],
       labels: {
         colors: chartLabelsColors,
       },
       markers: {
         radius: 12,
+        fillColors: [
+          theme.palette.secondary.main,
+          theme.palette.accent.main,
+        ] as string[],
       },
       itemMargin: {
         horizontal: 8,

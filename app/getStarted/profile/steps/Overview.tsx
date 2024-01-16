@@ -61,11 +61,11 @@ const Overview = () => {
             secondary={`Current weight ${data.weight}kg`}
             primaryTypographyProps={{
               fontWeight: 'medium',
-              color: 'primary.main',
+              color: 'secondary.main',
             }}
           />
           <Avatar sx={{ bgcolor: 'action.selected' }}>
-            <ChartIcon color="primary" />
+            <ChartIcon color="secondary" />
           </Avatar>
         </ListItem>
         <Divider variant="middle" component="li" />
@@ -75,11 +75,11 @@ const Overview = () => {
             secondary="Daily calorie intake"
             primaryTypographyProps={{
               fontWeight: 'medium',
-              color: 'primary.main',
+              color: 'secondary.main',
             }}
           />
           <Avatar sx={{ bgcolor: 'action.selected' }}>
-            <FireIcon color="primary" />
+            <FireIcon color="secondary" />
           </Avatar>
         </ListItem>
         <Divider variant="middle" component="li" />
@@ -89,11 +89,11 @@ const Overview = () => {
             secondary="Daily water intake"
             primaryTypographyProps={{
               fontWeight: 'medium',
-              color: 'primary.main',
+              color: 'secondary.main',
             }}
           />
           <Avatar sx={{ bgcolor: 'action.selected' }}>
-            <DrinkIcon fontSize="small" color="primary" />
+            <DrinkIcon fontSize="small" color="secondary" />
           </Avatar>
         </ListItem>
       </List>

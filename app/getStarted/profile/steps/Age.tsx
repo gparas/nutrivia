@@ -39,6 +39,7 @@ const Age = () => {
           slotProps={{
             textField: {
               required: true,
+              color: 'secondary',
               InputLabelProps: {
                 required: false,
               },
