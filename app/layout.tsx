@@ -1,5 +1,6 @@
 import { PropsWithChildren } from 'react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { Analytics } from '@vercel/analytics/react';
 import type { Metadata } from 'next';
 import Container from '@mui/material/Container';
 import ThemeRegistry from '@/themeRegistry';
@@ -31,6 +32,7 @@ const RootLayout = ({ children }: PropsWithChildren) => {
           </Container>
           <Footer />
           <SpeedInsights />
+          <Analytics />
         </body>
       </ThemeRegistry>
     </html>
