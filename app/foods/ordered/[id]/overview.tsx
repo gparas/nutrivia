@@ -16,7 +16,7 @@ type Props = {
 } & Tables<'foods'>;
 
 const Overview = ({ recommendedKcal, kcal, image, name, category }: Props) => {
-  const kcalDiff = kcal - recommendedKcal;
+  const kcalDiff = Number(kcal) - recommendedKcal;
   return (
     <Card mb={2} alignItems="center">
       <Badge

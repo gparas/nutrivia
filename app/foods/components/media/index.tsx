@@ -1,27 +1,29 @@
 import { Tables } from '@/types/supabase';
 import Image from 'next/image';
-import Box from '@mui/material/Box';
+import Avatar from '@mui/material/Avatar';
 
 const Media = ({ name, image }: Tables<'foods'>) => {
   return (
-    <Box
-      flex="0 0 auto"
-      position="relative"
-      width="100%"
-      pt="75%"
-      overflow="hidden"
+    <Avatar
+      variant="rounded"
+      sx={{
+        width: 104,
+        height: 104,
+        position: 'relative',
+        bgcolor: 'transparent',
+      }}
     >
       <Image
         alt={name}
         src={image}
-        fill
-        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         priority
+        width={104}
+        height={104}
         style={{
-          objectFit: 'contain',
+          objectFit: 'cover',
         }}
       />
-    </Box>
+    </Avatar>
   );
 };
 

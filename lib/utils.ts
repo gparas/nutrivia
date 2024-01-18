@@ -109,10 +109,10 @@ export const groupBy = <T, K extends keyof any>(arr: T[], key: (i: T) => K) =>
 type Meals = {
   created_at: string;
   foods: {
-    kcal: number;
-    carbs: number;
-    fat: number;
-    protein: number;
+    kcal: string;
+    carbs: string;
+    fat: string;
+    protein: string;
   } | null;
 }[];
 
@@ -134,21 +134,21 @@ export const getNutritionDataset = (meals: Meals) => [
     id: 'carbs',
     label: 'carbs',
     value: Math.round(
-      meals.reduce((acc, cur) => acc + cur.foods?.carbs!, 0) / meals.length,
+      meals.reduce((acc, cur) => acc + Number(cur.foods?.carbs)!, 0) / meals.length,
     ),
   },
   {
     id: 'protein',
     label: 'protein',
     value: Math.round(
-      meals.reduce((acc, cur) => acc + cur.foods?.protein!, 0) / meals.length,
+      meals.reduce((acc, cur) => acc + Number(cur.foods?.protein)!, 0) / meals.length,
     ),
   },
   {
     id: 'fat',
     label: 'fat',
     value: Math.round(
-      meals.reduce((acc, cur) => acc + cur.foods?.fat!, 0) / meals.length,
+      meals.reduce((acc, cur) => acc + Number(cur.foods?.fat)!, 0) / meals.length,
     ),
   },
 ];

@@ -6,48 +6,28 @@ import Image from 'next/image';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 import Card from '@/components/card';
-import Nutrients from './components/nutrients';
-import Name from './components/name';
-import Price from './components/price';
+import PageTitle from '@/components/page-title';
 import EmptyState from '@/components/empty';
-import Title from './components/title';
-import ActiveFilters from './components/activefilters';
-import Media from './components/media';
+import { priceFormat } from '@/lib/utils';
 
-type Props = {
-  searchParams?: {
-    category?: string;
-    kcal?: string;
-  };
-};
-
-const FoodsPage = async ({ searchParams }: Props) => {
+const VendorPage = async () => {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
 
-  let query = supabase.from('foods').select('*');
-
-  if (searchParams?.category) {
-    query = query.eq('category', searchParams.category);
-  }
-  if (searchParams?.kcal) {
-    query = query.lte('kcal', Number(searchParams.kcal));
-  }
-
-  const { data: foods } = await query;
-
+  const { data: foods } = await supabase.from('foods').select().range(0, 5);
   return (
     <>
-      <Title />
-      <ActiveFilters />
+      <PageTitle mb={4}>Vendor</PageTitle>
       {!foods?.length ? (
         <EmptyState />
       ) : (
         <Box
-          display="grid"
           gap={2}
+          display="grid"
           gridTemplateColumns="repeat(auto-fit, minmax(300px, 1fr))"
+          mb={4}
         >
           {foods.map(food => {
             return (
@@ -59,15 +39,33 @@ const FoodsPage = async ({ searchParams }: Props) => {
                   py={1}
                   flex="1 1 auto"
                 >
-                  <Media {...food} />
+                  <Image
+                    alt={food.name!}
+                    src={food.image!}
+                    priority
+                    width={104}
+                    height={104}
+                    style={{ margin: -8 }}
+                  />
                   <Box flex="1 1 auto" py={1}>
-                    <Name name={food.name} />
-                    <Price price={Number(food.price)} />
+                    <Typography fontWeight={500} gutterBottom>
+                      {food.name}
+                    </Typography>
+                    <Typography>{priceFormat(Number(food.price))}</Typography>
                   </Box>
                 </Stack>
                 <Divider light />
                 <Stack direction="row" alignItems="center" p={1}>
-                  <Nutrients {...food} />
+                  <Typography variant="body2" flex="1 1 auto" fontWeight={500}>
+                    {food.kcal}{' '}
+                    <Typography
+                      variant="caption"
+                      color="text.secondary"
+                      fontWeight={400}
+                    >
+                      Kcal
+                    </Typography>
+                  </Typography>
                   <Button
                     color="secondary"
                     size="small"
@@ -83,8 +81,17 @@ const FoodsPage = async ({ searchParams }: Props) => {
           })}
         </Box>
       )}
+      <Button
+        size="large"
+        variant="contained"
+        component={NextLink}
+        href="/vendor/add"
+        sx={{ alignSelf: 'center', fontWeight: 500 }}
+      >
+        Add product
+      </Button>
     </>
   );
 };
 
-export default FoodsPage;
+export default VendorPage;

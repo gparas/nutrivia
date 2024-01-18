@@ -34,8 +34,9 @@ const NutrientsIntake = ({ nutrientsData, food }: Props) => {
   const food_nutrients = nutrientsData.map(({ id, label }) => {
     const value =
       id === 'fat'
-        ? ((food.fat * 9) / food.kcal) * 100
-        : ((food[id as keyof Macronutrients] * 4) / food.kcal) * 100;
+        ? ((Number(food.fat) * 9) / Number(food.kcal)) * 100
+        : ((Number(food[id as keyof Macronutrients]) * 4) / Number(food.kcal)) *
+          100;
     return {
       label,
       value: Math.floor(value),

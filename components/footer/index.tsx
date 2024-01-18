@@ -18,6 +18,15 @@ const Footer = () => {
         >
           nutritionist
         </Button>
+        <Button
+          variant="text"
+          color="inherit"
+          component={NextLink}
+          href="/vendor"
+          sx={{ fontWeight: 500 }}
+        >
+          vendor
+        </Button>
       </Stack>
     </Container>
   );

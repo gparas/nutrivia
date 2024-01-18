@@ -3,13 +3,9 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Card from '@/components/card';
 import LinearProgress from '@/components/linear-progress';
+import { Tables } from '@/types/supabase';
 
-type Food = {
-  kcal: number;
-  carbs: number;
-  protein: number;
-  fat: number;
-};
+type Food = Tables<'foods'>;
 
 interface Props {
   recommendedKcal: number;
@@ -42,10 +38,10 @@ const Intake = ({ recommendedKcal, food, nutrientsData }: Props) => {
             {food.kcal} / {recommendedKcal} kcal
           </Typography>
         </Stack>
-        <LinearProgress value={(food.kcal / recommendedKcal) * 100} />
+        <LinearProgress value={(Number(food.kcal) / recommendedKcal) * 100} />
       </Box>
       {nutrientsData.map(item => {
-        const food_grams = food[item.id as keyof Food];
+        const food_grams = Number(food[item.id as keyof Food]);
         return (
           <Box key={item.id} mb={2}>
             <Stack direction="row" justifyContent="space-between">

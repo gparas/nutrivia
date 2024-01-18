@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import Chip from '@mui/material/Chip';
 import NextLink from 'next/link';
 import Link from '@mui/material/Link';
+import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
 import Image from 'next/image';
 import Card from '@/components/card';
@@ -28,7 +29,26 @@ const getColumns = (user_id: string | undefined) => {
   }
   function RenderImage(props: GridRenderCellParams) {
     const { value } = props;
-    return <Image alt={'food'} src={value} priority width={48} height={48} />;
+    return (
+      <Avatar
+        variant="rounded"
+        sx={{
+          width: 48,
+          height: 48,
+          position: 'relative',
+          bgcolor: 'transparent',
+        }}
+      >
+        <Image
+          alt={'food'}
+          src={value}
+          priority
+          width={48}
+          height={48}
+          style={{ objectFit: 'cover' }}
+        />
+      </Avatar>
+    );
   }
   function RenderDate(props: GridRenderCellParams) {
     const { value } = props;
@@ -98,10 +118,10 @@ type Props = {
     image?: string;
     name?: string;
     category?: string;
-    kcal?: number;
-    carbs?: number;
-    protein?: number;
-    fat?: number;
+    kcal?: string;
+    carbs?: string;
+    protein?: string;
+    fat?: string;
   }[];
 };
 

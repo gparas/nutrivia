@@ -45,6 +45,11 @@ const components = {
       disableRipple: true,
     },
   },
+  MuiTextField: {
+    defaultProps: {
+      color: 'secondary' as const,
+    },
+  },
   MuiButton: {
     defaultProps: {
       disableElevation: true,

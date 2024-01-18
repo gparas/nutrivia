@@ -4,6 +4,7 @@ const Card = ({ ...other }: StackProps) => {
   return (
     <Stack
       p={2}
+      overflow="hidden"
       position="relative"
       borderRadius={1}
       bgcolor="background.paper"

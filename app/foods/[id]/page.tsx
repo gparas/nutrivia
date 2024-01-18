@@ -53,7 +53,8 @@ const MealPage = async ({ params: { id } }: { params: { id: string } }) => {
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             priority
             style={{
-              objectFit: 'contain',
+              objectFit:
+                food.image_orientation === 'square' ? 'contain' : 'cover',
             }}
           />
         </Box>
@@ -127,7 +128,7 @@ const MealPage = async ({ params: { id } }: { params: { id: string } }) => {
               defaultValue={food.category}
             />
             <SubmitFormButton>
-              Order now {priceFormat(food.price)}
+              Order now {priceFormat(Number(food.price))}
             </SubmitFormButton>
           </Box>
         )}

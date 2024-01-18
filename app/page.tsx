@@ -74,8 +74,10 @@ const HomePage = async () => {
     const data = meals?.find(meal => meal.meal_category === id);
     const mealPercentage = profile[id as keyof Meals];
     const recommended = Math.round((kcal_intake * mealPercentage) / 100);
-    const orderedKcal = data ? data.foods?.kcal : undefined;
-    const orderedKcalDiff = data ? recommended - data?.foods?.kcal! : undefined;
+    const orderedKcal = data ? Number(data.foods?.kcal) : undefined;
+    const orderedKcalDiff = data
+      ? recommended - Number(data?.foods?.kcal)!
+      : undefined;
     return {
       id,
       iconId,

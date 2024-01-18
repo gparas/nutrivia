@@ -11,40 +11,46 @@ export interface Database {
     Tables: {
       foods: {
         Row: {
-          carbs: number
+          carbs: string
           category: string
+          created_at: string
           description: string | null
-          fat: number
+          fat: string
           id: string
           image: string
-          kcal: number
+          image_orientation: string | null
+          kcal: string
           name: string
-          price: number
-          protein: number
+          price: string
+          protein: string
         }
         Insert: {
-          carbs: number
+          carbs: string
           category: string
+          created_at?: string
           description?: string | null
-          fat: number
+          fat: string
           id?: string
           image: string
-          kcal: number
+          image_orientation?: string | null
+          kcal: string
           name: string
-          price: number
-          protein: number
+          price: string
+          protein: string
         }
         Update: {
-          carbs?: number
+          carbs?: string
           category?: string
+          created_at?: string
           description?: string | null
-          fat?: number
+          fat?: string
           id?: string
           image?: string
-          kcal?: number
+          image_orientation?: string | null
+          kcal?: string
           name?: string
-          price?: number
-          protein?: number
+          price?: string
+          protein?: string
         }
         Relationships: []
       }

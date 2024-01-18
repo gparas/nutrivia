@@ -6,7 +6,7 @@ import { getNutrientsData } from '@/lib/utils';
 import Progress from './progress';
 
 type Meals =
-  | { foods: { carbs: number; protein: number; fat: number } | null }[]
+  | { foods: { carbs: string; protein: string; fat: string } | null }[]
   | null;
 
 interface Props {
