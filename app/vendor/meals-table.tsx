@@ -4,7 +4,6 @@ import { DataGrid, GridRowsProp, GridRenderCellParams } from '@mui/x-data-grid';
 import { Tables } from '@/types/supabase';
 import Image from 'next/image';
 import Avatar from '@mui/material/Avatar';
-import Card from '@/components/card';
 import { priceFormat } from '@/lib/utils';
 
 const getColumns = () => {
@@ -67,23 +66,7 @@ const getColumns = () => {
 
 const MealsTable = ({ meals }: { meals: Tables<'foods'>[] }) => {
   const rows: GridRowsProp = meals;
-  return (
-    <Card p={1}>
-      <DataGrid
-        rows={rows}
-        columns={getColumns()}
-        pageSizeOptions={[10]}
-        initialState={{
-          pagination: {
-            paginationModel: {
-              pageSize: 10,
-              page: 0,
-            },
-          },
-        }}
-      />
-    </Card>
-  );
+  return <DataGrid rows={rows} columns={getColumns()} />;
 };
 
 export default MealsTable;
