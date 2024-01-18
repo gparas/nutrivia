@@ -11,7 +11,7 @@ import Stack from '@mui/material/Stack';
 import Image from 'next/image';
 import Card from '@/components/card';
 import CheckIcon from '@mui/icons-material/Check';
-import CloseIcon from '@mui/icons-material/Close';
+import WarningIcon from '@mui/icons-material/ErrorOutline';
 import dayjs from 'dayjs';
 
 const getColumns = (user_id: string | undefined) => {
@@ -20,6 +20,7 @@ const getColumns = (user_id: string | undefined) => {
     return (
       <Link
         color="inherit"
+        variant="body2"
         component={NextLink}
         href={`/foods/ordered/${row.meal_id}?user_id=${user_id}`}
       >
@@ -58,12 +59,12 @@ const getColumns = (user_id: string | undefined) => {
     const { value, row } = props;
     const kcalDiff = row.kcal - value;
     const label = kcalDiff <= 0 ? 'on target' : 'exceeded';
-    const icon = kcalDiff <= 0 ? <CheckIcon /> : <CloseIcon />;
-    const color = kcalDiff <= 0 ? 'success' : 'error';
+    const icon = kcalDiff <= 0 ? <CheckIcon /> : <WarningIcon />;
+    const color = kcalDiff <= 0 ? 'success' : 'warning';
     return (
       <Chip
         size="small"
-        variant="soft"
+        variant="outlined"
         label={label}
         icon={icon}
         color={color}

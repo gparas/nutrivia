@@ -9,7 +9,7 @@ import Card from '@/components/card';
 import Image from 'next/image';
 import ListItemText from '@mui/material/ListItemText';
 import CheckIcon from '@mui/icons-material/Check';
-import WarningIcon from '@mui/icons-material/Close';
+import WarningIcon from '@mui/icons-material/ErrorOutline';
 
 type Props = {
   recommendedKcal: number;
@@ -21,7 +21,7 @@ const Overview = ({ recommendedKcal, kcal, image, name, category }: Props) => {
     <Card mb={2} alignItems="center">
       <Badge
         overlap="circular"
-        color={kcalDiff <= 0 ? 'success' : 'error'}
+        color={kcalDiff <= 0 ? 'success' : 'warning'}
         badgeContent={
           kcalDiff <= 0 ? (
             <CheckIcon sx={{ fontSize: 16 }} />
@@ -72,7 +72,7 @@ const Overview = ({ recommendedKcal, kcal, image, name, category }: Props) => {
           <Typography variant="overline" color="text.secondary">
             Goal intake
           </Typography>
-          <Typography>
+          <Typography fontWeight={500}>
             {recommendedKcal}{' '}
             <Typography variant="caption" component="span">
               kcal
@@ -83,7 +83,7 @@ const Overview = ({ recommendedKcal, kcal, image, name, category }: Props) => {
           <Typography variant="overline" color="text.secondary">
             your intake
           </Typography>
-          <Typography>
+          <Typography fontWeight={500}>
             {kcal}{' '}
             <Typography variant="caption" component="span">
               kcal
@@ -94,7 +94,10 @@ const Overview = ({ recommendedKcal, kcal, image, name, category }: Props) => {
           <Typography variant="overline" color="text.secondary">
             difference
           </Typography>
-          <Typography color={kcalDiff <= 0 ? 'success.main' : 'error.main'}>
+          <Typography
+            color={kcalDiff <= 0 ? 'success.main' : 'warning.main'}
+            fontWeight={500}
+          >
             {kcalDiff <= 0 ? <span>&darr;</span> : <span>&uarr;</span>}
             {Math.abs(kcalDiff)}{' '}
             <Typography variant="caption" component="span">

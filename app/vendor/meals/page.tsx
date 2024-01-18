@@ -15,6 +15,7 @@ const ProductsPage = async () => {
   const { data: foods } = await supabase
     .from('foods')
     .select()
+    .range(0, 19)
     .order('created_at', { ascending: false });
 
   return (

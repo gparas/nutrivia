@@ -26,7 +26,10 @@ const FoodsPage = async ({ searchParams }: Props) => {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
 
-  let query = supabase.from('foods').select('*');
+  let query = supabase
+    .from('foods')
+    .select('*')
+    .order('created_at', { ascending: false });
 
   if (searchParams?.category) {
     query = query.eq('category', searchParams.category);

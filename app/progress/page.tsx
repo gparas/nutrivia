@@ -50,6 +50,7 @@ const ProgressPage = async () => {
   `,
     )
     .eq('user_id', user?.id!)
+    .order('created_at', { ascending: false })
     .gte('created_at', dayjs().subtract(7, 'days').format('YYYY-MM-DD'))
     .lte('created_at', dayjs().format('YYYY-MM-DD'));
 

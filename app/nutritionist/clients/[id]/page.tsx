@@ -44,6 +44,7 @@ const ClientPage = async ({ params: { id } }: { params: { id: string } }) => {
   `,
     )
     .eq('user_id', id)
+    .order('created_at', { ascending: false })
     .gte('created_at', dayjs().subtract(7, 'days').format('YYYY-MM-DD'))
     .lte('created_at', dayjs().format('YYYY-MM-DD'));
 
