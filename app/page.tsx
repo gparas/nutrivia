@@ -12,6 +12,7 @@ import HomeKcalChart from '@/components/home-kcal-chart';
 import Button from '@mui/material/Button';
 import Link from 'next/link';
 import { Meals } from '@/types/meals';
+import { getEatenMacros } from '@/lib/utils';
 
 const HomePage = async () => {
   const cookieStore = cookies();
@@ -107,7 +108,10 @@ const HomePage = async () => {
           dailyKcalEaten={dailyKcalEaten}
           dailyCalorieIntake={kcal_intake}
         />
-        <DailyNutrientsIntake meals={meals} profile={profile} />
+        <DailyNutrientsIntake
+          profile={profile}
+          eatenMacros={getEatenMacros(meals)}
+        />
         <Button
           variant="text"
           color="inherit"

@@ -7,7 +7,7 @@ import BackButton from '@/components/back-button';
 const AddPage = () => {
   return (
     <Container maxWidth="xs" disableGutters>
-      <BackButton label={<PageTitle>Add product</PageTitle>} />
+      <BackButton label={<PageTitle>Add meal</PageTitle>} />
       <AddForm />
     </Container>
   );
