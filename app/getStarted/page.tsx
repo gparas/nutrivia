@@ -20,16 +20,6 @@ const GetStartedPage = async () => {
     redirect('/login');
   }
 
-  const { data: profile } = await supabase
-    .from('profiles')
-    .select()
-    .eq('id', session.user.id)
-    .single();
-
-  if (profile?.kcal_intake) {
-    redirect('/');
-  }
-
   return (
     <Container
       maxWidth="xs"

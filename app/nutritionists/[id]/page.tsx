@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import Grid from '@mui/material/Grid';
 import NutritionistProfile from './profile';
 import NutritionistInfo from './info';
+import BackButton from '@/components/back-button';
 
 const NutritionistPage = async ({
   params: { id },
@@ -13,18 +14,21 @@ const NutritionistPage = async ({
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
 
-  const { data: nutritionists } = await supabase
+  const { data: nutritionist } = await supabase
     .from('nutritionists')
     .select()
-    .match({ id });
+    .match({ id })
+    .single();
 
-  if (!nutritionists?.length) {
-    notFound();
+  if (!nutritionist) {
+    return notFound();
   }
 
-  const nutritionist = nutritionists[0];
   return (
     <Grid container spacing={2}>
+      <Grid item xs={12}>
+        <BackButton />
+      </Grid>
       <Grid item xs={12} sm={8}>
         <NutritionistProfile {...nutritionist} />
       </Grid>
