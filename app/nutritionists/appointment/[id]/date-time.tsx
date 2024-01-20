@@ -3,8 +3,6 @@
 import { useState } from 'react';
 import dayjs, { Dayjs } from 'dayjs';
 import { alpha, Button } from '@mui/material';
-import { createClient } from '@/supabase/client';
-import { useRouter } from 'next/navigation';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
@@ -15,32 +13,17 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
 import CircularProgress from '@mui/material/CircularProgress';
 import { SLOTS } from './constants';
+import { updateNutritionistId } from './actions';
+import SubmitFormButton from '@/components/submit-form-button';
 
 const DateTime = ({ nutritionist_id }: { nutritionist_id: string }) => {
-  const router = useRouter();
-  const supabase = createClient();
   const [value, setValue] = useState<Dayjs | null>(dayjs());
   const [selectedIndex, setSelectedIndex] = useState<number>();
-  const [isLoading, setIsLoading] = useState(false);
 
-  const handleConfirm = async () => {
-    setIsLoading(true);
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-
-    if (user) {
-      try {
-        await supabase
-          .from('profiles')
-          .update({ nutritionist_id })
-          .eq('id', user.id);
-      } finally {
-        setIsLoading(false);
-        router.push('/');
-      }
-    }
-  };
+  const updateNutritionistIdData = updateNutritionistId.bind(
+    null,
+    nutritionist_id,
+  );
 
   return (
     <>
@@ -98,6 +81,10 @@ const DateTime = ({ nutritionist_id }: { nutritionist_id: string }) => {
         onClose={() => setSelectedIndex(undefined)}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
+        PaperProps={{
+          component: 'form',
+          action: updateNutritionistIdData,
+        }}
       >
         <DialogTitle id="alert-dialog-title">Confirm appointment</DialogTitle>
         <Box sx={{ p: 3, maxWidth: 320 }}>
@@ -114,16 +101,7 @@ const DateTime = ({ nutritionist_id }: { nutritionist_id: string }) => {
           <Button color="inherit" onClick={() => setSelectedIndex(undefined)}>
             cancel
           </Button>
-          <Button
-            variant="contained"
-            disabled={isLoading}
-            onClick={handleConfirm}
-            endIcon={
-              isLoading ? <CircularProgress color="inherit" size={20} /> : null
-            }
-          >
-            Confirm
-          </Button>
+          <SubmitFormButton>Confirm</SubmitFormButton>
         </DialogActions>
       </Dialog>
     </>

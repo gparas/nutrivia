@@ -1,16 +1,10 @@
 import { PaletteMode, alpha } from '@mui/material';
-import { blueGrey} from '@mui/material/colors';
 import violet from './violet';
+import grey from './grey';
 
 
-const grey = blueGrey;
+const black = grey[900];
 
-const black = '#111827';
-
-
-const primary = {
-  main: violet[500],
-};
 
 const info = {
   main: '#008FFB',
@@ -33,6 +27,10 @@ const fat = {
 };
 
 const light = {
+  primary: {
+    light: violet[100],
+    main: violet[500],
+  },
   secondary: {
     main: violet[500],
   },
@@ -58,11 +56,15 @@ const light = {
     selected: alpha(black, 0.08),
   },
   background: {
-    default: '#f1f5f9',
+    default: grey[200],
   },
 };
 
 const dark = {
+  primary: {
+    light: violet[200],
+    main: violet[500],
+  },
   secondary: {
     main: violet[300],
   },
@@ -76,7 +78,7 @@ const dark = {
     main: '#fb7185',
   },
   text: {
-    secondary: alpha('#ffffff', 0.54),
+    secondary: grey[500],
   },
   action: {
     active: alpha('#ffffff', 0.54),
@@ -87,8 +89,8 @@ const dark = {
     selected: alpha('#ffffff', 0.1),
   },
   background: {
-    default: '#24292e',
-    paper: '#2f363d',
+    default: grey[900],
+    paper: grey[800],
   },
 };
 
@@ -102,7 +104,6 @@ type Mode = {
 const palette = (mode: PaletteMode) => ({
   mode,
   black,
-  primary,
   grey,
   info,
   warning,

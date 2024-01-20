@@ -1,7 +1,6 @@
 import { cookies } from 'next/headers';
 import { createClient } from '@/supabase/server';
 import { redirect } from 'next/navigation';
-import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import DailyNutrientsIntake from '@/components/dailyNutrientsIntake';
 import ListItem from '@/components/listItem';
@@ -13,6 +12,8 @@ import Button from '@mui/material/Button';
 import Link from 'next/link';
 import { Meals } from '@/types/meals';
 import { getEatenMacros } from '@/lib/utils';
+import Grid from '@mui/material/Grid';
+import Alert from './alert';
 
 const HomePage = async () => {
   const cookieStore = cookies();
@@ -97,54 +98,54 @@ const HomePage = async () => {
   });
 
   return (
-    <Box
-      display="grid"
-      gap={2}
-      gridTemplateColumns="repeat(auto-fit, minmax(300px, 1fr))"
-      alignItems="flex-start"
-    >
-      <Card py={3} bgcolor="primary.main" color="primary.contrastText">
-        <HomeKcalChart
-          dailyKcalEaten={dailyKcalEaten}
-          dailyCalorieIntake={kcal_intake}
-        />
-        <DailyNutrientsIntake
-          profile={profile}
-          eatenMacros={getEatenMacros(meals)}
-        />
-        <Button
-          variant="text"
-          color="inherit"
-          size="small"
-          component={Link}
-          href="/progress"
-          sx={{ fontWeight: 500, bottom: -16 }}
-        >
-          progress
-        </Button>
-      </Card>
-      <Stack spacing={2}>
-        {dailyMeals.map(meal => (
-          <ListItem key={meal.id} {...meal} />
-        ))}
-        <ListItem
-          textPrimary="Water"
-          iconId="water"
-          textSecondary={
-            water ? `${water.liter}L intake` : 'Daily water intake'
-          }
-          href="/water-intake"
-          added={Boolean(water)}
-        />
-        <ListItem
-          textPrimary="Weight"
-          iconId="diet"
-          href="/log-weight"
-          textSecondary="Log weight"
-          added={Boolean(weight)}
-        />
-      </Stack>
-    </Box>
+    <Grid container spacing={2}>
+      <Grid item xs={12} sm={6}>
+        <Card py={3} bgcolor="primary.main" color="primary.contrastText">
+          <HomeKcalChart
+            dailyKcalEaten={dailyKcalEaten}
+            dailyCalorieIntake={kcal_intake}
+          />
+          <DailyNutrientsIntake
+            profile={profile}
+            eatenMacros={getEatenMacros(meals)}
+          />
+          <Button
+            variant="text"
+            color="inherit"
+            size="small"
+            component={Link}
+            href="/progress"
+            sx={{ fontWeight: 500, bottom: -16 }}
+          >
+            progress
+          </Button>
+        </Card>
+      </Grid>
+      <Grid item xs={12} sm={6}>
+        <Stack spacing={2}>
+          <Alert nutritionist_id={profile.nutritionist_id} />
+          {dailyMeals.map(meal => (
+            <ListItem key={meal.id} {...meal} />
+          ))}
+          <ListItem
+            textPrimary="Water"
+            iconId="water"
+            textSecondary={
+              water ? `${water.liter}L intake` : 'Daily water intake'
+            }
+            href="/water-intake"
+            added={Boolean(water)}
+          />
+          <ListItem
+            textPrimary="Weight"
+            iconId="diet"
+            href="/log-weight"
+            textSecondary="Log weight"
+            added={Boolean(weight)}
+          />
+        </Stack>
+      </Grid>
+    </Grid>
   );
 };
 
