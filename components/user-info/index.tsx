@@ -22,7 +22,7 @@ const AVATAR_SIZE = 96;
 const UserInfo = ({ profile, children, ...other }: Props) => {
   return (
     <Card p={0} {...other}>
-      <Stack alignItems="center" p={3}>
+      <Stack alignItems="center" p={2}>
         <Avatar
           sx={{
             width: AVATAR_SIZE,
@@ -50,7 +50,7 @@ const UserInfo = ({ profile, children, ...other }: Props) => {
           }
         </Typography>
       </Stack>
-      <List>
+      <List disablePadding>
         <ListItem>
           <ListItemText
             primary="Gender"

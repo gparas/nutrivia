@@ -94,7 +94,7 @@ const DateTime = ({ nutritionist_id }: { nutritionist_id: string }) => {
         </Grid>
       </Box>
       <Dialog
-        open={Boolean(selectedIndex)}
+        open={Boolean(selectedIndex?.toString())}
         onClose={() => setSelectedIndex(undefined)}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
