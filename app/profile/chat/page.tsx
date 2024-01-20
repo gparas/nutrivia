@@ -7,7 +7,6 @@ import Box from '@mui/material/Box';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
 import Divider from '@mui/material/Divider';
 import VideocamIcon from '@mui/icons-material/Videocam';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
@@ -48,7 +47,7 @@ const ChatPage = async () => {
   return (
     <>
       <BackButton label={<PageTitle>Chat</PageTitle>} />
-      <Card p={0} mt={2} height="72vh">
+      <Card p={0} mt={2} height={400} flex="1 1 auto">
         <Stack direction="row" alignItems="center" px={2} flex="0 0 auto">
           <ListItem component="div" disableGutters>
             <NutritionistAvatar nutritionist={nutritionist} size={40} />
@@ -58,15 +57,13 @@ const ChatPage = async () => {
               sx={{ ml: 2 }}
             />
           </ListItem>
-          <Tooltip title="book appointment">
-            <IconButton
-              component={Link}
-              aria-label="book-appointment"
-              href={`/nutritionists/appointment/${nutritionist.id}`}
-            >
-              <VideocamIcon />
-            </IconButton>
-          </Tooltip>
+          <IconButton
+            component={Link}
+            aria-label="book-appointment"
+            href={`/nutritionists/appointment/${nutritionist.id}`}
+          >
+            <VideocamIcon />
+          </IconButton>
         </Stack>
         <Divider />
         <Box p={3} flex="1 1 auto" sx={{ overflowY: 'auto' }}>
@@ -114,6 +111,7 @@ const ChatPage = async () => {
                 mt={1}
                 p={1.5}
                 bgcolor="primary.main"
+                color="primary.contrastText"
                 maxWidth={320}
                 borderRadius={1}
               >
@@ -193,6 +191,7 @@ const ChatPage = async () => {
                 mt={1}
                 p={1.5}
                 bgcolor="primary.main"
+                color="primary.contrastText"
                 maxWidth={320}
                 borderRadius={1}
               >
@@ -223,6 +222,7 @@ const ChatPage = async () => {
                 mt={1}
                 p={1.5}
                 bgcolor="primary.main"
+                color="primary.contrastText"
                 maxWidth={320}
                 borderRadius={1}
               >
@@ -239,7 +239,8 @@ const ChatPage = async () => {
         <Stack
           direction="row"
           alignItems="center"
-          p={2}
+          px={2}
+          py={1.5}
           flex="0 0 auto"
           spacing={1}
         >

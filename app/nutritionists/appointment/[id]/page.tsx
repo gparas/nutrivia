@@ -12,6 +12,7 @@ import TimeIcon from '@mui/icons-material/AccessTime';
 import VideocamIcon from '@mui/icons-material/VideocamOutlined';
 import DateTime from './date-time';
 import BackButton from '@/components/back-button';
+import PageTitle from '@/components/page-title';
 
 const AppointmentPage = async ({
   params: { id },
@@ -31,7 +32,7 @@ const AppointmentPage = async ({
   }
   return (
     <>
-      <BackButton />
+      <BackButton label={<PageTitle>Schedule appointment</PageTitle>} />
       <Card mt={2}>
         <Grid container>
           <Grid item xs={12} md={4}>

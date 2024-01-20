@@ -68,7 +68,7 @@ const NutritionistInfo = ({ location, email, phone, id }: Props) => {
           component={Link}
           href={`appointment/${id}`}
         >
-          Book appointment
+          Schedule appointment
         </Button>
       </Box>
     </Card>
