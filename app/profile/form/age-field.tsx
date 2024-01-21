@@ -4,8 +4,8 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs, { Dayjs } from 'dayjs';
 import { useState } from 'react';
 
-const Age = ({ age }: { age: number | null }) => {
-  const defaultValue = age ? dayjs().year(age) : null;
+const AgeField = ({ age }: { age: string | null }) => {
+  const defaultValue = age ? dayjs().year(Number(age)) : null;
   const [value, setValue] = useState<Dayjs | null>(defaultValue);
   const minDate = dayjs().subtract(70, 'year');
   const maxDate = dayjs().subtract(20, 'year');
@@ -21,6 +21,7 @@ const Age = ({ age }: { age: number | null }) => {
         slotProps={{
           textField: {
             required: true,
+            fullWidth: true,
             color: 'secondary',
           },
         }}
@@ -30,4 +31,4 @@ const Age = ({ age }: { age: number | null }) => {
   );
 };
 
-export default Age;
+export default AgeField;

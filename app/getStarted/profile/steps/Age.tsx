@@ -13,7 +13,7 @@ type FormValues = {
 
 const Age = () => {
   const { onChangeData, data } = useFormContext();
-  const initDateValue = data.age ? dayjs().year(data.age) : null;
+  const initDateValue = data.age ? dayjs().year(Number(data.age)) : null;
   const [dateValue, setDateValue] = useState<Dayjs | null>(initDateValue);
   const { setValue, handleSubmit } = useForm<FormValues>();
 
@@ -34,7 +34,7 @@ const Age = () => {
           value={dateValue}
           onChange={newValue => {
             setDateValue(newValue);
-            setValue('age', newValue?.year());
+            setValue('age', newValue?.year().toString());
           }}
           slotProps={{
             textField: {

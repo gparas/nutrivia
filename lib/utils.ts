@@ -3,10 +3,10 @@ import { ACTIVITY_FACTOR } from './constants';
 import { Profile } from '@/types/profile';
 import { Macronutrients } from '@/types/macronutrients';
 
-export const getYearsOld = (age: number | null | undefined) => {
+export const getYearsOld = (age: Profile['age']) => {
   if (!age) return 30;
 
-  return dayjs().diff(dayjs().year(age), 'year');
+  return dayjs().diff(dayjs().year(Number(age)), 'year');
 };
 
 export const getBMR = (data: Profile) => {

@@ -18,12 +18,16 @@ const root = (theme: Theme) => ({
   },
 });
 
-const Alert = ({ nutritionist_id }: { nutritionist_id: string | null }) => {
+const NutritionistAlert = ({
+  nutritionist_id,
+}: {
+  nutritionist_id: string | null;
+}) => {
   if (nutritionist_id) {
     return null;
   }
   return (
-    <ListItemButton sx={root} component={Link} href="nutritionists">
+    <ListItemButton sx={root} component={Link} href="/nutritionists">
       <ListItemAvatar sx={{ mt: 0.75 }}>
         <Avatar sx={{ bgcolor: 'primary.main', color: 'primary.contrastText' }}>
           <AutoAwesomeIcon />
@@ -39,4 +43,4 @@ const Alert = ({ nutritionist_id }: { nutritionist_id: string | null }) => {
   );
 };
 
-export default Alert;
+export default NutritionistAlert;

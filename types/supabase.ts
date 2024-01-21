@@ -135,7 +135,7 @@ export interface Database {
       profiles: {
         Row: {
           activity: string | null
-          age: number | null
+          age: string | null
           avatar_url: string | null
           breakfast: number
           carbs: number
@@ -159,7 +159,7 @@ export interface Database {
         }
         Insert: {
           activity?: string | null
-          age?: number | null
+          age?: string | null
           avatar_url?: string | null
           breakfast?: number
           carbs?: number
@@ -183,7 +183,7 @@ export interface Database {
         }
         Update: {
           activity?: string | null
-          age?: number | null
+          age?: string | null
           avatar_url?: string | null
           breakfast?: number
           carbs?: number

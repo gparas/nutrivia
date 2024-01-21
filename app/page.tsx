@@ -4,7 +4,7 @@ import { redirect } from 'next/navigation';
 import Stack from '@mui/material/Stack';
 import DailyNutrientsIntake from '@/components/dailyNutrientsIntake';
 import ListItem from '@/components/listItem';
-import { DAILY_MEALS, DAILY_EXTRAS } from '@/lib/constants';
+import { DAILY_MEALS } from '@/lib/constants';
 import dayjs from 'dayjs';
 import Card from '@/components/card';
 import HomeKcalChart from '@/components/home-kcal-chart';
@@ -13,7 +13,7 @@ import Link from 'next/link';
 import { Meals } from '@/types/meals';
 import { getEatenMacros } from '@/lib/utils';
 import Grid from '@mui/material/Grid';
-import Alert from './alert';
+import NutritionistAlert from '@/components/nutritionist-alert';
 
 const HomePage = async () => {
   const cookieStore = cookies();
@@ -123,7 +123,7 @@ const HomePage = async () => {
       </Grid>
       <Grid item xs={12} sm={6}>
         <Stack spacing={2}>
-          <Alert nutritionist_id={profile.nutritionist_id} />
+          <NutritionistAlert nutritionist_id={profile.nutritionist_id} />
           {dailyMeals.map(meal => (
             <ListItem key={meal.id} {...meal} />
           ))}
