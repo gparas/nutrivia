@@ -28,10 +28,10 @@ const ProfileTabs = () => {
         sx={{ px: 0, minWidth: 'auto' }}
       />
       <Tab
-        label="Nutritionist"
+        label="Macronutrients"
         component={Link}
-        href="/profile/nutritionist"
-        value="/profile/nutritionist"
+        href="/profile/macronutrients"
+        value="/profile/macronutrients"
         sx={{ px: 0, minWidth: 'auto' }}
       />
     </Tabs>

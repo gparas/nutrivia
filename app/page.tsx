@@ -14,6 +14,7 @@ import { Meals } from '@/types/meals';
 import { getEatenMacros } from '@/lib/utils';
 import Grid from '@mui/material/Grid';
 import NutritionistAlert from '@/components/nutritionist-alert';
+import Chat from './chat';
 
 const HomePage = async () => {
   const cookieStore = cookies();
@@ -29,7 +30,7 @@ const HomePage = async () => {
 
   const { data: profile } = await supabase
     .from('profiles')
-    .select()
+    .select(`*, nutritionists(id, name, image)`)
     .eq('id', session.user.id)
     .single();
 
@@ -98,54 +99,57 @@ const HomePage = async () => {
   });
 
   return (
-    <Grid container spacing={2}>
-      <Grid item xs={12} sm={6}>
-        <Card py={3} bgcolor="primary.main" color="primary.contrastText">
-          <HomeKcalChart
-            dailyKcalEaten={dailyKcalEaten}
-            dailyCalorieIntake={kcal_intake}
-          />
-          <DailyNutrientsIntake
-            profile={profile}
-            eatenMacros={getEatenMacros(meals)}
-          />
-          <Button
-            variant="text"
-            color="inherit"
-            size="small"
-            component={Link}
-            href="/progress"
-            sx={{ fontWeight: 500, bottom: -16 }}
-          >
-            progress
-          </Button>
-        </Card>
+    <>
+      <Grid container spacing={2}>
+        <Grid item xs={12} sm={6}>
+          <Card py={3} bgcolor="primary.main" color="primary.contrastText">
+            <HomeKcalChart
+              dailyKcalEaten={dailyKcalEaten}
+              dailyCalorieIntake={kcal_intake}
+            />
+            <DailyNutrientsIntake
+              profile={profile}
+              eatenMacros={getEatenMacros(meals)}
+            />
+            <Button
+              variant="text"
+              color="inherit"
+              size="small"
+              component={Link}
+              href="/progress"
+              sx={{ fontWeight: 500, bottom: -16 }}
+            >
+              progress
+            </Button>
+          </Card>
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <Stack spacing={2}>
+            <NutritionistAlert nutritionist_id={profile.nutritionist_id} />
+            {dailyMeals.map(meal => (
+              <ListItem key={meal.id} {...meal} />
+            ))}
+            <ListItem
+              textPrimary="Water"
+              iconId="water"
+              textSecondary={
+                water ? `${water.liter}L intake` : 'Daily water intake'
+              }
+              href="/water-intake"
+              added={Boolean(water)}
+            />
+            <ListItem
+              textPrimary="Weight"
+              iconId="diet"
+              href="/log-weight"
+              textSecondary="Log weight"
+              added={Boolean(weight)}
+            />
+          </Stack>
+        </Grid>
       </Grid>
-      <Grid item xs={12} sm={6}>
-        <Stack spacing={2}>
-          <NutritionistAlert nutritionist_id={profile.nutritionist_id} />
-          {dailyMeals.map(meal => (
-            <ListItem key={meal.id} {...meal} />
-          ))}
-          <ListItem
-            textPrimary="Water"
-            iconId="water"
-            textSecondary={
-              water ? `${water.liter}L intake` : 'Daily water intake'
-            }
-            href="/water-intake"
-            added={Boolean(water)}
-          />
-          <ListItem
-            textPrimary="Weight"
-            iconId="diet"
-            href="/log-weight"
-            textSecondary="Log weight"
-            added={Boolean(weight)}
-          />
-        </Stack>
-      </Grid>
-    </Grid>
+      <Chat nutrionist={profile.nutritionists} />
+    </>
   );
 };
 

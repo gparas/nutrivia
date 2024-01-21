@@ -22,6 +22,7 @@ const RootLayout = ({ children }: PropsWithChildren) => {
           <Container
             component="main"
             sx={{
+              position: 'relative',
               flex: '1 1 auto',
               display: 'flex',
               flexDirection: 'column',
