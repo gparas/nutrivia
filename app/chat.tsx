@@ -11,7 +11,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import IconButton from '@mui/material/IconButton';
 import Divider from '@mui/material/Divider';
-import VideocamIcon from '@mui/icons-material/Videocam';
+import RemoveIcon from '@mui/icons-material/Remove';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import InputBase from '@mui/material/InputBase';
 import SendIcon from '@mui/icons-material/Send';
@@ -48,13 +48,14 @@ const Chat = ({
         <Fab
           aria-label="chat"
           color="primary"
-          size="small"
+          size="medium"
           aria-describedby={id}
           onClick={handleClick}
           sx={{
             position: ['fixed', 'absolute'],
-            bottom: 16,
-            right: 16,
+            bottom: 8,
+            right: 8,
+            m: 1,
           }}
         >
           <ChatIcon />
@@ -75,11 +76,18 @@ const Chat = ({
         }}
       >
         <Stack height={'72vh'}>
-          <Stack direction="row" alignItems="center" px={2} flex="0 0 auto">
-            <ListItem component="div" disableGutters>
+          <Stack
+            direction="row"
+            alignItems="center"
+            px={2}
+            flex="0 0 auto"
+            bgcolor="primary.main"
+            color="primary.contrastText"
+          >
+            <ListItem component="div" disableGutters sx={{ py: 0.25 }}>
               <Badge
                 variant="dot"
-                color="success"
+                color="accent"
                 overlap="circular"
                 anchorOrigin={{
                   vertical: 'bottom',
@@ -99,18 +107,21 @@ const Chat = ({
               <ListItemText
                 primary={nutrionist.name}
                 secondary="Online"
+                secondaryTypographyProps={{
+                  sx: { opacity: 0.54, color: 'inherit' },
+                }}
                 sx={{ ml: 2 }}
               />
             </ListItem>
             <IconButton
-              component={Link}
-              aria-label="book-appointment"
-              href={`/nutritionists/appointment/${nutrionist.id}`}
+              color="inherit"
+              aria-label="close-popover"
+              onClick={handleClose}
+              edge="end"
             >
-              <VideocamIcon />
+              <RemoveIcon />
             </IconButton>
           </Stack>
-          <Divider />
           <Box p={3} flex="1 1 auto" sx={{ overflowY: 'auto' }}>
             <Stack direction="row" mb={5}>
               <div>
@@ -144,8 +155,8 @@ const Chat = ({
                 <Box
                   mt={1}
                   p={1.5}
-                  bgcolor="primary.main"
-                  color="primary.contrastText"
+                  bgcolor="secondary.main"
+                  color="secondary.contrastText"
                   maxWidth={320}
                   borderRadius={1}
                 >
@@ -209,8 +220,8 @@ const Chat = ({
                 <Box
                   mt={1}
                   p={1.5}
-                  bgcolor="primary.main"
-                  color="primary.contrastText"
+                  bgcolor="secondary.main"
+                  color="secondary.contrastText"
                   maxWidth={320}
                   borderRadius={1}
                 >
@@ -234,8 +245,8 @@ const Chat = ({
                 <Box
                   mt={1}
                   p={1.5}
-                  bgcolor="primary.main"
-                  color="primary.contrastText"
+                  bgcolor="secondary.main"
+                  color="secondary.contrastText"
                   maxWidth={320}
                   borderRadius={1}
                 >
@@ -267,12 +278,14 @@ const Chat = ({
             <IconButton aria-label="attach-file">
               <AttachFileIcon />
             </IconButton>
-            <IconButton
+            <Fab
+              size="small"
               aria-label="send"
-              sx={{ bgcolor: 'primary.main', color: 'primary.contrastText' }}
+              color="primary"
+              sx={{ boxShadow: 'none' }}
             >
               <SendIcon />
-            </IconButton>
+            </Fab>
           </Stack>
         </Stack>
       </Popover>

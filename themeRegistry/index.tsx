@@ -48,6 +48,12 @@ declare module '@mui/material/Slider' {
   }
 }
 
+declare module '@mui/material/Badge' {
+  interface BadgePropsColorOverrides {
+    accent: true;
+  }
+}
+
 declare module '@mui/material/Button' {
   interface ButtonPropsVariantOverrides {
     soft: true;
