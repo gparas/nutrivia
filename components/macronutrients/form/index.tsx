@@ -61,7 +61,8 @@ const MacronutrientsForm = ({ profile, onClose }: Props) => {
     <Stack
       component="form"
       action={formAction}
-      p={2}
+      px={2}
+      py={{ xs: 4, sm: 3 }}
       spacing={3}
       flex="1 1 auto"
       minWidth={300}
