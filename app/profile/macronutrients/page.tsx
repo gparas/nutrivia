@@ -22,7 +22,7 @@ const MacronutrientsPage = async () => {
     notFound();
   }
   return (
-    <Container maxWidth="xs" disableGutters sx={{ flex: '1 1 auto', m: 0 }}>
+    <Container maxWidth="xs" disableGutters sx={{ flex: '1 1 auto' }}>
       <Macronutrients height={'100%'} profile={profile} />
     </Container>
   );

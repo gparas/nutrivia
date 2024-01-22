@@ -83,17 +83,7 @@ const ClientPage = async ({ params: { id } }: { params: { id: string } }) => {
               <UserInfo profile={profile} />
             </Grid>
             <Grid item xs={12} sm={6} md={12}>
-              <Macronutrients profile={profile} height={'100%'}>
-                <Button
-                  variant="outlined"
-                  color="inherit"
-                  component={NextLink}
-                  href={`macronutrients/${id}`}
-                  sx={{ mt: 3, fontWeight: 400 }}
-                >
-                  Adjust Macronutrients
-                </Button>
-              </Macronutrients>
+              <Macronutrients profile={profile} height={'100%'} showEditCta />
             </Grid>
           </Grid>
         </Grid>
