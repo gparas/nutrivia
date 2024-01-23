@@ -25,6 +25,13 @@ const components = {
       }),
     },
   },
+  MuiBackdrop: {
+    styleOverrides: {
+      root: ({ theme }: { theme: Theme }) => ({
+        backgroundColor: alpha(theme.palette.common.black, 0.8),
+      }),
+    },
+  },
   MuiPaper: {
     styleOverrides: {
       root: { backgroundImage: 'none' },

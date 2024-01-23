@@ -3,7 +3,9 @@ import violet from './violet';
 import grey from './grey';
 
 
-const black = grey[900];
+const common = {
+  black: grey[900]
+}
 
 
 const info = {
@@ -44,16 +46,16 @@ const light = {
     main: '#ef4444',
   },
   text: {
-    primary: black,
+    primary: common.black,
     secondary: '#6b7280',
   },
   action: {
-    active: alpha(black, 0.54),
-    disabled: alpha(black, 0.26),
-    disabledBackground: alpha(black, 0.08),
-    focus: alpha(black, 0.12),
-    hover: alpha(black, 0.04),
-    selected: alpha(black, 0.08),
+    active: alpha(common.black, 0.54),
+    disabled: alpha(common.black, 0.26),
+    disabledBackground: alpha(common.black, 0.08),
+    focus: alpha(common.black, 0.12),
+    hover: alpha(common.black, 0.04),
+    selected: alpha(common.black, 0.08),
   },
   background: {
     default: grey[200],
@@ -103,7 +105,7 @@ type Mode = {
 
 const palette = (mode: PaletteMode) => ({
   mode,
-  black,
+  common,
   grey,
   info,
   warning,
