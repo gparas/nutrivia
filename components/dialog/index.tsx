@@ -1,35 +1,35 @@
 'use client';
 
 import { ReactNode } from 'react';
-import { ModalProps } from '@mui/material';
-import MuiDialog from '@mui/material/Dialog';
+import MuiDialog, { DialogProps } from '@mui/material/Dialog';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import useIsMobile from '@/hooks/useIsMobile';
 
-interface Props {
-  open: ModalProps['open'];
+type Props = {
   onClose: () => void;
   children: ReactNode;
-}
+} & DialogProps;
 
-const Dialog = ({ open, onClose, children }: Props) => {
+const Dialog = ({ onClose, children, ...other }: Props) => {
   const isMobile = useIsMobile('sm');
   return (
     <MuiDialog
-      open={open}
       onClose={onClose}
       fullScreen={isMobile}
+      fullWidth
+      maxWidth="xs"
       PaperProps={{
         elevation: 0,
         sx: { boxShadow: 'rgba(0, 0, 0, 0.24) -40px 40px 80px -8px' },
       }}
+      {...other}
     >
       <IconButton
         aria-label="close"
         onClick={onClose}
         sx={{
-          position: 'absolute',
+          position: ['fixed', 'absolute'],
           right: 8,
           top: 8,
           zIndex: 1,

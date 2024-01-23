@@ -5,7 +5,7 @@ import { cookies } from 'next/headers';
 import { createClient } from '@/supabase/server';
 import { redirect } from 'next/navigation';
 
-export async function submit(formData: FormData) {
+export async function addMeal(formData: FormData) {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
 

@@ -1,7 +1,8 @@
-import { cookies } from 'next/headers';
-import { createClient } from '@/supabase/server';
-import Container from '@mui/material/Container';
-import Card from '@/components/card';
+'use client';
+
+import { useState } from 'react';
+import { Tables } from '@/types/supabase';
+import Button from '@mui/material/Button';
 import Image from 'next/image';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
@@ -9,36 +10,45 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
-import dayjs from 'dayjs';
-import { notFound } from 'next/navigation';
+import Dialog from '@/components/dialog';
 import SubmitFormButton from '@/components/submit-form-button';
-import BackButton from '@/components/back-button';
 import { priceFormat } from '@/lib/utils';
-import { submit } from './actions';
+import { addMeal } from './actions';
 
-const MealPage = async ({ params: { id } }: { params: { id: string } }) => {
-  const cookieStore = cookies();
-  const supabase = createClient(cookieStore);
+const initialState = {
+  status: '',
+};
 
-  const { data: foods } = await supabase.from('foods').select().match({ id });
+interface Props {
+  food: Tables<'foods'>;
+}
 
-  const food = foods?.find(food => food.id === id);
+const FoodModal = ({ food }: Props) => {
+  const [open, setOpen] = useState(false);
 
-  if (!food) {
-    return notFound();
-  }
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
 
-  const { data: meals } = await supabase
-    .from('meals')
-    .select('meal_id')
-    .eq('created_at', dayjs().format());
-
-  const ordered = meals?.find(({ meal_id }) => meal_id === food.id);
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
-    <Container maxWidth="xs" disableGutters>
-      <BackButton />
-      <Card p={0} mt={2}>
+    <>
+      <Button
+        color="secondary"
+        size="small"
+        onClick={handleClickOpen}
+        sx={{ fontWeight: 500 }}
+      >
+        View Details
+      </Button>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        PaperProps={{ component: 'form', action: addMeal }}
+      >
         <Box
           position="relative"
           overflow="hidden"
@@ -113,28 +123,20 @@ const MealPage = async ({ params: { id } }: { params: { id: string } }) => {
             </ListItem>
           </List>
         </Box>
-        {!ordered && (
-          <Box
-            p={2}
-            flex="0 0 auto"
-            textAlign="center"
-            component="form"
-            action={submit}
-          >
-            <input type="hidden" name="meal_id" defaultValue={food.id} />
-            <input
-              type="hidden"
-              name="meal_category"
-              defaultValue={food.category}
-            />
-            <SubmitFormButton>
-              Order now {priceFormat(Number(food.price))}
-            </SubmitFormButton>
-          </Box>
-        )}
-      </Card>
-    </Container>
+        <Box px={2} py={3} flex="0 0 auto" textAlign="center">
+          <input type="hidden" name="meal_id" defaultValue={food.id} />
+          <input
+            type="hidden"
+            name="meal_category"
+            defaultValue={food.category}
+          />
+          <SubmitFormButton>
+            Order now {priceFormat(Number(food.price))}
+          </SubmitFormButton>
+        </Box>
+      </Dialog>
+    </>
   );
 };
 
-export default MealPage;
+export default FoodModal;
