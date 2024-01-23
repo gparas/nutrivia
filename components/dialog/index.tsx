@@ -19,10 +19,6 @@ const Dialog = ({ onClose, children, ...other }: Props) => {
       fullScreen={isMobile}
       fullWidth
       maxWidth="xs"
-      PaperProps={{
-        elevation: 0,
-        sx: { boxShadow: 'rgba(0, 0, 0, 0.24) -40px 40px 80px -8px' },
-      }}
       {...other}
     >
       <IconButton

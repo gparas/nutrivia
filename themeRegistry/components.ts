@@ -25,6 +25,11 @@ const components = {
       }),
     },
   },
+  MuiPaper: {
+    styleOverrides: {
+      root: { backgroundImage: 'none' },
+    },
+  },
   MuiLinearProgress: {
     styleOverrides: {
       root: ({ theme }: { theme: Theme }) => ({
