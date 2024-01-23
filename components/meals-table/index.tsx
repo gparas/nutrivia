@@ -1,7 +1,8 @@
 'use client';
 
 import { useCallback, useState } from 'react';
-import { DataGrid, GridRowsProp, GridRenderCellParams } from '@mui/x-data-grid';
+import { GridRowsProp, GridRenderCellParams } from '@mui/x-data-grid';
+import dynamic from 'next/dynamic';
 import { Tables } from '@/types/supabase';
 import Typography from '@mui/material/Typography';
 import Chip from '@mui/material/Chip';
@@ -14,9 +15,19 @@ import Image from 'next/image';
 import Card from '@/components/card';
 import CheckIcon from '@mui/icons-material/Check';
 import WarningIcon from '@mui/icons-material/ErrorOutline';
+import ComponentLoader from '@/components/component-loader';
 import dayjs from 'dayjs';
 import Dialog from '../dialog';
 import AdjustMealsForm from './form';
+
+const DataGrid = dynamic(
+  () =>
+    import('@mui/x-data-grid').then(module => ({ default: module.DataGrid })),
+  {
+    loading: () => <ComponentLoader height={360} />,
+    ssr: false,
+  },
+);
 
 const getColumns = (user_id: string | undefined) => {
   function RenderName(props: GridRenderCellParams) {
