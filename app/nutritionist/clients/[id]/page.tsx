@@ -2,7 +2,6 @@ import { cookies } from 'next/headers';
 import { createClient } from '@/supabase/server';
 import dayjs from 'dayjs';
 import { notFound } from 'next/navigation';
-import NextLink from 'next/link';
 import Grid from '@mui/material/Grid';
 import KcalChart from '@/components/kcal-chart';
 import WeightChart from '@/components/weight-chart';
@@ -12,9 +11,7 @@ import UserInfo from '@/components/user-info';
 import BackButton from '@/components/back-button';
 import Macronutrients from '@/components/macronutrients';
 import { getKcalDataset, getWaterDataset } from '@/lib/utils';
-import Button from '@mui/material/Button';
 import { Meals } from '@/types/meals';
-import Link from 'next/link';
 
 const ClientPage = async ({ params: { id } }: { params: { id: string } }) => {
   const cookieStore = cookies();
@@ -104,17 +101,8 @@ const ClientPage = async ({ params: { id } }: { params: { id: string } }) => {
             <Grid item xs={12}>
               <MealsTable
                 user_id={id}
-                action={
-                  <Button
-                    variant="outlined"
-                    color="inherit"
-                    component={Link}
-                    href={`adjust-meals/${id}`}
-                    sx={{ fontWeight: 400 }}
-                  >
-                    Adjust Meals
-                  </Button>
-                }
+                showEditCta
+                profile={profile}
                 meals={meals.map((meal, index) => {
                   const status =
                     (dailyCalorieIntake *

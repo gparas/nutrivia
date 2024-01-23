@@ -1,18 +1,22 @@
 'use client';
 
-import { ReactNode } from 'react';
+import { useCallback, useState } from 'react';
 import { DataGrid, GridRowsProp, GridRenderCellParams } from '@mui/x-data-grid';
+import { Tables } from '@/types/supabase';
 import Typography from '@mui/material/Typography';
 import Chip from '@mui/material/Chip';
 import NextLink from 'next/link';
 import Link from '@mui/material/Link';
 import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
 import Image from 'next/image';
 import Card from '@/components/card';
 import CheckIcon from '@mui/icons-material/Check';
 import WarningIcon from '@mui/icons-material/ErrorOutline';
 import dayjs from 'dayjs';
+import Dialog from '../dialog';
+import AdjustMealsForm from './form';
 
 const getColumns = (user_id: string | undefined) => {
   function RenderName(props: GridRenderCellParams) {
@@ -113,7 +117,8 @@ const getColumns = (user_id: string | undefined) => {
 
 type Props = {
   user_id?: string;
-  action?: ReactNode;
+  showEditCta?: boolean;
+  profile?: Tables<'profiles'>;
   meals: {
     meal_id?: string;
     image?: string;
@@ -126,18 +131,48 @@ type Props = {
   }[];
 };
 
-const MealsTable = ({ meals, user_id, action }: Props) => {
+const MealsTable = ({ meals, user_id, showEditCta, profile }: Props) => {
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = useCallback(() => {
+    setOpen(false);
+  }, []);
+
   const rows: GridRowsProp = meals;
   return (
-    <Card p={1}>
-      <Stack direction="row" alignItems="center" justifyContent="space-between">
-        <Typography variant="h6" fontWeight={500} p={1}>
-          Meals
-        </Typography>
-        {action}
-      </Stack>
-      <DataGrid rows={rows} columns={getColumns(user_id)} />
-    </Card>
+    <>
+      <Card p={1}>
+        <Stack
+          direction="row"
+          alignItems="center"
+          justifyContent="space-between"
+        >
+          <Typography variant="h6" fontWeight={500} p={1}>
+            Meals
+          </Typography>
+          {showEditCta && profile && (
+            <>
+              <Button
+                variant="outlined"
+                color="inherit"
+                onClick={handleClickOpen}
+                sx={{ fontWeight: 400 }}
+              >
+                Adjust Meals
+              </Button>
+              <Dialog open={open} onClose={handleClose}>
+                <AdjustMealsForm onClose={handleClose} profile={profile} />
+              </Dialog>
+            </>
+          )}
+        </Stack>
+        <DataGrid rows={rows} columns={getColumns(user_id)} />
+      </Card>
+    </>
   );
 };
 

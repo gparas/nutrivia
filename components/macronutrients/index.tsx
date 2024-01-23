@@ -8,14 +8,11 @@ import Stack, { StackProps } from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import Dialog from '@mui/material/Dialog';
 import Card from '@/components/card';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
 import { getNutrientsData } from '@/lib/utils';
 import Chart from './chart';
 import MacronutrientsForm from './form';
-import useIsMobile from '@/hooks/useIsMobile';
+import Dialog from '../dialog';
 
 type Props = {
   profile: Tables<'profiles'>;
@@ -24,7 +21,6 @@ type Props = {
 
 const Macronutrients = ({ profile, showEditCta, ...other }: Props) => {
   const [open, setOpen] = useState(false);
-  const isMobile = useIsMobile('sm');
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -83,27 +79,7 @@ const Macronutrients = ({ profile, showEditCta, ...other }: Props) => {
           </Button>
         )}
       </Card>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        fullScreen={isMobile}
-        PaperProps={{
-          elevation: 0,
-          sx: { boxShadow: 'rgba(0, 0, 0, 0.24) -40px 40px 80px -8px' },
-        }}
-      >
-        <IconButton
-          aria-label="close"
-          onClick={handleClose}
-          sx={{
-            position: 'absolute',
-            right: 8,
-            top: 8,
-            zIndex: 1,
-          }}
-        >
-          <CloseIcon />
-        </IconButton>
+      <Dialog open={open} onClose={handleClose}>
         <MacronutrientsForm profile={profile} onClose={handleClose} />
       </Dialog>
     </>
