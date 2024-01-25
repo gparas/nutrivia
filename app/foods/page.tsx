@@ -1,9 +1,7 @@
 import { cookies } from 'next/headers';
 import { createClient } from '@/supabase/server';
-import dynamic from 'next/dynamic';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import Card from '@/components/card';
 import Nutrients from './components/nutrients';
@@ -13,14 +11,7 @@ import EmptyState from '@/components/empty';
 import Title from './components/title';
 import ActiveFilters from './components/activefilters';
 import Media from './components/media';
-
-const FoodModal = dynamic(() => import('./foodModal'), {
-  loading: () => (
-    <Button disabled size="small" sx={{ fontWeight: 500 }}>
-      View Details
-    </Button>
-  ),
-});
+import MealDialog from '@/components/meal-dialog';
 
 type Props = {
   searchParams?: {
@@ -78,7 +69,7 @@ const FoodsPage = async ({ searchParams }: Props) => {
                 <Divider light />
                 <Stack direction="row" alignItems="center" p={1}>
                   <Nutrients {...food} />
-                  `<FoodModal food={food} />
+                  `<MealDialog food={food} showAddCta />
                 </Stack>
               </Card>
             );

@@ -15,15 +15,12 @@ import SubmitFormButton from '@/components/submit-form-button';
 import { priceFormat } from '@/lib/utils';
 import { addMeal } from './actions';
 
-const initialState = {
-  status: '',
-};
-
 interface Props {
+  showAddCta?: boolean;
   food: Tables<'foods'>;
 }
 
-const FoodModal = ({ food }: Props) => {
+const MealDialog = ({ food, showAddCta }: Props) => {
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -42,13 +39,9 @@ const FoodModal = ({ food }: Props) => {
         onClick={handleClickOpen}
         sx={{ fontWeight: 500 }}
       >
-        View Details
+        details
       </Button>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        PaperProps={{ component: 'form', action: addMeal }}
-      >
+      <Dialog open={open} onClose={handleClose}>
         <Box
           position="relative"
           overflow="hidden"
@@ -123,20 +116,29 @@ const FoodModal = ({ food }: Props) => {
             </ListItem>
           </List>
         </Box>
-        <Box px={2} py={3} flex="0 0 auto" textAlign="center">
-          <input type="hidden" name="meal_id" defaultValue={food.id} />
-          <input
-            type="hidden"
-            name="meal_category"
-            defaultValue={food.category}
-          />
-          <SubmitFormButton>
-            Order now {priceFormat(Number(food.price))}
-          </SubmitFormButton>
-        </Box>
+        {showAddCta && (
+          <Box
+            px={2}
+            py={3}
+            flex="0 0 auto"
+            textAlign="center"
+            component="form"
+            action={addMeal}
+          >
+            <input type="hidden" name="meal_id" defaultValue={food.id} />
+            <input
+              type="hidden"
+              name="meal_category"
+              defaultValue={food.category}
+            />
+            <SubmitFormButton>
+              Order now {priceFormat(Number(food.price))}
+            </SubmitFormButton>
+          </Box>
+        )}
       </Dialog>
     </>
   );
 };
 
-export default FoodModal;
+export default MealDialog;

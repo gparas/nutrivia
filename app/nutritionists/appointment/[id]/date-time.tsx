@@ -11,7 +11,6 @@ import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
-import CircularProgress from '@mui/material/CircularProgress';
 import { SLOTS } from './constants';
 import { updateNutritionistId } from './actions';
 import SubmitFormButton from '@/components/submit-form-button';

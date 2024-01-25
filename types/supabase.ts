@@ -93,6 +93,38 @@ export interface Database {
           }
         ]
       }
+      meals_plan: {
+        Row: {
+          category: string | null
+          day: number | null
+          id: string
+          meal_id: string | null
+          user_id: string | null
+        }
+        Insert: {
+          category?: string | null
+          day?: number | null
+          id: string
+          meal_id?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          category?: string | null
+          day?: number | null
+          id?: string
+          meal_id?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "meals_plan_meal_id_fkey"
+            columns: ["meal_id"]
+            isOneToOne: false
+            referencedRelation: "foods"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
       nutritionists: {
         Row: {
           description: string | null

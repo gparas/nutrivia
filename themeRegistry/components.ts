@@ -1,4 +1,4 @@
-import { ButtonOwnProps, ChipOwnProps, Theme } from '@mui/material';
+import { BackdropProps, ButtonOwnProps, ChipOwnProps, Theme } from '@mui/material';
 
 import { alpha, darken, lighten } from '@mui/material/styles';
 import { linearProgressClasses } from '@mui/material/LinearProgress';
@@ -27,8 +27,11 @@ const components = {
   },
   MuiBackdrop: {
     styleOverrides: {
-      root: ({ theme }: { theme: Theme }) => ({
+      root: ({ theme, ownerState }: { theme: Theme, ownerState: BackdropProps }) => ({
         backgroundColor: alpha(theme.palette.common.black, 0.8),
+        ...(ownerState.invisible && {
+          backgroundColor: 'transparent',
+        }),
       }),
     },
   },

@@ -5,9 +5,10 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Link from 'next/link';
 
-const ProfileTabs = () => {
+const ClientTabs = ({ user_id }: { user_id: string }) => {
   const pathname = usePathname();
 
+  const rootPath = `/nutritionist/clients/${user_id}`;
   return (
     <Tabs
       value={pathname}
@@ -20,21 +21,21 @@ const ProfileTabs = () => {
       }}
     >
       <Tab
-        label="General"
+        label="Overview"
         component={Link}
-        href="/profile"
-        value="/profile"
+        href={rootPath}
+        value={rootPath}
         sx={{ px: 0, minWidth: 'auto' }}
       />
       <Tab
-        label="Macronutrients"
+        label="Meal Plan"
         component={Link}
-        href="/profile/macronutrients"
-        value="/profile/macronutrients"
+        href={`${rootPath}/planner`}
+        value={`${rootPath}/planner`}
         sx={{ px: 0, minWidth: 'auto' }}
       />
     </Tabs>
   );
 };
 
-export default ProfileTabs;
+export default ClientTabs;
