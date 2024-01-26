@@ -2,16 +2,26 @@
 
 import { useSearchParams } from 'next/navigation';
 import { capitalize } from '@mui/material';
-import BackButton from '@/components/back-button';
+import Button from '@mui/material/Button';
+import ArrowBackIcon from '@mui/icons-material/ArrowBackRounded';
 import PageTitle from '@/components/page-title';
+import Link from 'next/link';
 
 const Title = () => {
   const searchParams = useSearchParams();
   const category = searchParams.get('category');
+
   return (
-    <BackButton
-      label={<PageTitle>{category ? capitalize(category) : 'Meals'}</PageTitle>}
-    />
+    <Button
+      color="inherit"
+      size="large"
+      startIcon={<ArrowBackIcon />}
+      component={Link}
+      href="/"
+      sx={{ fontWeight: 400, alignSelf: 'flex-start', ml: -1.5 }}
+    >
+      <PageTitle>{category ? capitalize(category) : 'Meals'}</PageTitle>
+    </Button>
   );
 };
 

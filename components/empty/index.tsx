@@ -16,8 +16,8 @@ const EmptyState = () => {
         flexDirection: 'column',
       }}
     >
-      <EmptyIcon />
-      <Typography variant="h5" color="text.secondary" fontWeight={500} mt={3}>
+      <EmptyIcon sx={{ fontSize: 104 }} />
+      <Typography color="text.secondary" fontWeight={500} mt={3}>
         No data
       </Typography>
     </Container>
