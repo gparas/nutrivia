@@ -27,24 +27,15 @@ const KcalChart = ({ dataset, dailyCalorieIntake, ...other }: Props) => {
     () => theme.palette.text.secondary,
   );
 
+  const greaterEatenIntake = dataset.reduce(
+    (acc, cur) => (cur.eaten > acc ? cur.eaten : acc),
+    dataset[0].eaten,
+  );
+
   const series = [
     {
       name: 'Your intake',
-      data: dataset.map(item => {
-        return {
-          x: item.date,
-          y: item.eaten,
-          goals: [
-            {
-              name: 'Goal intake',
-              value: dailyCalorieIntake,
-              strokeHeight: 2,
-              strokeDashArray: 2,
-              strokeColor: '#3bcde2',
-            },
-          ],
-        };
-      }),
+      data: dataset.map(({ eaten }) => eaten),
     },
   ];
   const options = {
@@ -53,7 +44,7 @@ const KcalChart = ({ dataset, dailyCalorieIntake, ...other }: Props) => {
         show: false,
       },
     },
-    colors: ['#775DD0'],
+    colors: [theme.palette.primary.main] as string[],
     plotOptions: {
       bar: {
         columnWidth: '25%',
@@ -64,7 +55,6 @@ const KcalChart = ({ dataset, dailyCalorieIntake, ...other }: Props) => {
     },
     xaxis: {
       type: 'datetime',
-      categories: dataset.map(item => item.date),
       axisBorder: {
         show: false,
       },
@@ -79,8 +69,29 @@ const KcalChart = ({ dataset, dailyCalorieIntake, ...other }: Props) => {
           colors: chartLabelsColors,
         },
       },
-    } as const,
+    },
+    annotations: {
+      yaxis: [
+        {
+          y: dailyCalorieIntake,
+          borderColor: theme.palette.accent.main,
+          label: {
+            borderColor: theme.palette.accent.main,
+            style: {
+              color: theme.palette.accent.contrastText,
+              background: theme.palette.accent.main,
+            },
+            text: 'Goal intake',
+          },
+        },
+      ] as object[],
+    },
+    labels: dataset.map(({ date }) => date),
     yaxis: {
+      max:
+        greaterEatenIntake > dailyCalorieIntake
+          ? greaterEatenIntake
+          : dailyCalorieIntake,
       axisBorder: {
         show: false,
       },
@@ -93,35 +104,15 @@ const KcalChart = ({ dataset, dailyCalorieIntake, ...other }: Props) => {
         },
       },
     },
-    stroke: {
-      show: true,
-      width: 1,
-      colors: ['transparent'],
-    },
     grid: {
       borderColor: alpha(theme.palette.text.primary, 0.08),
       strokeDashArray: 4,
     },
-    legend: {
-      position: 'top',
-      show: true,
-      showForSingleSeries: true,
-      customLegendItems: ['Your intake', 'Goal intake'] as string[],
-      labels: {
-        colors: chartLabelsColors,
-      },
-      markers: {
-        radius: 12,
-        fillColors: ['#775DD0', '#3bcde2'] as string[],
-      },
-      itemMargin: {
-        horizontal: 8,
-      },
-    } as const,
     tooltip: {
       shared: true,
       intersect: false,
       theme: theme.palette.mode,
+      hideEmptySeries: false,
       x: {
         format: 'dd MMM yy',
       },
@@ -129,7 +120,7 @@ const KcalChart = ({ dataset, dailyCalorieIntake, ...other }: Props) => {
         formatter: valueFormatter,
       },
     },
-  };
+  } as const;
 
   return (
     <Card {...other}>

@@ -13,7 +13,7 @@ const BackButton = ({ label }: { label?: string | ReactNode }) => {
       startIcon={<ArrowBackIcon />}
       size="large"
       onClick={() => router.back()}
-      sx={{ fontWeight: 400, alignSelf: 'flex-start' }}
+      sx={{ fontWeight: 400, alignSelf: 'flex-start', ml: -1 }}
     >
       {label || 'back'}
     </Button>

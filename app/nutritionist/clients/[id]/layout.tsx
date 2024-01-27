@@ -19,7 +19,7 @@ const ClientLayout = ({ children, params: { id } }: Props) => {
         size="large"
         component={Link}
         href="/nutritionist"
-        sx={{ fontWeight: 400, alignSelf: 'flex-start' }}
+        sx={{ fontWeight: 400, alignSelf: 'flex-start', ml: -1.5 }}
       >
         back
       </Button>
