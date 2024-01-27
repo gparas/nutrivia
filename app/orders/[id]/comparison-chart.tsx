@@ -44,7 +44,7 @@ const ComparisonChart = ({ dataset }: Props) => {
               value: item.recommended,
               strokeHeight: 2,
               strokeDashArray: 2,
-              strokeColor: '#3bcde2',
+              strokeColor: theme.palette.accent.main,
             },
           ],
         };
@@ -112,7 +112,10 @@ const ComparisonChart = ({ dataset }: Props) => {
       },
       markers: {
         radius: 12,
-        fillColors: ['#775DD0', '#3bcde2'] as string[],
+        fillColors: [
+          theme.palette.primary.main,
+          theme.palette.accent.main,
+        ] as string[],
       },
       itemMargin: {
         horizontal: 8,

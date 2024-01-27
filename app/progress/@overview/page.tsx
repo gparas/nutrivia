@@ -2,7 +2,6 @@ import { cookies } from 'next/headers';
 import { createClient } from '@/supabase/server';
 import dayjs from 'dayjs';
 import KcalOverview from '@/components/kcal-overview';
-import { getKcalDataset, getNutritionDataset } from '@/lib/utils';
 
 const Overview = async () => {
   const cookieStore = cookies();
@@ -30,11 +29,7 @@ const Overview = async () => {
     return 'no data';
   }
   return (
-    <KcalOverview
-      profile={profile}
-      dataset={getKcalDataset(meals)}
-      nutritionDataset={getNutritionDataset(meals)}
-    />
+    <KcalOverview profile={profile} meals={meals.map(item => item.foods!)} />
   );
 };
 

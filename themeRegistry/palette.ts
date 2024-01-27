@@ -28,6 +28,10 @@ const fat = {
   main: '#D857B9',
 };
 
+const accent = {
+  main: '#57FBDB',
+};
+
 const light = {
   primary: {
     light: violet[100],
@@ -35,9 +39,6 @@ const light = {
   },
   secondary: {
     main: violet[500],
-  },
-  accent: {
-    main: '#5CD0B7',
   },
   success: {
     main: '#16a34a',
@@ -72,9 +73,6 @@ const dark = {
   },
   secondary: {
     main: violet[300],
-  },
-  accent: {
-    main: '#7FF2CE',
   },
   success: {
     main: '#4ade80',
@@ -114,6 +112,7 @@ const palette = (mode: PaletteMode) => ({
   common,
   grey,
   info,
+  accent,
   warning,
   carbs,
   protein,

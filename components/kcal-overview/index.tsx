@@ -2,71 +2,77 @@ import { Tables } from '@/types/supabase';
 import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
+import MuiListItemText from '@mui/material/ListItemText';
 import Card from '@/components/card';
-import { getNutrientsData } from '@/lib/utils';
 
 interface Props {
   profile: Tables<'profiles'>;
-  dataset: { eaten: number }[];
-  nutritionDataset: { id: string; label: string; value: number }[];
+  meals: Tables<'foods'>[];
 }
 
-const KcalOverview = ({ dataset, profile, nutritionDataset }: Props) => {
-  const totalKcalEaten = Math.floor(
-    dataset.reduce((acc, cur) => acc + cur.eaten, 0) / dataset.length,
-  );
-  const totalKcalIntake = profile.kcal_intake || 0;
-  const kcalDiff = totalKcalEaten - totalKcalIntake;
-  const nutrientsData = getNutrientsData(profile, totalKcalIntake);
+const ListItemText = ({ ...other }) => (
+  <MuiListItemText primaryTypographyProps={{ variant: 'body2' }} {...other} />
+);
+
+const KcalOverview = ({ profile, meals }: Props) => {
+  const totalKcalEaten = meals.reduce((acc, cur) => acc + Number(cur.kcal), 0);
+  const avgKcalEaten = totalKcalEaten / meals.length;
+  const breakfastEaten = meals
+    .filter(meal => meal.category === 'breakfast')
+    .reduce((acc, cur) => acc + Number(cur.kcal), 0);
+  const lunchEaten = meals
+    .filter(meal => meal.category === 'lunch')
+    .reduce((acc, cur) => acc + Number(cur.kcal), 0);
+  const dinnerEaten = meals
+    .filter(meal => meal.category === 'dinner')
+    .reduce((acc, cur) => acc + Number(cur.kcal), 0);
+  const snackEaten = meals
+    .filter(meal => meal.category === 'snack')
+    .reduce((acc, cur) => acc + Number(cur.kcal), 0);
+
   return (
     <Card height={'100%'}>
       <Typography variant="h6" fontWeight={500} mb={2}>
         Overview
       </Typography>
       <Typography variant="h3" mb={0.25}>
-        {totalKcalIntake}
+        {Math.floor(avgKcalEaten)}
         <Typography variant="h6" component="span" fontWeight={400} ml={0.5}>
           kcal
         </Typography>
       </Typography>
-      <Typography
-        variant="body2"
-        color={kcalDiff <= 0 ? 'success.main' : 'error.main'}
-        fontWeight={500}
-        mb={3}
-      >
-        {kcalDiff <= 0 ? <span>&darr;</span> : <span>&uarr;</span>}
-        {Math.abs(kcalDiff)}{' '}
-        <Typography
-          variant="inherit"
-          color={'text.secondary'}
-          component="span"
-          fontWeight={400}
-        >
-          kcal this week
-        </Typography>
+      <Typography variant="body2" color={'text.secondary'} mb={3}>
+        Avg. calories intake this week
       </Typography>
-      <List disablePadding dense sx={{ mt: 'auto' }}>
+      <List>
         <ListItem disableGutters>
-          <ListItemText secondary="calories" />
-          <Typography variant="body2" fontWeight={500} component="span">
-            {totalKcalEaten} kcal
-          </Typography>
+          <ListItemText primary="Breakfast" />
+          <ListItemText
+            primary={`${Math.floor((breakfastEaten / totalKcalEaten) * 100)}%`}
+            sx={{ flex: '0 0 auto' }}
+          />
         </ListItem>
-        {nutritionDataset.map(({ id, label, value }) => {
-          const defaultNutrient = nutrientsData.find(
-            item => item.id === id,
-          )?.gram;
-          return (
-            <ListItem key={id} disableGutters>
-              <ListItemText secondary={`${label}`} />
-              <Typography variant="body2" fontWeight={500} component="span">
-                {value || 0} / {defaultNutrient} g
-              </Typography>
-            </ListItem>
-          );
-        })}
+        <ListItem disableGutters>
+          <ListItemText primary="Lunch" />
+          <ListItemText
+            primary={`${Math.floor((lunchEaten / totalKcalEaten) * 100)}%`}
+            sx={{ flex: '0 0 auto' }}
+          />
+        </ListItem>
+        <ListItem disableGutters>
+          <ListItemText primary="Dinner" />
+          <ListItemText
+            primary={`${Math.floor((dinnerEaten / totalKcalEaten) * 100)}%`}
+            sx={{ flex: '0 0 auto' }}
+          />
+        </ListItem>
+        <ListItem disableGutters>
+          <ListItemText primary="Snack" />
+          <ListItemText
+            primary={`${Math.floor((snackEaten / totalKcalEaten) * 100)}%`}
+            sx={{ flex: '0 0 auto' }}
+          />
+        </ListItem>
       </List>
     </Card>
   );

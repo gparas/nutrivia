@@ -22,6 +22,17 @@ const DailyNutrientsIntake = ({ profile, eatenMacros }: Props) => {
   const eatenProtein = eatenMacros.reduce((acc, cur) => acc + cur.protein, 0);
   const eatenFat = eatenMacros.reduce((acc, cur) => acc + cur.fat, 0);
 
+  const carbsLeft =
+    recommendedCarbs - eatenCarbs > 0
+      ? Math.floor(recommendedCarbs - eatenCarbs)
+      : 0;
+  const proteinLeft =
+    recommendedProtein - eatenProtein > 0
+      ? Math.floor(recommendedProtein - eatenProtein)
+      : 0;
+  const fatLeft =
+    recommendedFat - eatenFat > 0 ? Math.floor(recommendedFat - eatenFat) : 0;
+
   return (
     <Stack direction="row" justifyContent="space-around">
       <Box width="20%">
@@ -30,8 +41,7 @@ const DailyNutrientsIntake = ({ profile, eatenMacros }: Props) => {
         </Typography>
         <Progress value={(eatenCarbs / recommendedCarbs) * 100} />
         <Typography variant="caption">
-          {recommendedCarbs - eatenCarbs}g{' '}
-          <Typography variant="caption">left</Typography>
+          {carbsLeft}g <Typography variant="caption">left</Typography>
         </Typography>
       </Box>
       <Box width="20%">
@@ -40,8 +50,7 @@ const DailyNutrientsIntake = ({ profile, eatenMacros }: Props) => {
         </Typography>
         <Progress value={(eatenProtein / recommendedProtein) * 100} />
         <Typography variant="caption">
-          {recommendedProtein - eatenProtein}g{' '}
-          <Typography variant="caption">left</Typography>
+          {proteinLeft}g <Typography variant="caption">left</Typography>
         </Typography>
       </Box>
       <Box width="20%">
@@ -50,8 +59,7 @@ const DailyNutrientsIntake = ({ profile, eatenMacros }: Props) => {
         </Typography>
         <Progress value={(eatenFat / recommendedFat) * 100} />
         <Typography variant="caption">
-          {recommendedFat - eatenFat}g{' '}
-          <Typography variant="caption">left</Typography>
+          {fatLeft}g <Typography variant="caption">left</Typography>
         </Typography>
       </Box>
     </Stack>
