@@ -58,7 +58,7 @@ const WaterChart = ({ dataset }: Props) => {
     grid: {
       show: false,
     },
-    colors: ['#3497fd'],
+    colors: ['#00A0FF'],
     tooltip: {
       theme: theme.palette.mode,
       x: {

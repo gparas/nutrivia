@@ -17,15 +17,15 @@ const warning  = {
 };
 
 const carbs = {
-  main: '#665eff',
+  main: '#775DD0',
 };
 
 const protein = {
-  main: '#3acce1',
+  main: '#3bcde2',
 };
 
 const fat = {
-  main: '#c840e9',
+  main: '#D857B9',
 };
 
 const light = {

@@ -40,7 +40,7 @@ const KcalChart = ({ dataset, dailyCalorieIntake, ...other }: Props) => {
               value: dailyCalorieIntake,
               strokeHeight: 2,
               strokeDashArray: 2,
-              strokeColor: '#3acce1',
+              strokeColor: '#3bcde2',
             },
           ],
         };
@@ -53,7 +53,7 @@ const KcalChart = ({ dataset, dailyCalorieIntake, ...other }: Props) => {
         show: false,
       },
     },
-    colors: ['#665eff'],
+    colors: ['#775DD0'],
     plotOptions: {
       bar: {
         columnWidth: '25%',
@@ -112,7 +112,7 @@ const KcalChart = ({ dataset, dailyCalorieIntake, ...other }: Props) => {
       },
       markers: {
         radius: 12,
-        fillColors: ['#665eff', '#3acce1'] as string[],
+        fillColors: ['#775DD0', '#3bcde2'] as string[],
       },
       itemMargin: {
         horizontal: 8,
