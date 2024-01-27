@@ -35,7 +35,7 @@ const Macronutrients = ({ profile, showEditCta, ...other }: Props) => {
     <>
       <Card {...other}>
         <Box
-          flex="1 1 auto"
+          flex="0 0 auto"
           display="flex"
           alignItems="center"
           justifyContent="center"
@@ -46,34 +46,41 @@ const Macronutrients = ({ profile, showEditCta, ...other }: Props) => {
             dailyKcal={profile.kcal_intake || 0}
           />
         </Box>
-        {nutrientsData.map(item => (
-          <Grid container key={item.label} spacing={2} mb={1}>
-            <Grid item xs={12}>
-              <Divider sx={{ mt: 2 }} light />
+        <Box flex="1 1 auto">
+          {nutrientsData.map(item => (
+            <Grid container key={item.label} spacing={2}>
+              <Grid item xs={12}>
+                <Divider sx={{ mt: 2 }} light />
+              </Grid>
+              <Grid item xs={4}>
+                <Stack direction="row" spacing={1} alignItems="center">
+                  <Box
+                    height={10}
+                    width={10}
+                    borderRadius={'2px'}
+                    bgcolor={`${item.color}.main`}
+                  />
+                  <Typography variant="body2">{item.label}</Typography>
+                </Stack>
+              </Grid>
+              <Grid item xs={3}>
+                <Typography variant="body2">{item.gram}g</Typography>
+              </Grid>
+              <Grid item xs={2}>
+                <Typography variant="body2">{item.value}%</Typography>
+              </Grid>
+              <Grid item xs={3}>
+                <Typography variant="body2">{item.kcal}kcal</Typography>
+              </Grid>
             </Grid>
-            <Grid item xs={4}>
-              <Stack direction="row" spacing={1} alignItems="center">
-                <Box height={12} width={12} bgcolor={`${item.color}.main`} />
-                <Typography variant="body2">{item.label}</Typography>
-              </Stack>
-            </Grid>
-            <Grid item xs={3}>
-              <Typography variant="body2">{item.gram}g</Typography>
-            </Grid>
-            <Grid item xs={2}>
-              <Typography variant="body2">{item.value}%</Typography>
-            </Grid>
-            <Grid item xs={3}>
-              <Typography variant="body2">{item.kcal}kcal</Typography>
-            </Grid>
-          </Grid>
-        ))}
+          ))}
+        </Box>
         {showEditCta && (
           <Button
-            variant="outlined"
-            color="inherit"
+            variant="contained"
+            color="neutral"
             onClick={handleClickOpen}
-            sx={{ mt: 3, fontWeight: 400 }}
+            sx={{ mt: 3, fontWeight: 500 }}
           >
             Adjust Macronutrients
           </Button>

@@ -10,6 +10,7 @@ import UserInfo from '@/components/user-info';
 import Macronutrients from '@/components/macronutrients';
 import { getWaterDataset } from '@/lib/utils';
 import { Meals } from '@/types/meals';
+import MealsBreakdown from '@/components/meals-breakdown';
 
 const ClientPage = async ({ params: { id } }: { params: { id: string } }) => {
   const cookieStore = cookies();
@@ -77,7 +78,7 @@ const ClientPage = async ({ params: { id } }: { params: { id: string } }) => {
             <Macronutrients profile={profile} height={'100%'} showEditCta />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <Macronutrients profile={profile} height={'100%'} showEditCta />
+            <MealsBreakdown profile={profile} height={'100%'} showEditCta />
           </Grid>
           <Grid item xs={12} sm={6}>
             <WeightChart profile={profile} weights={weightsData} />
@@ -88,8 +89,6 @@ const ClientPage = async ({ params: { id } }: { params: { id: string } }) => {
           <Grid item xs={12}>
             <MealsTable
               user_id={id}
-              showEditCta
-              profile={profile}
               meals={meals.map((meal, index) => {
                 const status =
                   (dailyCalorieIntake *

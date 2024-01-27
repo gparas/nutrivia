@@ -4,7 +4,7 @@ import grey from './grey';
 
 
 const common = {
-  black: grey[900]
+  black: '#2a2e43'
 }
 
 
@@ -17,15 +17,15 @@ const warning  = {
 };
 
 const carbs = {
-  main: '#5ecfcd',
+  main: '#665eff',
 };
 
 const protein = {
-  main: '#eb3478',
+  main: '#3acce1',
 };
 
 const fat = {
-  main: '#ffbf5a',
+  main: '#c840e9',
 };
 
 const light = {
@@ -44,6 +44,9 @@ const light = {
   },
   error: {
     main: '#ef4444',
+  },
+  neutral: {
+    main: '#eaebef',
   },
   text: {
     primary: common.black,
@@ -79,8 +82,11 @@ const dark = {
   error: {
     main: '#fb7185',
   },
+  neutral: {
+    main: '#454f63',
+  },
   text: {
-    secondary: grey[500],
+    secondary: '#78849e',
   },
   action: {
     active: alpha('#ffffff', 0.54),
@@ -91,8 +97,8 @@ const dark = {
     selected: alpha('#ffffff', 0.1),
   },
   background: {
-    default: grey[900],
-    paper: grey[800],
+    default: '#2a2e43',
+    paper: '#353a50',
   },
 };
 

@@ -4,16 +4,17 @@ import { useEffect, useState } from 'react';
 import { Tables } from '@/types/supabase';
 import { capitalize } from '@mui/material';
 import { useFormState, useFormStatus } from 'react-dom';
-import { Macronutrients } from '@/types/macronutrients';
+import { Meals } from '@/types/meals';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Slider from '@mui/material/Slider';
-import SubmitFormButton from '../../submit-form-button';
+import SubmitFormButton from '@/components/submit-form-button';
 import Chart from './chart';
 import { updateProfile } from './actions';
+import { COLORS } from '../constants';
 
 const SubmitButton = ({ disabled }: { disabled: boolean }) => {
   const { pending } = useFormStatus();
@@ -31,14 +32,15 @@ const initialState = {
   status: '',
 };
 
-const MacronutrientsForm = ({ profile, onClose }: Props) => {
-  const { carbs, protein, fat, kcal_intake } = profile;
-  const [macros, setMacros] = useState<Macronutrients>({
-    carbs,
-    protein,
-    fat,
-  });
+const AdjustMealsForm = ({ profile, onClose }: Props) => {
+  const { breakfast, lunch, dinner, snack, kcal_intake } = profile;
   const [state, formAction] = useFormState(updateProfile, initialState);
+  const [meals, setMeals] = useState<Meals>({
+    breakfast,
+    lunch,
+    dinner,
+    snack,
+  });
 
   useEffect(() => {
     if (state?.status !== 'success') return;
@@ -47,15 +49,16 @@ const MacronutrientsForm = ({ profile, onClose }: Props) => {
 
   const handleChange =
     (key: string) => (event: Event, newValue: number | number[]) => {
-      setMacros({
-        ...macros,
+      setMeals({
+        ...meals,
         [key]: newValue,
       });
     };
 
   const handleReset = () => {
-    setMacros({ carbs, protein, fat });
+    setMeals({ breakfast, lunch, dinner, snack });
   };
+
   const dailyCalorieIntake = kcal_intake || 0;
   return (
     <Stack
@@ -68,14 +71,12 @@ const MacronutrientsForm = ({ profile, onClose }: Props) => {
       minWidth={300}
     >
       <Box flex="0 0 auto">
-        <Chart dataSeries={macros} series={Object.values(macros)} />
+        <Chart dataSeries={meals} series={Object.values(meals)} />
       </Box>
       <Box flex="1 1 auto">
-        {Object.keys(macros).map(key => {
-          const factor = key === 'fat' ? 9 : 4;
-          const value = macros[key as keyof Macronutrients] || 0;
+        {Object.keys(meals).map(key => {
+          const value = meals[key as keyof Meals] || 0;
           const kcal = Math.floor((dailyCalorieIntake * value) / 100);
-          const grams = Math.floor((dailyCalorieIntake * value) / 100 / factor);
           return (
             <Box key={key} p={1} mb={1}>
               <Grid container spacing={1} justifyContent="space-between">
@@ -85,13 +86,10 @@ const MacronutrientsForm = ({ profile, onClose }: Props) => {
                       height={10}
                       width={10}
                       borderRadius={'2px'}
-                      bgcolor={`${key}.main`}
+                      bgcolor={COLORS[key as keyof Meals]}
                     />
                     <Typography variant="body2">{capitalize(key)}</Typography>
                   </Stack>
-                </Grid>
-                <Grid item>
-                  <Typography variant="body2">{grams}g</Typography>
                 </Grid>
                 <Grid item>
                   <Typography variant="body2">{value}%</Typography>
@@ -103,8 +101,19 @@ const MacronutrientsForm = ({ profile, onClose }: Props) => {
                   <Slider
                     value={value}
                     size="small"
-                    color={key as keyof Macronutrients}
                     onChange={handleChange(key)}
+                    sx={{
+                      color: COLORS[key as keyof Meals],
+                      '& .MuiSlider-track': {
+                        border: 'none',
+                      },
+                      '& .MuiSlider-thumb': {
+                        backgroundColor: 'currentColor',
+                        '&::before': {
+                          display: 'none',
+                        },
+                      },
+                    }}
                   />
                 </Grid>
               </Grid>
@@ -124,7 +133,7 @@ const MacronutrientsForm = ({ profile, onClose }: Props) => {
         </Button>
         <SubmitButton
           disabled={
-            Object.values(macros).reduce((acc, cur) => acc + cur, 0) !== 100
+            Object.values(meals).reduce((acc, cur) => acc + cur, 0) !== 100
           }
         />
       </Stack>
@@ -132,4 +141,4 @@ const MacronutrientsForm = ({ profile, onClose }: Props) => {
   );
 };
 
-export default MacronutrientsForm;
+export default AdjustMealsForm;

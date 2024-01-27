@@ -29,6 +29,7 @@ const Dialog = ({ onClose, children, ...other }: Props) => {
           right: 8,
           top: 8,
           zIndex: 1,
+          color: 'text.secondary',
         }}
       >
         <CloseIcon />

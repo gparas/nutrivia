@@ -92,7 +92,7 @@ const HomePage = async () => {
         ? data.foods?.name
         : `Recommended - ${recommended} kcal`,
       href: data
-        ? `/foods/ordered/${data.foods?.id}?user_id=${session.user.id}`
+        ? `/orders/${data.foods?.id}?user_id=${session.user.id}`
         : `/foods?category=${id}`,
       scroll: false,
     };

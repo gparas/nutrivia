@@ -23,12 +23,14 @@ declare module '@mui/material/styles' {
     fat: Palette['primary'];
     protein: Palette['primary'];
     accent: Palette['primary'];
+    neutral: Palette['primary'];
   }
   interface PaletteOptions {
     carbs: PaletteOptions['primary'];
     fat: PaletteOptions['primary'];
     protein: PaletteOptions['primary'];
     accent: PaletteOptions['primary'];
+    neutral: PaletteOptions['primary'];
   }
 }
 
@@ -57,6 +59,9 @@ declare module '@mui/material/Badge' {
 declare module '@mui/material/Button' {
   interface ButtonPropsVariantOverrides {
     soft: true;
+  }
+  interface ButtonPropsColorOverrides {
+    neutral: true;
   }
 }
 
