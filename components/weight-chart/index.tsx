@@ -19,14 +19,25 @@ const ApexChart = dynamic(() => import('react-apexcharts'), {
 
 type Props = {
   profile: Tables<'profiles'>;
-  weights: { date: string; weight: number }[] | [];
+  weights: Tables<'weights'>[] | null;
 } & StackProps;
 
 const WeightChart = ({ profile, weights, ...other }: Props) => {
   const theme = useTheme();
 
-  const initData = { date: profile.created_at, weight: profile.weight };
-  const dataset = [initData, ...weights];
+  const initWeight = {
+    date: profile.created_at,
+    weight: Number(profile.weight),
+  };
+  const logWeight =
+    weights && weights.length
+      ? weights?.map(({ created_at, kg }) => ({
+          date: created_at,
+          weight: kg,
+        }))
+      : [{ date: dayjs().format('YYYY-MM-DD'), weight: initWeight.weight }];
+
+  const dataset = [initWeight, ...logWeight];
 
   const series = [
     {
@@ -69,27 +80,11 @@ const WeightChart = ({ profile, weights, ...other }: Props) => {
     },
     tooltip: {
       theme: theme.palette.mode,
-      x: {
-        format: 'dd MMM yy',
-      },
+      hideEmptySeries: false,
     },
   };
 
   const lastLoggedWeight = Number(dataset[dataset.length - 1].weight);
-
-  const weightDiff = !Number.isNaN(lastLoggedWeight)
-    ? lastLoggedWeight - Number(profile.weight)
-    : Number(profile.weight) - Number(profile.weight);
-
-  const getTextColor = () => {
-    if (profile.goal === 'lose_weight') {
-      return weightDiff <= 0 ? 'success.main' : 'error.main';
-    }
-    if (profile.goal === 'gain_weight') {
-      return weightDiff < 0 ? 'error.main' : 'success.main';
-    }
-    return 'inherit';
-  };
 
   return (
     <Card {...other}>
@@ -107,22 +102,8 @@ const WeightChart = ({ profile, weights, ...other }: Props) => {
               kg
             </Typography>
           </Typography>
-          <Typography
-            variant="body2"
-            color={getTextColor()}
-            fontWeight={500}
-            mb={1}
-          >
-            {weightDiff <= 0 ? <span>&darr;</span> : <span>&uarr;</span>}
-            {Math.abs(Math.round(weightDiff * 100) / 100)}{' '}
-            <Typography
-              variant="inherit"
-              color={'text.secondary'}
-              component="span"
-              fontWeight={400}
-            >
-              kg {weightDiff <= 0 ? 'lost' : 'gain'}
-            </Typography>
+          <Typography variant="body2" color="text.secondary" mb={1}>
+            current weight
           </Typography>
         </Grid>
         <Grid item xs={12} sm={8} md={7}>

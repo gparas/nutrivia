@@ -42,7 +42,7 @@ const KcalOverview = ({ profile, meals }: Props) => {
         </Typography>
       </Typography>
       <Typography variant="body2" color={'text.secondary'} mb={3}>
-        Avg. calories intake this week
+        Avg. calories intake
       </Typography>
       <List>
         <ListItem disableGutters>

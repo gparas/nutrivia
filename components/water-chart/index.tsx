@@ -58,13 +58,10 @@ const WaterChart = ({ dataset }: Props) => {
     grid: {
       show: false,
     },
-    colors: ['#00A0FF'],
+    colors: [theme.palette.info.main],
     tooltip: {
       theme: theme.palette.mode,
       hideEmptySeries: false,
-      x: {
-        format: 'dd MMM yy',
-      },
     },
   };
 
@@ -87,7 +84,7 @@ const WaterChart = ({ dataset }: Props) => {
             </Typography>
           </Typography>
           <Typography variant="body2" color={'text.secondary'}>
-            intake this week
+            water intake
           </Typography>
         </Grid>
         <Grid item xs={12} sm={8} md={7}>

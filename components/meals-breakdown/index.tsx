@@ -18,10 +18,9 @@ import { COLORS } from './constants';
 
 type Props = {
   profile: Tables<'profiles'>;
-  showEditCta?: boolean;
 } & StackProps;
 
-const MealsBreakdown = ({ profile, showEditCta, ...other }: Props) => {
+const MealsBreakdown = ({ profile, ...other }: Props) => {
   const { breakfast, lunch, dinner, snack, kcal_intake } = profile;
   const [open, setOpen] = useState(false);
 

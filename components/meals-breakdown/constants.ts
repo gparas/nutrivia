@@ -1,6 +1,6 @@
 export const COLORS = {
-  breakfast: '#775DD0',
-  lunch: '#00A0FF',
-  dinner: '#3bcde2',
-  snack: '#D857B9',
+  breakfast: '#7E57C2',
+  lunch: '#2196F3',
+  dinner: '#FFB74D',
+  snack: '#FF5252',
 };

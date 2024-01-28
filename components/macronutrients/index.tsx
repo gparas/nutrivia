@@ -16,10 +16,9 @@ import Dialog from '../dialog';
 
 type Props = {
   profile: Tables<'profiles'>;
-  showEditCta?: boolean;
 } & StackProps;
 
-const Macronutrients = ({ profile, showEditCta, ...other }: Props) => {
+const Macronutrients = ({ profile, ...other }: Props) => {
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -75,16 +74,14 @@ const Macronutrients = ({ profile, showEditCta, ...other }: Props) => {
             </Grid>
           ))}
         </Box>
-        {showEditCta && (
-          <Button
-            variant="contained"
-            color="neutral"
-            onClick={handleClickOpen}
-            sx={{ mt: 3, fontWeight: 500 }}
-          >
-            Adjust Macronutrients
-          </Button>
-        )}
+        <Button
+          variant="contained"
+          color="neutral"
+          onClick={handleClickOpen}
+          sx={{ mt: 3, fontWeight: 500 }}
+        >
+          Adjust Macronutrients
+        </Button>
       </Card>
       <Dialog open={open} onClose={handleClose}>
         <MacronutrientsForm profile={profile} onClose={handleClose} />

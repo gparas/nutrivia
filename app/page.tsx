@@ -116,7 +116,7 @@ const HomePage = async () => {
               color="inherit"
               size="small"
               component={Link}
-              href="/progress"
+              href="profile/progress"
               sx={{ fontWeight: 500, bottom: -16 }}
             >
               progress

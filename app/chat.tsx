@@ -87,7 +87,7 @@ const Chat = ({
             <ListItem component="div" disableGutters sx={{ py: 0.25 }}>
               <Badge
                 variant="dot"
-                color="accent"
+                color="success"
                 overlap="circular"
                 anchorOrigin={{
                   vertical: 'bottom',

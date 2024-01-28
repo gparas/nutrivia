@@ -5,7 +5,6 @@ interface Props {
   children: ReactNode;
   overview: ReactNode;
   calories: ReactNode;
-  meals: ReactNode;
   water: ReactNode;
   weight: ReactNode;
 }
@@ -14,7 +13,6 @@ const ProgressLayout = ({
   children,
   overview,
   calories,
-  meals,
   water,
   weight,
 }: Props) => {
@@ -33,9 +31,6 @@ const ProgressLayout = ({
         </Grid>
         <Grid item xs={12} md={6}>
           {water}
-        </Grid>
-        <Grid item xs={12}>
-          {meals}
         </Grid>
       </Grid>
     </>

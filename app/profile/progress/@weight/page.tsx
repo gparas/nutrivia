@@ -19,19 +19,14 @@ const Weight = async () => {
 
   const { data: weights } = await supabase
     .from('weights')
-    .select('created_at, kg')
-    .eq('user_id', user?.id!)
-    .gte('created_at', dayjs().subtract(7, 'days').format('YYYY-MM-DD'))
-    .lte('created_at', dayjs().format('YYYY-MM-DD'));
+    .select()
+    .eq('user_id', user?.id!);
 
   if (!profile) {
     return 'no data';
   }
 
-  const weightsData =
-    weights?.map(({ created_at, kg }) => ({ date: created_at, weight: kg })) ||
-    [];
-  return <WeightChart profile={profile} weights={weightsData} />;
+  return <WeightChart profile={profile} weights={weights} />;
 };
 
 export default Weight;

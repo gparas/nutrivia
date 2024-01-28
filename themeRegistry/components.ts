@@ -100,19 +100,12 @@ const components = {
       }: {
         theme: Theme;
         ownerState: ChipOwnProps;
-      }) => {
-        return {
-          ...(ownerState.variant === 'soft' &&
-            ownerState.color !== 'default' &&
-            ownerState.color !== undefined && {
-              color: darken(theme.palette[ownerState.color].main, 0.7),
-              backgroundColor: lighten(
-                theme.palette[ownerState.color].main,
-                0.6,
-              ),
-            }),
-        };
-      },
+      }) => ({
+        ...(ownerState.color && ownerState.color !== 'default' && {
+          backgroundColor: theme.palette[ownerState.color].light,
+          color: theme.palette[ownerState.color].dark,
+        }),
+      }),
     },
   },
   MuiSlider: {

@@ -46,10 +46,8 @@ const ClientPage = async ({ params: { id } }: { params: { id: string } }) => {
 
   const { data: weights } = await supabase
     .from('weights')
-    .select('created_at, kg')
-    .eq('user_id', id)
-    .gte('created_at', dayjs().subtract(7, 'days').format('YYYY-MM-DD'))
-    .lte('created_at', dayjs().format('YYYY-MM-DD'));
+    .select()
+    .eq('user_id', id);
 
   const { data: water } = await supabase
     .from('water')
@@ -63,9 +61,6 @@ const ClientPage = async ({ params: { id } }: { params: { id: string } }) => {
   }
 
   const dailyCalorieIntake = profile?.kcal_intake || 0;
-  const weightsData =
-    weights?.map(({ created_at, kg }) => ({ date: created_at, weight: kg })) ||
-    [];
 
   return (
     <Grid container spacing={2}>
@@ -75,13 +70,13 @@ const ClientPage = async ({ params: { id } }: { params: { id: string } }) => {
       <Grid item xs={12} md={8}>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6}>
-            <Macronutrients profile={profile} height={'100%'} showEditCta />
+            <Macronutrients profile={profile} height={'100%'} />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <MealsBreakdown profile={profile} height={'100%'} showEditCta />
+            <MealsBreakdown profile={profile} height={'100%'} />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <WeightChart profile={profile} weights={weightsData} />
+            <WeightChart profile={profile} weights={weights} />
           </Grid>
           <Grid item xs={12} sm={6}>
             <WaterChart dataset={getWaterDataset(water)} />

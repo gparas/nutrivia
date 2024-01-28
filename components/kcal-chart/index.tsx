@@ -74,12 +74,12 @@ const KcalChart = ({ dataset, dailyCalorieIntake, ...other }: Props) => {
       yaxis: [
         {
           y: dailyCalorieIntake,
-          borderColor: theme.palette.accent.main,
+          borderColor: theme.palette.success.main,
           label: {
-            borderColor: theme.palette.accent.main,
+            borderColor: theme.palette.success.light,
             style: {
-              color: theme.palette.accent.contrastText,
-              background: theme.palette.accent.main,
+              color: theme.palette.success.dark,
+              background: theme.palette.success.light,
             },
             text: 'Goal intake',
           },

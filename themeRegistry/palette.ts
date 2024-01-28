@@ -1,5 +1,4 @@
 import { PaletteMode, alpha } from '@mui/material';
-import violet from './violet';
 import grey from './grey';
 
 
@@ -7,44 +6,47 @@ const common = {
   black: '#2a2e43'
 }
 
+const primary = {
+  light: '#9575CD',
+  main: '#7E57C2',
+  dark: '#512DA8',
+};
+
+const success = {
+  light: '#C2EEBB',
+  main: '#81C784',
+  dark: '#185F34',
+};
 
 const info = {
-  main: '#008FFB',
+  main: '#2196F3',
 };
 
 const warning  = {
-  main: '#FEB019'
+  light: '#FFDC94',
+  main: '#FFB74D',
+  dark: '#7A3D0E'
+};
+
+const error  = {
+  main: '#FF5252'
 };
 
 const carbs = {
-  main: '#775DD0',
+  main: primary.main,
 };
 
 const protein = {
-  main: '#3bcde2',
+  main: info.main,
 };
 
 const fat = {
-  main: '#D857B9',
-};
-
-const accent = {
-  main: '#57FBDB',
+  main: warning.main,
 };
 
 const light = {
-  primary: {
-    light: violet[100],
-    main: violet[500],
-  },
   secondary: {
-    main: violet[500],
-  },
-  success: {
-    main: '#16a34a',
-  },
-  error: {
-    main: '#ef4444',
+    main: primary.main,
   },
   neutral: {
     main: '#eaebef',
@@ -62,23 +64,13 @@ const light = {
     selected: alpha(common.black, 0.08),
   },
   background: {
-    default: grey[200],
+    default: '#f1f1f1',
   },
 };
 
 const dark = {
-  primary: {
-    light: violet[200],
-    main: violet[500],
-  },
   secondary: {
-    main: violet[300],
-  },
-  success: {
-    main: '#4ade80',
-  },
-  error: {
-    main: '#fb7185',
+    main: primary.light,
   },
   neutral: {
     main: '#454f63',
@@ -111,9 +103,11 @@ const palette = (mode: PaletteMode) => ({
   mode,
   common,
   grey,
+  primary,
+  success,
   info,
-  accent,
   warning,
+  error,
   carbs,
   protein,
   fat,

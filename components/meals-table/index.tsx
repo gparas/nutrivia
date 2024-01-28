@@ -68,17 +68,8 @@ const getColumns = (user_id: string | undefined) => {
     const { value, row } = props;
     const kcalDiff = row.kcal - value;
     const label = kcalDiff <= 0 ? 'on target' : 'exceeded';
-    const icon = kcalDiff <= 0 ? <CheckIcon /> : <WarningIcon />;
     const color = kcalDiff <= 0 ? 'success' : 'warning';
-    return (
-      <Chip
-        size="small"
-        variant="outlined"
-        label={label}
-        icon={icon}
-        color={color}
-      />
-    );
+    return <Chip size="small" label={label} color={color} />;
   }
 
   return [
