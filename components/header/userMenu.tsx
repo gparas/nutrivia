@@ -67,7 +67,7 @@ const UserMenu = ({ user }: { user: User | null }) => {
         </MenuItem>
         <MenuItem
           component={Link}
-          href="profile/progress"
+          href="/profile/progress"
           onClick={handleCloseUserMenu}
         >
           <Typography textAlign="center">Progress</Typography>

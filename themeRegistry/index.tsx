@@ -22,14 +22,12 @@ declare module '@mui/material/styles' {
     carbs: Palette['primary'];
     fat: Palette['primary'];
     protein: Palette['primary'];
-    accent: Palette['primary'];
     neutral: Palette['primary'];
   }
   interface PaletteOptions {
     carbs: PaletteOptions['primary'];
     fat: PaletteOptions['primary'];
     protein: PaletteOptions['primary'];
-    accent: PaletteOptions['primary'];
     neutral: PaletteOptions['primary'];
   }
 }
@@ -47,12 +45,6 @@ declare module '@mui/material/Slider' {
     carbs: true;
     protein: true;
     fat: true;
-  }
-}
-
-declare module '@mui/material/Badge' {
-  interface BadgePropsColorOverrides {
-    accent: true;
   }
 }
 

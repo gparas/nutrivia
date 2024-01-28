@@ -1,16 +1,16 @@
 import { cookies } from 'next/headers';
 import { createClient } from '@/supabase/server';
-import dayjs from 'dayjs';
 import { notFound } from 'next/navigation';
+import dayjs from 'dayjs';
 import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import Card from '@/components/card';
 import WeightChart from '@/components/weight-chart';
 import WaterChart from '@/components/water-chart';
 import MealsTable from '@/components/meals-table';
-import UserInfo from '@/components/user-info';
-import Macronutrients from '@/components/macronutrients';
-import { getWaterDataset } from '@/lib/utils';
-import { Meals } from '@/types/meals';
-import MealsBreakdown from '@/components/meals-breakdown';
+import UserInfo from './components/user-info';
+import Macronutrients from './components/macronutrients';
+import MealsBreakdown from './components/meals-breakdown';
 
 const ClientPage = async ({ params: { id } }: { params: { id: string } }) => {
   const cookieStore = cookies();
@@ -24,21 +24,7 @@ const ClientPage = async ({ params: { id } }: { params: { id: string } }) => {
 
   const { data: meals } = await supabase
     .from('meals')
-    .select(
-      `
-    created_at,
-    foods (
-      id,
-      image,
-      name,
-      category,
-      kcal,
-      carbs,
-      protein,
-      fat
-    )
-  `,
-    )
+    .select(`id, created_at, foods (image,name,category,kcal)`)
     .eq('user_id', id)
     .order('created_at', { ascending: false })
     .gte('created_at', dayjs().subtract(7, 'days').format('YYYY-MM-DD'))
@@ -51,7 +37,7 @@ const ClientPage = async ({ params: { id } }: { params: { id: string } }) => {
 
   const { data: water } = await supabase
     .from('water')
-    .select('created_at, liter')
+    .select()
     .eq('user_id', id)
     .gte('created_at', dayjs().subtract(7, 'days').format('YYYY-MM-DD'))
     .lte('created_at', dayjs().format('YYYY-MM-DD'));
@@ -59,8 +45,6 @@ const ClientPage = async ({ params: { id } }: { params: { id: string } }) => {
   if (!meals || !profile) {
     return notFound();
   }
-
-  const dailyCalorieIntake = profile?.kcal_intake || 0;
 
   return (
     <Grid container spacing={2}>
@@ -79,28 +63,21 @@ const ClientPage = async ({ params: { id } }: { params: { id: string } }) => {
             <WeightChart profile={profile} weights={weights} />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <WaterChart dataset={getWaterDataset(water)} />
+            <WaterChart water={water} />
           </Grid>
           <Grid item xs={12}>
-            <MealsTable
-              user_id={id}
-              meals={meals.map((meal, index) => {
-                const status =
-                  (dailyCalorieIntake *
-                    profile[meal.foods?.category as keyof Meals]) /
-                  100;
-                return {
-                  id: index,
-                  meal_id: meal.foods?.id,
-                  image: meal.foods?.image,
-                  name: meal.foods?.name,
-                  category: meal.foods?.category,
-                  kcal: meal.foods?.kcal,
-                  date: meal.created_at,
-                  status: Math.round(status),
-                };
-              })}
-            />
+            <Card p={1}>
+              <Typography variant="h6" fontWeight={500} p={1}>
+                Meals
+              </Typography>
+              <MealsTable
+                rows={meals.map(meal => ({
+                  id: meal.id,
+                  created_at: meal.created_at,
+                  ...meal.foods,
+                }))}
+              />
+            </Card>
           </Grid>
         </Grid>
       </Grid>

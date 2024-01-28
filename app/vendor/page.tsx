@@ -6,11 +6,11 @@ import Stack from '@mui/material/Stack';
 import PageTitle from '@/components/page-title';
 import SalesChart from './sales-chart';
 import Grid from '@mui/material/Grid';
+import Button from '@mui/material/Button';
+import Card from '@/components/card';
+import MealsTable from '@/components/meals-table';
 import TotalSales from './total-sales';
 import OrdersTable from './orders-table';
-import MealsTable from './meals-table';
-import Card from '@/components/card';
-import Button from '@mui/material/Button';
 
 const VendorPage = async () => {
   const cookieStore = cookies();
@@ -48,8 +48,7 @@ const VendorPage = async () => {
                 View all
               </Button>
             </Stack>
-
-            <MealsTable meals={foods || []} />
+            <MealsTable rows={foods || []} />
           </Card>
         </Grid>
       </Grid>

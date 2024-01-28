@@ -11,9 +11,9 @@ import Stack, { StackProps } from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import Card from '@/components/card';
+import Dialog from '@/components/dialog';
 import Chart from './chart';
 import AdjustMealsForm from './form';
-import Dialog from '../dialog';
 import { COLORS } from './constants';
 
 type Props = {

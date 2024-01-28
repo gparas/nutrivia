@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import ArrowBackIcon from '@mui/icons-material/ArrowBackRounded';
-import ClientTabs from './tabs';
+import ClientTabs from './components/tabs';
 import Link from 'next/link';
 
 interface Props {

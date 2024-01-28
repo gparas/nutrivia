@@ -1,11 +1,13 @@
 'use client';
 
 import { useTheme } from '@mui/material/styles';
+import { Tables } from '@/types/supabase';
 import dynamic from 'next/dynamic';
 import Card from '@/components/card';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import ComponentLoader from '@/components/component-loader';
+import { getWaterDataset } from './utils';
 
 const CHART_HEIGHT = 144;
 
@@ -15,11 +17,13 @@ const ApexChart = dynamic(() => import('react-apexcharts'), {
 });
 
 interface Props {
-  dataset: { liter: number; date: string }[];
+  water: Tables<'water'>[] | null;
 }
 
-const WaterChart = ({ dataset }: Props) => {
+const WaterChart = ({ water }: Props) => {
   const theme = useTheme();
+
+  const dataset = getWaterDataset(water);
 
   const series = [
     {

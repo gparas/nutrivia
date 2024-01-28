@@ -155,8 +155,8 @@ const Chat = ({
                 <Box
                   mt={1}
                   p={1.5}
-                  bgcolor="secondary.main"
-                  color="secondary.contrastText"
+                  bgcolor="primary.main"
+                  color="primary.contrastText"
                   maxWidth={320}
                   borderRadius={1}
                 >
@@ -220,8 +220,8 @@ const Chat = ({
                 <Box
                   mt={1}
                   p={1.5}
-                  bgcolor="secondary.main"
-                  color="secondary.contrastText"
+                  bgcolor="primary.main"
+                  color="primary.contrastText"
                   maxWidth={320}
                   borderRadius={1}
                 >
@@ -245,8 +245,8 @@ const Chat = ({
                 <Box
                   mt={1}
                   p={1.5}
-                  bgcolor="secondary.main"
-                  color="secondary.contrastText"
+                  bgcolor="primary.main"
+                  color="primary.contrastText"
                   maxWidth={320}
                   borderRadius={1}
                 >

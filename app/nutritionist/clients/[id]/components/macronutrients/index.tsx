@@ -9,10 +9,10 @@ import Divider from '@mui/material/Divider';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Card from '@/components/card';
+import Dialog from '@/components/dialog';
 import { getNutrientsData } from '@/lib/utils';
 import Chart from './chart';
 import MacronutrientsForm from './form';
-import Dialog from '../dialog';
 
 type Props = {
   profile: Tables<'profiles'>;

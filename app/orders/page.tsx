@@ -1,6 +1,7 @@
 import { cookies } from 'next/headers';
 import { createClient } from '@/supabase/server';
 import dayjs from 'dayjs';
+import Card from '@/components/card';
 import MealsTable from '@/components/meals-table';
 import PageTitle from '@/components/page-title';
 
@@ -20,26 +21,12 @@ const FoodsOrderedPage = async ({
 
   const { data: meals } = await supabase
     .from('meals')
-    .select(
-      `
-    created_at,
-    foods (
-      id,
-      image,
-      name,
-      category,
-      kcal,
-      carbs,
-      protein,
-      fat
-    )
-  `,
-    )
+    .select(`id, created_at, foods (image,name,category,kcal)`)
     .eq('user_id', user?.id!)
     .eq('created_at', date);
 
   if (!meals) {
-    return <MealsTable meals={[]} />;
+    return <MealsTable rows={[]} />;
   }
 
   return (
@@ -47,23 +34,15 @@ const FoodsOrderedPage = async ({
       <PageTitle mb={3}>
         Meals ordered - {dayjs(date).format('DD MMM')}
       </PageTitle>
-      <MealsTable
-        user_id={user?.id}
-        meals={meals.map((meal, index) => {
-          return {
-            id: index,
-            meal_id: meal.foods?.id,
-            image: meal.foods?.image,
-            name: meal.foods?.name,
-            category: meal.foods?.category,
-            kcal: meal.foods?.kcal,
-            carbs: meal.foods?.carbs,
-            protein: meal.foods?.protein,
-            date: meal.created_at,
-            fat: meal.foods?.fat,
-          };
-        })}
-      />
+      <Card p={1}>
+        <MealsTable
+          rows={meals.map(meal => ({
+            id: meal.id,
+            created_at: meal.created_at,
+            ...meal.foods,
+          }))}
+        />
+      </Card>
     </>
   );
 };

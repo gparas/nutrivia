@@ -6,7 +6,7 @@ import PageTitle from '@/components/page-title';
 import Button from '@mui/material/Button';
 import Link from 'next/link';
 import Card from '@/components/card';
-import MealsTable from '../meals-table';
+import MealsTable from '@/components/meals-table';
 
 const ProductsPage = async () => {
   const cookieStore = cookies();
@@ -37,7 +37,7 @@ const ProductsPage = async () => {
         </Button>
       </Stack>
       <Card p={1}>
-        <MealsTable meals={foods || []} />
+        <MealsTable rows={foods || []} />
       </Card>
     </>
   );

@@ -168,13 +168,10 @@ type Meals = {
   } | null;
 }[];
 
-const getDays = () => {
-  const days = [];
-  for (let i = 0; i < 7; i++) {
-    days.push(dayjs().subtract(i, 'days').format('YYYY-MM-DD'));
-  }
-  return days;
-};
+export const getWeekdays = () =>
+  [...Array(7).keys()].map(key =>
+    dayjs().subtract(key, 'days').format('YYYY-MM-DD'),
+  );
 
 export const getNutritionDataset = (meals: Meals) => [
   {
@@ -205,7 +202,7 @@ export const getNutritionDataset = (meals: Meals) => [
 
 export const getKcalDataset = (meals: Meals) => {
   const mealsGroup = groupBy(meals, i => i.created_at);
-  const days = getDays();
+  const days = getWeekdays();
 
   return days.reverse().map(day => {
     const mealsData = Object.keys(mealsGroup).find(key => key === day);
@@ -218,24 +215,6 @@ export const getKcalDataset = (meals: Meals) => {
             ),
           )
         : 0,
-      date: dayjs(day).format('YYYY-MM-DD'),
-    };
-  });
-};
-
-type Water =
-  | {
-      created_at: string;
-      liter: number;
-    }[]
-  | null;
-
-export const getWaterDataset = (water: Water) => {
-  const days = getDays();
-  return days.reverse().map(day => {
-    const liter = water?.find(({ created_at }) => created_at === day)?.liter;
-    return {
-      liter: Number(liter) || 0,
       date: dayjs(day).format('YYYY-MM-DD'),
     };
   });
