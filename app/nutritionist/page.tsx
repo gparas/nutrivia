@@ -1,21 +1,16 @@
-import { cookies } from 'next/headers';
-import { createClient } from '@/supabase/server';
-import PageTitle from '@/components/page-title';
+import { Suspense } from 'react';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
-import PerformanceChart from './performance-chart';
-import NextPayout from './next-payout';
-import Earnings from './earnings';
-import Conversion from './conversion';
-import AffiliateLink from './affiliate-link';
-import ClientsTable from './clients-table';
+import PageTitle from '@/components/page-title';
+import PerformanceChart from './components/performance-chart';
+import NextPayout from './components/next-payout';
+import Earnings from './components/earnings';
+import Conversion from './components/conversion';
+import AffiliateLink from './components/affiliate-link';
+import Clients from './components/clients';
+import { TableSkeletonCard } from '@/components/table-skeleton';
 
 const NutritionistPage = async () => {
-  const cookieStore = cookies();
-  const supabase = createClient(cookieStore);
-
-  const { data: profiles } = await supabase.from('profiles').select();
-
   return (
     <>
       <Stack
@@ -41,7 +36,9 @@ const NutritionistPage = async () => {
           <Conversion />
         </Grid>
         <Grid item xs={12}>
-          <ClientsTable profiles={profiles || []} />
+          <Suspense fallback={<TableSkeletonCard />}>
+            <Clients />
+          </Suspense>
         </Grid>
       </Grid>
     </>

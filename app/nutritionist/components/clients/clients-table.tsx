@@ -1,21 +1,27 @@
 'use client';
 
 import {
-  DataGrid,
   GridRowsProp,
   GridColDef,
   GridRenderCellParams,
 } from '@mui/x-data-grid';
+import dynamic from 'next/dynamic';
 import NextLink from 'next/link';
 import Link from '@mui/material/Link';
-import Typography from '@mui/material/Typography';
-import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
-import Card from '@/components/card';
 import { getYearsOld } from '@/lib/utils';
 import { PROFILE } from '@/lib/constants';
-import Button from '@mui/material/Button';
 import { Tables } from '@/types/supabase';
+import { TableSkeleton } from '@/components/table-skeleton';
+
+const DataGrid = dynamic(
+  () =>
+    import('@mui/x-data-grid').then(module => ({ default: module.DataGrid })),
+  {
+    loading: () => <TableSkeleton />,
+    ssr: false,
+  },
+);
 
 function RenderAge(props: GridRenderCellParams) {
   const { value } = props;
@@ -107,29 +113,7 @@ type Props = {
 
 const ClientsTable = ({ profiles }: Props) => {
   const rows: GridRowsProp = profiles;
-  return (
-    <Card p={1}>
-      <Stack
-        direction="row"
-        alignItems="center"
-        justifyContent="space-between"
-        p={1}
-      >
-        <Typography variant="h6" fontWeight={500}>
-          Clients
-        </Typography>
-        <Button
-          variant="text"
-          color="inherit"
-          component={NextLink}
-          href="/nutritionist/clients"
-        >
-          view all
-        </Button>
-      </Stack>
-      <DataGrid rows={rows} columns={columns} />
-    </Card>
-  );
+  return <DataGrid rows={rows} columns={columns} />;
 };
 
 export default ClientsTable;

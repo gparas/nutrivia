@@ -1,6 +1,6 @@
 import { BackdropProps, ButtonOwnProps, ChipOwnProps, Theme } from '@mui/material';
 
-import { alpha, darken, lighten } from '@mui/material/styles';
+import { alpha } from '@mui/material/styles';
 import { linearProgressClasses } from '@mui/material/LinearProgress';
 import type {} from '@mui/x-data-grid/themeAugmentation';
 import { gridClasses } from '@mui/x-data-grid';
@@ -114,6 +114,15 @@ const components = {
         return {
           backgroundColor: theme.palette.text.primary,
           opacity: 0.2,
+        };
+      },
+    },
+  },
+  MuiTableCell: {
+    styleOverrides: {
+      root: ({ theme }: { theme: Theme }) => {
+        return {
+          borderColor: alpha(theme.palette.text.primary, 0.08),
         };
       },
     },
