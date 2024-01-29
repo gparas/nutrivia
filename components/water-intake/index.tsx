@@ -1,74 +1,28 @@
-'use client';
-
-import { useTheme } from '@mui/material/styles';
-import { Tables } from '@/types/supabase';
-import dynamic from 'next/dynamic';
-import Card from '@/components/card';
-import Typography from '@mui/material/Typography';
+import { cookies } from 'next/headers';
+import { createClient } from '@/supabase/server';
+import dayjs from 'dayjs';
 import Grid from '@mui/material/Grid';
-import ComponentLoader from '@/components/component-loader';
+import Typography from '@mui/material/Typography';
+import Card from '@/components/card';
 import { getWaterDataset } from './utils';
-
-const CHART_HEIGHT = 144;
-
-const ApexChart = dynamic(() => import('react-apexcharts'), {
-  loading: () => <ComponentLoader height={CHART_HEIGHT} />,
-  ssr: false,
-});
+import WaterChart from './chart';
 
 interface Props {
-  water: Tables<'water'>[] | null;
+  user_id: string;
 }
 
-const WaterIntake = ({ water }: Props) => {
-  const theme = useTheme();
+const WaterIntake = async ({ user_id }: Props) => {
+  const cookieStore = cookies();
+  const supabase = createClient(cookieStore);
+
+  const { data: water } = await supabase
+    .from('water')
+    .select()
+    .eq('user_id', user_id)
+    .gte('created_at', dayjs().subtract(7, 'days').format('YYYY-MM-DD'))
+    .lte('created_at', dayjs().format('YYYY-MM-DD'));
 
   const dataset = getWaterDataset(water);
-
-  const series = [
-    {
-      name: 'Liter',
-      data: dataset.map(item => item.liter),
-    },
-  ];
-  const options = {
-    chart: {
-      toolbar: {
-        show: false,
-      },
-    },
-    dataLabels: {
-      enabled: false,
-    },
-    stroke: {
-      curve: 'straight',
-    } as const,
-    xaxis: {
-      axisBorder: {
-        show: false,
-      },
-      axisTicks: {
-        show: false,
-      },
-      type: 'datetime',
-      categories: dataset.map(item => item.date),
-      labels: {
-        show: false,
-      },
-    } as const,
-    yaxis: {
-      show: false,
-    },
-    grid: {
-      show: false,
-    },
-    colors: [theme.palette.info.main],
-    tooltip: {
-      theme: theme.palette.mode,
-      hideEmptySeries: false,
-    },
-  };
-
   const totalWater = dataset.reduce((acc, cur) => acc + cur.liter, 0);
 
   return (
@@ -92,13 +46,7 @@ const WaterIntake = ({ water }: Props) => {
           </Typography>
         </Grid>
         <Grid item xs={12} sm={8} md={7}>
-          <ApexChart
-            options={options}
-            series={series}
-            type="area"
-            height={CHART_HEIGHT}
-            width={'100%'}
-          />
+          <WaterChart dataset={dataset} />
         </Grid>
       </Grid>
     </Card>

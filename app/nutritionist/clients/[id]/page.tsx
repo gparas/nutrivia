@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { cookies } from 'next/headers';
 import { createClient } from '@/supabase/server';
 import { notFound } from 'next/navigation';
@@ -6,6 +7,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Card from '@/components/card';
 import MealsTable from '@/components/meals-table';
+import CardLoader from '@/components/card-loader';
 import UserInfo from './components/user-info';
 import Macronutrients from './components/macronutrients';
 import MealsBreakdown from './components/meals-breakdown';
@@ -30,18 +32,6 @@ const ClientPage = async ({ params: { id } }: { params: { id: string } }) => {
     .gte('created_at', dayjs().subtract(7, 'days').format('YYYY-MM-DD'))
     .lte('created_at', dayjs().format('YYYY-MM-DD'));
 
-  const { data: weights } = await supabase
-    .from('weights')
-    .select()
-    .eq('user_id', id);
-
-  const { data: water } = await supabase
-    .from('water')
-    .select()
-    .eq('user_id', id)
-    .gte('created_at', dayjs().subtract(7, 'days').format('YYYY-MM-DD'))
-    .lte('created_at', dayjs().format('YYYY-MM-DD'));
-
   if (!meals || !profile) {
     return notFound();
   }
@@ -60,10 +50,14 @@ const ClientPage = async ({ params: { id } }: { params: { id: string } }) => {
             <MealsBreakdown profile={profile} height={'100%'} />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <WeightTrack profile={profile} weights={weights} />
+            <Suspense fallback={<CardLoader height={240} />}>
+              <WeightTrack user_id={id} />
+            </Suspense>
           </Grid>
           <Grid item xs={12} sm={6}>
-            <WaterIntake water={water} />
+            <Suspense fallback={<CardLoader height={240} />}>
+              <WaterIntake user_id={id} />
+            </Suspense>
           </Grid>
           <Grid item xs={12}>
             <Card p={1}>

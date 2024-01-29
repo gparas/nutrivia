@@ -1,11 +1,8 @@
 'use client';
 
-import { useTheme } from '@mui/material/styles';
+import { alpha, useTheme } from '@mui/material/styles';
 import dynamic from 'next/dynamic';
-import Typography from '@mui/material/Typography';
-import Card from '@/components/card';
 import ComponentLoader from '@/components/component-loader';
-import { StackProps, alpha } from '@mui/material';
 
 const CHART_HEIGHT = 320;
 
@@ -14,12 +11,15 @@ const ApexChart = dynamic(() => import('react-apexcharts'), {
   ssr: false,
 });
 
-type Props = {
+interface Props {
   dailyCalorieIntake: number;
-  dataset: { eaten: number; date: string }[];
-} & StackProps;
+  dataset: {
+    date: string;
+    eaten: number;
+  }[];
+}
 
-const KcalChart = ({ dataset, dailyCalorieIntake, ...other }: Props) => {
+const CaloriesChart = ({ dataset, dailyCalorieIntake }: Props) => {
   const theme = useTheme();
 
   const valueFormatter = (value: number) => `${value} kcal`;
@@ -121,22 +121,15 @@ const KcalChart = ({ dataset, dailyCalorieIntake, ...other }: Props) => {
       },
     },
   } as const;
-
   return (
-    <Card {...other}>
-      <Typography variant="h6">Calories</Typography>
-      <Typography variant="body2" color="text.secondary" mb={3}>
-        Goal {dailyCalorieIntake} kcal / day
-      </Typography>
-      <ApexChart
-        type="bar"
-        options={options}
-        series={series}
-        height={CHART_HEIGHT}
-        width="100%"
-      />
-    </Card>
+    <ApexChart
+      type="bar"
+      options={options}
+      series={series}
+      height={CHART_HEIGHT}
+      width="100%"
+    />
   );
 };
 
-export default KcalChart;
+export default CaloriesChart;
