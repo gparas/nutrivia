@@ -1,7 +1,7 @@
 import { cookies } from 'next/headers';
 import { createClient } from '@/supabase/server';
 import dayjs from 'dayjs';
-import KcalOverview from '@/components/kcal-overview';
+import KcalOverview from './kcal-overview';
 
 const Overview = async () => {
   const cookieStore = cookies();

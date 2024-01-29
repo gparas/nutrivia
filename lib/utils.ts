@@ -103,46 +103,6 @@ export const getRecommendedMacros = ({
   };
 };
 
-export const getEatenMacros = (
-  meals:
-    | {
-        foods: {
-          carbs: string;
-          fat: string;
-          protein: string;
-        } | null;
-      }[]
-    | null,
-) => {
-  if (!meals) {
-    return [{ carbs: 0, protein: 0, fat: 0 }];
-  }
-  return meals.map(({ foods }) => {
-    if (!foods) {
-      return { carbs: 0, protein: 0, fat: 0 };
-    }
-    return {
-      carbs: Number(foods.carbs),
-      protein: Number(foods.protein),
-      fat: Number(foods.fat),
-    };
-  });
-};
-
-type DailyKcal =
-  | {
-      meals: {
-        kcal: number;
-      } | null;
-    }[]
-  | null;
-
-export const getDailyKcal = (data: DailyKcal) => {
-  if (!data || !data.length) return 0;
-
-  return data.reduce((acc, cur) => acc + cur.meals?.kcal!, 0);
-};
-
 export const priceFormat = (price: number) => {
   const currency = Intl.NumberFormat('en-DE', {
     style: 'currency',
@@ -172,33 +132,6 @@ export const getWeekdays = () =>
   [...Array(7).keys()].map(key =>
     dayjs().subtract(key, 'days').format('YYYY-MM-DD'),
   );
-
-export const getNutritionDataset = (meals: Meals) => [
-  {
-    id: 'carbs',
-    label: 'carbs',
-    value: Math.round(
-      meals.reduce((acc, cur) => acc + Number(cur.foods?.carbs), 0) /
-        meals.length,
-    ),
-  },
-  {
-    id: 'protein',
-    label: 'protein',
-    value: Math.round(
-      meals.reduce((acc, cur) => acc + Number(cur.foods?.protein)!, 0) /
-        meals.length,
-    ),
-  },
-  {
-    id: 'fat',
-    label: 'fat',
-    value: Math.round(
-      meals.reduce((acc, cur) => acc + Number(cur.foods?.fat)!, 0) /
-        meals.length,
-    ),
-  },
-];
 
 export const getKcalDataset = (meals: Meals) => {
   const mealsGroup = groupBy(meals, i => i.created_at);

@@ -1,8 +1,8 @@
 'use client';
 
+import ComponentLoader from '@/components/component-loader';
 import { alpha, useTheme } from '@mui/material/styles';
 import dynamic from 'next/dynamic';
-import ComponentLoader from '../component-loader';
 
 interface Props {
   dailyCalorieIntake: number;
@@ -12,11 +12,11 @@ interface Props {
 const CHART_HEIGHT = 300;
 
 const ApexChart = dynamic(() => import('react-apexcharts'), {
-  loading: () => <ComponentLoader height={CHART_HEIGHT} />,
+  loading: () => <ComponentLoader height={270} />,
   ssr: false,
 });
 
-const HomeKcalChart = ({ dailyCalorieIntake, dailyKcalEaten }: Props) => {
+const KcalIntake = ({ dailyCalorieIntake, dailyKcalEaten }: Props) => {
   const theme = useTheme();
   const options = {
     chart: {
@@ -70,4 +70,4 @@ const HomeKcalChart = ({ dailyCalorieIntake, dailyKcalEaten }: Props) => {
   );
 };
 
-export default HomeKcalChart;
+export default KcalIntake;

@@ -1,7 +1,6 @@
 import { cookies } from 'next/headers';
 import { createClient } from '@/supabase/server';
-import dayjs from 'dayjs';
-import WeightChart from '@/components/weight-chart';
+import WeightTrack from '@/components/weight-track';
 
 const Weight = async () => {
   const cookieStore = cookies();
@@ -26,7 +25,7 @@ const Weight = async () => {
     return 'no data';
   }
 
-  return <WeightChart profile={profile} weights={weights} />;
+  return <WeightTrack profile={profile} weights={weights} />;
 };
 
 export default Weight;

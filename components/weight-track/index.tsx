@@ -22,7 +22,7 @@ type Props = {
   weights: Tables<'weights'>[] | null;
 } & StackProps;
 
-const WeightChart = ({ profile, weights, ...other }: Props) => {
+const WeightTrack = ({ profile, weights, ...other }: Props) => {
   const theme = useTheme();
 
   const initWeight = {
@@ -120,4 +120,4 @@ const WeightChart = ({ profile, weights, ...other }: Props) => {
   );
 };
 
-export default WeightChart;
+export default WeightTrack;

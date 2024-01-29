@@ -5,12 +5,12 @@ import dayjs from 'dayjs';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Card from '@/components/card';
-import WeightChart from '@/components/weight-chart';
-import WaterChart from '@/components/water-chart';
 import MealsTable from '@/components/meals-table';
 import UserInfo from './components/user-info';
 import Macronutrients from './components/macronutrients';
 import MealsBreakdown from './components/meals-breakdown';
+import WeightTrack from '@/components/weight-track';
+import WaterIntake from '@/components/water-intake';
 
 const ClientPage = async ({ params: { id } }: { params: { id: string } }) => {
   const cookieStore = cookies();
@@ -60,10 +60,10 @@ const ClientPage = async ({ params: { id } }: { params: { id: string } }) => {
             <MealsBreakdown profile={profile} height={'100%'} />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <WeightChart profile={profile} weights={weights} />
+            <WeightTrack profile={profile} weights={weights} />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <WaterChart water={water} />
+            <WaterIntake water={water} />
           </Grid>
           <Grid item xs={12}>
             <Card p={1}>

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
+import { Tables } from '@/types/supabase';
 import Zoom from '@mui/material/Zoom';
 import Fab from '@mui/material/Fab';
 import Popover from '@mui/material/Popover';
@@ -22,10 +22,10 @@ import Avatar from '@mui/material/Avatar';
 import Image from 'next/image';
 import ChatIcon from '@mui/icons-material/Chat';
 
-const Chat = ({
-  nutrionist,
+const ChatPopover = ({
+  nutritionist,
 }: {
-  nutrionist: { id: string; name: string; image: string } | null;
+  nutritionist: Tables<'nutritionists'>;
 }) => {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
@@ -40,8 +40,7 @@ const Chat = ({
   const open = Boolean(anchorEl);
   const id = open ? 'chat-popover' : undefined;
 
-  if (!nutrionist) return null;
-  const firstName = nutrionist.name.split(' ')[0];
+  const firstName = nutritionist.name.split(' ')[0];
   return (
     <>
       <Zoom in unmountOnExit>
@@ -96,8 +95,8 @@ const Chat = ({
               >
                 <Avatar sx={{ width: 40, height: 40 }}>
                   <Image
-                    alt={nutrionist.name}
-                    src={nutrionist.image}
+                    alt={nutritionist.name}
+                    src={nutritionist.image}
                     width={40}
                     height={40}
                     style={{ objectFit: 'fill' }}
@@ -105,7 +104,7 @@ const Chat = ({
                 </Avatar>
               </Badge>
               <ListItemText
-                primary={nutrionist.name}
+                primary={nutritionist.name}
                 secondary="Online"
                 secondaryTypographyProps={{
                   sx: { opacity: 0.54, color: 'inherit' },
@@ -293,4 +292,4 @@ const Chat = ({
   );
 };
 
-export default Chat;
+export default ChatPopover;

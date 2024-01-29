@@ -1,7 +1,7 @@
 import { cookies } from 'next/headers';
 import { createClient } from '@/supabase/server';
 import dayjs from 'dayjs';
-import WaterChart from '@/components/water-chart';
+import WaterIntake from '@/components/water-intake';
 
 const Water = async () => {
   const cookieStore = cookies();
@@ -27,7 +27,7 @@ const Water = async () => {
   if (!profile) {
     return 'no data';
   }
-  return <WaterChart water={water} />;
+  return <WaterIntake water={water} />;
 };
 
 export default Water;

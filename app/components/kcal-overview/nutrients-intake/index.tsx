@@ -14,7 +14,7 @@ interface Props {
   }[];
 }
 
-const DailyNutrientsIntake = ({ profile, eatenMacros }: Props) => {
+const NutrientsIntake = ({ profile, eatenMacros }: Props) => {
   const { recommendedCarbs, recommendedProtein, recommendedFat } =
     getRecommendedMacros(profile);
 
@@ -66,4 +66,4 @@ const DailyNutrientsIntake = ({ profile, eatenMacros }: Props) => {
   );
 };
 
-export default DailyNutrientsIntake;
+export default NutrientsIntake;

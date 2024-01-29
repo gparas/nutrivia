@@ -2,7 +2,7 @@ import { cookies } from 'next/headers';
 import { createClient } from '@/supabase/server';
 import dayjs from 'dayjs';
 import { getKcalDataset } from '@/lib/utils';
-import KcalChart from '@/components/kcal-chart';
+import KcalChart from './chart';
 
 const Calories = async () => {
   const cookieStore = cookies();

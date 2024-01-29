@@ -20,7 +20,7 @@ interface Props {
   water: Tables<'water'>[] | null;
 }
 
-const WaterChart = ({ water }: Props) => {
+const WaterIntake = ({ water }: Props) => {
   const theme = useTheme();
 
   const dataset = getWaterDataset(water);
@@ -105,4 +105,4 @@ const WaterChart = ({ water }: Props) => {
   );
 };
 
-export default WaterChart;
+export default WaterIntake;
