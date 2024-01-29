@@ -35,7 +35,7 @@ const ProgressPage = async () => {
           </Suspense>
         </Grid>
         <Grid item xs={12} md={4} order={[-1, -1, 0]}>
-          <Suspense fallback={<CardLoader height={440} />}>
+          <Suspense fallback={<CardLoader minHeight={344} height={'100%'} />}>
             <Overview user_id={user.id} />
           </Suspense>
         </Grid>

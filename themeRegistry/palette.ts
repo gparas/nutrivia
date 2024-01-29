@@ -7,9 +7,9 @@ const common = {
 }
 
 const primary = {
-  light: '#9575CD',
+  light: '#C09EEC',
   main: '#7E57C2',
-  dark: '#512DA8',
+  dark: '#472B8B',
 };
 
 const success = {
