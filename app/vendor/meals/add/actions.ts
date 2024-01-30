@@ -14,10 +14,10 @@ export async function insertFood(data: InitData, formData: FormData) {
 
   try {
     await supabase.from('foods').upsert(mergeData);
-    revalidatePath('/vendor/meals');
+    revalidatePath('/vendor');
   } catch (error) {
     console.log(error);
   } finally {
-    redirect('/vendor/meals');
+    redirect('/vendor');
   }
 }

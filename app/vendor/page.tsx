@@ -1,5 +1,3 @@
-import { cookies } from 'next/headers';
-import { createClient } from '@/supabase/server';
 import NextLink from 'next/link';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
@@ -8,15 +6,13 @@ import SalesChart from './sales-chart';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import Card from '@/components/card';
-import MealsTable from '@/components/meals-table';
 import TotalSales from './total-sales';
 import OrdersTable from './orders-table';
+import FoodsTable from '@/components/foods-table';
+import { Suspense } from 'react';
+import { TableSkeleton } from '@/components/table-skeleton';
 
-const VendorPage = async () => {
-  const cookieStore = cookies();
-  const supabase = createClient(cookieStore);
-
-  const { data: foods } = await supabase.from('foods').select().range(0, 4);
+const VendorPage = () => {
   return (
     <>
       <PageTitle mb={4}>Vendor</PageTitle>
@@ -38,17 +34,19 @@ const VendorPage = async () => {
               justifyContent="space-between"
               p={1}
             >
-              <Typography variant="h6">Top Meals</Typography>
+              <Typography variant="h6">Meals</Typography>
               <Button
                 variant="text"
                 color="inherit"
                 component={NextLink}
-                href="vendor/meals"
+                href="vendor/meals/add"
               >
-                View all
+                Add meal
               </Button>
             </Stack>
-            <MealsTable rows={foods || []} />
+            <Suspense fallback={<TableSkeleton />}>
+              <FoodsTable />
+            </Suspense>
           </Card>
         </Grid>
       </Grid>

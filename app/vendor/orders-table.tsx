@@ -1,12 +1,23 @@
 'use client';
 
-import { DataGrid, GridRowsProp, GridRenderCellParams } from '@mui/x-data-grid';
+import { GridRowsProp, GridRenderCellParams } from '@mui/x-data-grid';
+import dynamic from 'next/dynamic';
 import Typography from '@mui/material/Typography';
 import Chip from '@mui/material/Chip';
 import Card from '@/components/card';
 import CheckIcon from '@mui/icons-material/Check';
 import WarningIcon from '@mui/icons-material/ErrorOutline';
 import { ORDERS } from './constants';
+import { TableSkeleton } from '@/components/table-skeleton';
+
+const DataGrid = dynamic(
+  () =>
+    import('@mui/x-data-grid').then(module => ({ default: module.DataGrid })),
+  {
+    loading: () => <TableSkeleton />,
+    ssr: false,
+  },
+);
 
 function RenderStatus(props: GridRenderCellParams) {
   const { value } = props;

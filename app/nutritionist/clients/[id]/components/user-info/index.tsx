@@ -1,8 +1,8 @@
-import { ReactNode } from 'react';
-import { Tables } from '@/types/supabase';
+import { cookies } from 'next/headers';
+import { createClient } from '@/supabase/server';
 import Image from 'next/image';
 import Typography from '@mui/material/Typography';
-import Stack, { StackProps } from '@mui/material/Stack';
+import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 import Avatar from '@mui/material/Avatar';
 import Card from '@/components/card';
@@ -12,16 +12,24 @@ import ListItemText from '@mui/material/ListItemText';
 import { getYearsOld } from '@/lib/utils';
 import { PROFILE } from '@/lib/constants';
 
-type Props = {
-  profile: Tables<'profiles'>;
-  children?: ReactNode;
-} & StackProps;
-
 const AVATAR_SIZE = 96;
 
-const UserInfo = ({ profile, children, ...other }: Props) => {
+const UserInfo = async ({ user_id }: { user_id: string }) => {
+  const cookieStore = cookies();
+  const supabase = createClient(cookieStore);
+
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select()
+    .eq('id', user_id)
+    .single();
+
+  if (!profile) {
+    return null;
+  }
+
   return (
-    <Card p={0} {...other}>
+    <Card p={0}>
       <Stack alignItems="center" p={2}>
         <Avatar
           sx={{
@@ -111,7 +119,6 @@ const UserInfo = ({ profile, children, ...other }: Props) => {
           </Typography>
         </ListItem>
       </List>
-      {children}
     </Card>
   );
 };

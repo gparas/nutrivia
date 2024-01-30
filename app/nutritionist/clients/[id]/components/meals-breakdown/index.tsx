@@ -1,36 +1,30 @@
-'use client';
-
-import { useCallback, useState } from 'react';
+import { cookies } from 'next/headers';
+import { createClient } from '@/supabase/server';
 import { Meals } from '@/types/meals';
-import { Tables } from '@/types/supabase';
-import { capitalize } from '@mui/material';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import Button from '@mui/material/Button';
-import Stack, { StackProps } from '@mui/material/Stack';
+import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import Card from '@/components/card';
-import Dialog from '@/components/dialog';
 import Chart from './chart';
-import AdjustMealsForm from './form';
 import { COLORS } from './constants';
+import AdjustCta from './adjust-cta';
 
-type Props = {
-  profile: Tables<'profiles'>;
-} & StackProps;
+const MealsBreakdown = async ({ user_id }: { user_id: string }) => {
+  const cookieStore = cookies();
+  const supabase = createClient(cookieStore);
 
-const MealsBreakdown = ({ profile, ...other }: Props) => {
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select()
+    .eq('id', user_id)
+    .single();
+
+  if (!profile) {
+    return null;
+  }
   const { breakfast, lunch, dinner, snack, kcal_intake } = profile;
-  const [open, setOpen] = useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = useCallback(() => {
-    setOpen(false);
-  }, []);
 
   const dailyCalorieIntake = kcal_intake || 0;
   const meals = {
@@ -41,7 +35,7 @@ const MealsBreakdown = ({ profile, ...other }: Props) => {
   };
   return (
     <>
-      <Card {...other}>
+      <Card height={'100%'}>
         <Box flex="0 0 auto">
           <Chart
             dataSeries={meals}
@@ -71,7 +65,7 @@ const MealsBreakdown = ({ profile, ...other }: Props) => {
                       borderRadius={'2px'}
                       bgcolor={COLORS[key as keyof Meals]}
                     />
-                    <Typography variant="body2">{capitalize(key)}</Typography>
+                    <Typography variant="body2">{key}</Typography>
                   </Stack>
                 </Grid>
                 <Grid item>
@@ -84,21 +78,8 @@ const MealsBreakdown = ({ profile, ...other }: Props) => {
             );
           })}
         </Box>
-        <Box flex="0 0 auto" mt={3}>
-          <Button
-            variant="contained"
-            color="neutral"
-            fullWidth
-            onClick={handleClickOpen}
-            sx={{ fontWeight: 500 }}
-          >
-            Adjust Meals
-          </Button>
-        </Box>
+        <AdjustCta profile={profile} />
       </Card>
-      <Dialog open={open} onClose={handleClose}>
-        <AdjustMealsForm onClose={handleClose} profile={profile} />
-      </Dialog>
     </>
   );
 };

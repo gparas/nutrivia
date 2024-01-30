@@ -1,94 +1,40 @@
-'use client';
-
-import { GridRenderCellParams } from '@mui/x-data-grid';
-import dynamic from 'next/dynamic';
-import Avatar from '@mui/material/Avatar';
-import Image from 'next/image';
-import ComponentLoader from '@/components/component-loader';
+import { cookies } from 'next/headers';
+import { createClient } from '@/supabase/server';
 import dayjs from 'dayjs';
+import Table from './table';
+import Card from '../card';
+import Typography from '@mui/material/Typography';
 
-const DataGrid = dynamic(
-  () =>
-    import('@mui/x-data-grid').then(module => ({ default: module.DataGrid })),
-  {
-    loading: () => <ComponentLoader height={360} />,
-    ssr: false,
-  },
-);
+const MealsTable = async ({ user_id }: { user_id: string }) => {
+  const cookieStore = cookies();
+  const supabase = createClient(cookieStore);
 
-function RenderImage(props: GridRenderCellParams) {
-  const { value } = props;
+  const { data: meals } = await supabase
+    .from('meals')
+    .select(`id, created_at, foods (id,image,name,category,kcal)`)
+    .eq('user_id', user_id)
+    .order('created_at', { ascending: false })
+    .gte('created_at', dayjs().subtract(7, 'days').format('YYYY-MM-DD'))
+    .lte('created_at', dayjs().format('YYYY-MM-DD'));
+
   return (
-    <Avatar
-      variant="rounded"
-      sx={{
-        width: 48,
-        height: 48,
-        position: 'relative',
-        bgcolor: 'transparent',
-      }}
-    >
-      <Image
-        alt={'food'}
-        src={value}
-        priority
-        width={48}
-        height={48}
-        style={{ objectFit: 'cover' }}
+    <Card p={1}>
+      <Typography variant="h6" fontWeight={500} p={1}>
+        Meals
+      </Typography>
+      <Table
+        rows={
+          meals?.map(meal => ({
+            id: meal.id,
+            user_id: user_id,
+            meal_id: meal.foods?.id,
+            created_at: meal.created_at,
+            ...meal.foods,
+          })) || []
+        }
       />
-    </Avatar>
+    </Card>
   );
-}
-function RenderDate(props: GridRenderCellParams) {
-  const { value } = props;
-  return dayjs(value).format('DD MMM YY');
-}
-
-const getColumns = () => {
-  return [
-    {
-      field: 'image',
-      headerName: 'image',
-      maxWidth: 80,
-      renderCell: RenderImage,
-      sortable: false,
-    },
-    {
-      field: 'name',
-      headerName: 'name',
-      minWidth: 200,
-      flex: 1,
-    },
-    {
-      field: 'kcal',
-      headerName: 'calories',
-      minWidth: 100,
-      flex: 1,
-    },
-    {
-      field: 'created_at',
-      headerName: 'date',
-      renderCell: RenderDate,
-      minWidth: 120,
-      flex: 1,
-    },
-    { field: 'category', headerName: 'category', minWidth: 120, flex: 1 },
-  ];
-};
-
-interface Props {
-  rows: {
-    id: string | number;
-    image?: string;
-    name?: string;
-    kcal?: string;
-    created_at?: string;
-    category?: string;
-  }[];
-}
-
-const MealsTable = ({ rows }: Props) => {
-  return <DataGrid rows={rows} columns={getColumns()} />;
 };
 
 export default MealsTable;
