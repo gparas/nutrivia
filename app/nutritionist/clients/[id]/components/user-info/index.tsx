@@ -68,7 +68,7 @@ const UserInfo = async ({ user_id }: { user_id: string }) => {
             {profile.gender}
           </Typography>
         </ListItem>
-        <Divider light variant="middle" component="li" />
+        <Divider variant="middle" component="li" />
         <ListItem>
           <ListItemText
             primary="Age"
@@ -78,7 +78,7 @@ const UserInfo = async ({ user_id }: { user_id: string }) => {
             {getYearsOld(profile.age)} y/o
           </Typography>
         </ListItem>
-        <Divider light variant="middle" component="li" />
+        <Divider variant="middle" component="li" />
         <ListItem>
           <ListItemText
             primary="Height"
@@ -88,7 +88,7 @@ const UserInfo = async ({ user_id }: { user_id: string }) => {
             {profile.height} cm
           </Typography>
         </ListItem>
-        <Divider light variant="middle" component="li" />
+        <Divider variant="middle" component="li" />
         <ListItem>
           <ListItemText
             primary="Initial weight"
@@ -98,7 +98,7 @@ const UserInfo = async ({ user_id }: { user_id: string }) => {
             {profile.weight} kg
           </Typography>
         </ListItem>
-        <Divider light variant="middle" component="li" />
+        <Divider variant="middle" component="li" />
         <ListItem>
           <ListItemText
             primary="Target weight"
@@ -108,7 +108,7 @@ const UserInfo = async ({ user_id }: { user_id: string }) => {
             {profile.target_weight} kg
           </Typography>
         </ListItem>
-        <Divider light variant="middle" component="li" />
+        <Divider variant="middle" component="li" />
         <ListItem>
           <ListItemText
             primary="Activity"

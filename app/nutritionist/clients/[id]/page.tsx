@@ -8,14 +8,24 @@ import MealsBreakdown from './components/meals-breakdown';
 import WeightTrack from '@/components/weight-track';
 import WaterIntake from '@/components/water-intake';
 import { TableSkeletonCard } from '@/components/table-skeleton';
+import UserExtraInfo from './components/user-extra-info';
 
 const ClientPage = async ({ params: { id } }: { params: { id: string } }) => {
   return (
     <Grid container spacing={2}>
       <Grid item xs={12} md={4}>
-        <Suspense fallback={<CardLoader height={240} />}>
-          <UserInfo user_id={id} />
-        </Suspense>
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={6} md={12}>
+            <Suspense fallback={<CardLoader height={240} />}>
+              <UserInfo user_id={id} />
+            </Suspense>
+          </Grid>
+          <Grid item xs={12} sm={6} md={12}>
+            <Suspense fallback={<CardLoader height={240} />}>
+              <UserExtraInfo />
+            </Suspense>
+          </Grid>
+        </Grid>
       </Grid>
       <Grid item xs={12} md={8}>
         <Grid container spacing={2}>
