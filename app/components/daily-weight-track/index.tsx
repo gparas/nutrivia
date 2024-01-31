@@ -1,16 +1,7 @@
-import { Suspense } from 'react';
 import { cookies } from 'next/headers';
 import { createClient } from '@/supabase/server';
-import Link from 'next/link';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import AddIcon from '@mui/icons-material/AddCircleRounded';
-import CheckCircleRounded from '@mui/icons-material/CheckCircleRounded';
-import Card from '@/components/card';
-import DietIcon from '@/icons/Diet';
-import LogWeightForm from './form';
 import dayjs from 'dayjs';
+import WeightTrackCard from './weight-track-card';
 
 const DailyWeightTrack = async () => {
   const cookieStore = cookies();
@@ -37,24 +28,7 @@ const DailyWeightTrack = async () => {
     weight => weight.created_at === dayjs().format('YYYY-MM-DD'),
   );
   return (
-    <>
-      <Card p={0}>
-        <ListItemButton component={Link} href="?log_weight=true">
-          <ListItemIcon>
-            <DietIcon sx={{ fontSize: 40 }} />
-          </ListItemIcon>
-          <ListItemText primary="Weight" secondary="Log weight" />
-          {loggedWeight ? (
-            <CheckCircleRounded color="success" />
-          ) : (
-            <AddIcon color="disabled" />
-          )}
-        </ListItemButton>
-      </Card>
-      <Suspense fallback={<div />}>
-        <LogWeightForm initValue={lastLoggedWeight} />
-      </Suspense>
-    </>
+    <WeightTrackCard loggedWeight={loggedWeight} initValue={lastLoggedWeight} />
   );
 };
 

@@ -1,12 +1,16 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers';
 import { createClient } from '@/supabase/server';
 import dayjs from 'dayjs';
 
-export async function insertWaterIntake(data: number) {
+export async function insertWaterIntake(
+  prevState: {
+    status: string;
+  },
+  formData: FormData,
+)  {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
 
@@ -20,20 +24,22 @@ export async function insertWaterIntake(data: number) {
     .eq('created_at', dayjs().format('YYYY-MM-DD'))
     .single();
 
-  if (user) {
-    if (water) {
-      await supabase
-        .from('water')
-        .update({ liter: data })
-        .eq('id', water.id)
-        .then(() => revalidatePath('/'))
-        .then(() => redirect('/'));
-    } else {
-      await supabase
-        .from('water')
-        .upsert({ liter: data, user_id: user.id })
-        .then(() => revalidatePath('/'))
-        .then(() => redirect('/'));
+    if(!user) {
+      return { status: 'error' };
     }
-  }
+
+    const rawFormData = {
+      id: water?.id,
+      liter: Number(formData.get('liter')),
+      user_id: user.id,
+    }
+
+    try {
+      await supabase.from('water').upsert(rawFormData);
+      revalidatePath('/');
+      return { status: 'success' };
+    } catch (error) {
+      return { status: 'error' };
+    }
+
 }

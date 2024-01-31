@@ -1,12 +1,16 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers';
 import { createClient } from '@/supabase/server';
 import dayjs from 'dayjs';
 
-export async function insertWeightIntake(data: number) {
+export async function insertWeightIntake(
+  prevState: {
+    status: string;
+  },
+  formData: FormData,
+) {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
 
@@ -20,20 +24,21 @@ export async function insertWeightIntake(data: number) {
     .eq('created_at', dayjs().format('YYYY-MM-DD'))
     .single();
 
-  if (user) {
-    if (weight) {
-      await supabase
-        .from('weights')
-        .update({ kg: Number(data.toFixed(1)) })
-        .eq('id', weight.id)
-        .then(() => revalidatePath('/'))
-        .then(() => redirect('/'));
-    } else {
-      await supabase
-        .from('weights')
-        .upsert({ kg: Number(data.toFixed(1)), user_id: user.id })
-        .then(() => revalidatePath('/'))
-        .then(() => redirect('/'));
-    }
+  if (!user) {
+    return { status: 'error' };
+  }
+
+  const rawFormData = {
+    id: weight?.id,
+    kg: Number(formData.get('weight')),
+    user_id: user.id,
+  };
+
+  try {
+    await supabase.from('weights').upsert(rawFormData);
+    revalidatePath('/');
+    return { status: 'success' };
+  } catch (error) {
+    return { status: 'error' };
   }
 }
