@@ -9,7 +9,7 @@ import CheckCircleRounded from '@mui/icons-material/CheckCircleRounded';
 import Card from '@/components/card';
 import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
-import AddIcon from '@mui/icons-material/Add';
+import AddIcon from '@mui/icons-material/AddCircleRounded';
 import RemoveIcon from '@mui/icons-material/Remove';
 import Dialog from '@/components/dialog';
 import Typography from '@mui/material/Typography';
