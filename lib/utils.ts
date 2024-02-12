@@ -1,7 +1,17 @@
 import dayjs from 'dayjs';
+import { Tables } from '@/types/supabase';
 import { ACTIVITY_FACTOR } from './constants';
-import { Profile } from '@/types/profile';
 import { Macronutrients } from '@/types/macronutrients';
+
+
+type ActivityFactor = {
+  low: number;
+  moderate: number;
+  high: number;
+  intense: number;
+};
+
+type Profile = Tables<'profiles'>;
 
 export const getYearsOld = (age: Profile['age']) => {
   if (!age) return 30;
@@ -9,7 +19,9 @@ export const getYearsOld = (age: Profile['age']) => {
   return dayjs().diff(dayjs().year(Number(age)), 'year');
 };
 
-export const getBMR = (data: Profile) => {
+export const getBMR = (
+  data: Pick<Profile, 'age' | 'gender' | 'weight' | 'height'>,
+) => {
   const { gender, age, weight, height } = data;
   const yearsOld = getYearsOld(age);
 
@@ -19,14 +31,12 @@ export const getBMR = (data: Profile) => {
   return 5 + 10 * Number(weight) + 6.25 * Number(height) - 5 * yearsOld - 161;
 };
 
-type ActivityFactor = {
-  low: number;
-  moderate: number;
-  high: number;
-  intense: number;
-};
-
-export const getDailyCalorieIntake = (data: Profile) => {
+export const getDailyCalorieIntake = (
+  data: Pick<
+    Profile,
+    'age' | 'gender' | 'weight' | 'height' | 'activity' | 'goal'
+  >,
+) => {
   if (!data) return 0;
   const { activity, goal } = data;
   const activity_factor = activity
@@ -122,5 +132,3 @@ export const getWeekdays = () =>
   [...Array(7).keys()].map(key =>
     dayjs().subtract(key, 'days').format('YYYY-MM-DD'),
   );
-
-
