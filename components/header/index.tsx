@@ -4,7 +4,6 @@ import NextLink from 'next/link';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Link from '@mui/material/Link';
-import Typography from '@mui/material/Typography';
 import UserMenu from './userMenu';
 
 const Header = async () => {
@@ -23,11 +22,17 @@ const Header = async () => {
       sx={{ flex: '0 0 auto' }}
     >
       <Toolbar>
-        <Typography variant="h6" fontWeight="500" sx={{ flexGrow: 1 }}>
-          <Link component={NextLink} href="/" underline="none" color="inherit">
-            nutrivia
-          </Link>
-        </Typography>
+        <Link
+          component={NextLink}
+          href="/"
+          underline="none"
+          color="inherit"
+          variant="h6"
+          fontWeight="500"
+          sx={{ flexGrow: 1 }}
+        >
+          nutrivia
+        </Link>
         <UserMenu user={user} />
       </Toolbar>
     </AppBar>

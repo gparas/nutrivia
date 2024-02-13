@@ -5,7 +5,6 @@ import { User } from '@supabase/supabase-js';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import IconButton from '@mui/material/IconButton';
-import Box from '@mui/material/Box';
 import Menu from '@mui/material/Menu';
 import Typography from '@mui/material/Typography';
 import MenuItem from '@mui/material/MenuItem';
@@ -35,7 +34,7 @@ const UserMenu = ({ user }: { user: User | null }) => {
   if (!user) return null;
 
   return (
-    <Box sx={{ flexGrow: 0 }}>
+    <>
       <IconButton onClick={handleOpenUserMenu} edge="end" aria-label="profile">
         <UserIcon />
       </IconButton>
@@ -76,7 +75,7 @@ const UserMenu = ({ user }: { user: User | null }) => {
           <Typography textAlign="center">Logout</Typography>
         </MenuItem>
       </Menu>
-    </Box>
+    </>
   );
 };
 

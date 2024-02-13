@@ -4,11 +4,10 @@ import { Inter } from 'next/font/google';
 const inter = Inter({
   weight: ['300', '400', '500', '700', '800'],
   subsets: ['latin'],
-  display: 'swap',
 });
 
 const typography = (theme: Theme) => ({
-  fontFamily: inter.style.fontFamily,
+  fontFamily: [inter.style.fontFamily, 'sans-serif'].join(','),
   button: {
     fontWeight: 700,
     textTransform: 'initial' as const

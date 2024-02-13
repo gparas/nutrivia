@@ -32,7 +32,7 @@ const CaloriesOverview = ({ meals }: Props) => {
   return (
     <>
       <Typography variant="h3" mb={0.25}>
-        {Math.floor(avgKcalEaten)}
+        {Math.floor(avgKcalEaten) || 0}
         <Typography variant="h6" component="span" fontWeight={400} ml={0.5}>
           kcal
         </Typography>
@@ -44,28 +44,32 @@ const CaloriesOverview = ({ meals }: Props) => {
         <ListItem disableGutters>
           <ListItemText primary="Breakfast" />
           <ListItemText
-            primary={`${Math.floor((breakfastEaten / totalKcalEaten) * 100)}%`}
+            primary={`${
+              Math.floor((breakfastEaten / totalKcalEaten) * 100) || 0
+            }%`}
             sx={{ flex: '0 0 auto' }}
           />
         </ListItem>
         <ListItem disableGutters>
           <ListItemText primary="Lunch" />
           <ListItemText
-            primary={`${Math.floor((lunchEaten / totalKcalEaten) * 100)}%`}
+            primary={`${Math.floor((lunchEaten / totalKcalEaten) * 100) || 0}%`}
             sx={{ flex: '0 0 auto' }}
           />
         </ListItem>
         <ListItem disableGutters>
           <ListItemText primary="Dinner" />
           <ListItemText
-            primary={`${Math.floor((dinnerEaten / totalKcalEaten) * 100)}%`}
+            primary={`${
+              Math.floor((dinnerEaten / totalKcalEaten) * 100) || 0
+            }%`}
             sx={{ flex: '0 0 auto' }}
           />
         </ListItem>
         <ListItem disableGutters>
           <ListItemText primary="Snack" />
           <ListItemText
-            primary={`${Math.floor((snackEaten / totalKcalEaten) * 100)}%`}
+            primary={`${Math.floor((snackEaten / totalKcalEaten) * 100) || 0}%`}
             sx={{ flex: '0 0 auto' }}
           />
         </ListItem>
